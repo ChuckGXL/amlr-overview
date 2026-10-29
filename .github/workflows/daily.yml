@@ -25,6 +25,9 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: Date the instruments whose details changed
+        run: python monitor/stamp.py
+
       - name: Read feeds and APIs, update the digest
         run: python monitor/fetch.py
 

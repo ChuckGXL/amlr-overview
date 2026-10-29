@@ -260,6 +260,14 @@ details.versions summary{cursor:pointer;color:var(--ink);font-weight:700}
 .dg-main{min-width:0}
 .dg-feedhead{display:flex;justify-content:flex-end;margin-bottom:8px}
 .dg-feedhead[hidden]{display:none}
+.dg-stale{border-left:4px solid var(--sun);border-radius:0;padding:12px 18px;margin-bottom:12px}
+.dg-stale[hidden]{display:none}
+.dg-stale h3{margin:0 0 6px;font-size:13.5px}
+.dg-stale ul{list-style:none;padding:0;margin:0;font-size:12px}
+.dg-stale li{padding:5px 0;border-top:1px dashed var(--line)}
+.dg-stale li span{display:block;color:var(--muted)}
+.stale-note{background:#FFE10040;border-left:4px solid var(--sun);padding:8px 12px;font-size:12.5px;margin:10px 0}
+.stale-tag{display:block;font-size:10.5px;font-weight:700;color:var(--wine);margin-top:3px}
 
 .ms{display:grid;grid-template-columns:1fr 1fr;gap:18px}
 .ms h3{font-size:11px;letter-spacing:.12em;margin:0 0 10px}
@@ -383,6 +391,7 @@ footer a{color:var(--on-dark);text-decoration:underline}
     <p class="meta" id="dg-meta"></p>
     <div class="dg-grid">
       <div class="dg-main">
+        <div class="card dg-stale" id="dg-stale" hidden></div>
         <div class="dg-feedhead" id="dg-feedhead" hidden><button type="button" class="dg-all" id="dg-all">Mark all as reviewed</button></div>
         <div class="card dg-list" id="dg-list"></div>
       </div>
@@ -434,7 +443,7 @@ footer a{color:var(--on-dark);text-decoration:underline}
       <a href="https://www.amla.europa.eu/policy/regulatory-instruments_en" target="_blank" rel="noopener noreferrer">AMLA - regulatory instruments overview</a>
       <a href="https://www.eba.europa.eu/" target="_blank" rel="noopener noreferrer">EBA - European Banking Authority</a>
     </div>
-    <p class="meta" style="margin-top:8px">Statuses and expected dates are maintained by hand and were last reviewed on 6 Oct 2026. Check each source link for the current position.</p>
+    <p class="meta" style="margin-top:8px" id="src-meta"></p>
   </section>
 </main>
 
@@ -588,6 +597,28 @@ const blockArt=b=>BLK[b][1]?`${namesReg(b)?"":"Art. "}${artHTML(BLK[b][1],blockK
 const blockStatus=b=>{const ids=BLK[b][2];return PRIO.find(p=>ids.some(id=>BY[id].status===p))};
 const blocksOf=id=>(P[id]?.bl||[]).map(n=>CHIP_ALIAS[n]||n);
 
+/* ---------- last step and next date, worked out from each instrument's versions and facts ---------- */
+const STAGE_NOTE={"Consultation paper":"Consultation","Final draft":"Final draft","Submitted to the Commission":"Submitted","Published in the Official Journal":"Published"};
+const isoOf=s=>{const t=new Date(s||"");return isNaN(t)?"":t.toLocaleDateString("sv-SE")};
+const factISO=(id,k)=>isoOf(fact(id,k));
+D.forEach(d=>{
+  // last step: the latest completed stage; an instrument without stages keeps its own last/lastNote
+  const done=(P[d.id]?.v||[]).filter(v=>v[0]&&isoOf(v[2])).map(v=>[isoOf(v[2]),STAGE_NOTE[v[1]]||v[1]]);
+  if(done.length)[d.last,d.lastNote]=done.reduce((a,b)=>b[0]>=a[0]?b:a);
+  else{d.last=d.last||"";d.lastNote=d.lastNote||""}
+  // next date: the consultation deadline while it is open, otherwise the expected date
+  const cc=factISO(d.id,"Consultation closed"),ex=factISO(d.id,"Expected");
+  [d.next,d.nextNote]=d.status==="consult"&&cc&&dayDiff(cc)>=0?[cc,"Consultation closes"]:ex&&d.status!=="pub"?[ex,"Expected"]:["",""];
+});
+// a status the dates say should have moved on
+function staleNote(d){
+  const cc=factISO(d.id,"Consultation closed"),ex=factISO(d.id,"Expected");
+  if(d.status==="consult"&&cc&&dayDiff(cc)<0)return `The consultation closed on ${fmt(cc)}, but the status is still In consultation.`;
+  if(d.status!=="pub"&&ex&&dayDiff(ex)<0)return `The expected date, ${fmt(ex)}, has passed and the status is still ${ST[d.status].l}.`;
+  return "";
+}
+const STALE=D.filter(staleNote);
+
 /* ---------- header counters ---------- */
 const C={total:L2.length,open:0};PRIO.forEach(k=>C[k]=L2.filter(d=>d.status===k).length);
 $("#days").textContent=$("#g-days").textContent=dayDiff("2027-07-10");
@@ -628,7 +659,7 @@ function render(){
     <td class="c-type">${d.type}</td>
     <td class="c-title"><a href="#/instruments/${d.id}" title="Page with status, dates and sources">${esc(d.name)}</a><small>${esc(d.by)}<span class="t-art-inline"> · ${esc(d.art)}</span></small></td>
     <td class="c-art">${artHTML(d.art,d.arts)}</td>
-    <td class="c-status">${pill(d.status)}</td>
+    <td class="c-status">${pill(d.status)}${staleNote(d)?`<small class="stale-tag" title="${esc(staleNote(d))}">Status needs updating</small>`:""}</td>
     <td class="c-next">${d.next?`${fmt(d.next)}<small>${d.nextNote}</small>`:"—"}</td>
     <td class="c-last">${d.last?`${fmt(d.last)}<small>${d.lastNote}</small>`:`<small>No dated step yet</small>`}</td>
     <td class="c-src">${src?`<a class="src-link" href="${esc(src[0])}" target="_blank" rel="noopener noreferrer" title="${esc(src[1])}">${esc(d.by)} ${EXT}</a>`:"—"}</td></tr>`}).join("");
@@ -734,7 +765,8 @@ function pageHTML(id){
     <nav class="crumb"><a href="#/">AMLR Overview</a> · <a href="#/instruments">Every RTS, Guideline and ITS</a></nav>
     <div class="eyebrow">Register · ${esc(p.eb)}</div>
     <h1>${esc(d.name)}</h1>
-    <div class="ip-status">${badge(d,"md")}${pill(d.status,true)}<span class="muted">Status reviewed October 6, 2026</span></div>
+    <div class="ip-status">${badge(d,"md")}${pill(d.status,true)}<span class="muted">Details last updated ${fmt(d.reviewed)}</span></div>
+    ${staleNote(d)?`<p class="stale-note">${esc(staleNote(d))} Check the source and update the status.</p>`:""}
     <dl class="facts">${p.f.map(f=>`<div><dt>${esc(f[0])}</dt><dd>${esc(f[1])}</dd></div>`).join("")}</dl>
     <p class="muted small">${esc(ST[d.status].t)}</p>
     ${p.v.length?`<section class="card"><h2>Versions and what changed</h2>${versionList(p.v)}</section>`:""}
@@ -777,6 +809,11 @@ function digestItem(i){
       :`<button type="button" class="primary" data-rv="${i.id}" data-to="reviewed">Mark reviewed</button><button type="button" data-rv="${i.id}" data-to="dismissed">Dismiss</button>`}</div>
   </article>`;
 }
+// statuses the dates say are out of date; computed on every load, so they go once the data is fixed
+$("#dg-stale").hidden=!STALE.length;
+$("#dg-stale").innerHTML=`<h3>Status needs updating (${STALE.length})</h3><ul>${STALE.map(d=>`<li><a href="#/instruments/${d.id}">${esc(d.short)}</a> ${pill(d.status)}<span>${esc(staleNote(d))}</span></li>`).join("")}</ul>`;
+const lastChange=D.map(d=>d.reviewed||"").sort().at(-1);
+$("#src-meta").textContent=`Statuses and dates are updated by hand from these sources; the most recent change was on ${fmt(lastChange)}. Check each source link for the current position.`;
 function renderDigest(){
   if(!DG){$("#dg-list").innerHTML=`<p class="dg-empty">No daily check has run yet. Run <code>python3 monitor/fetch.py</code>, or wait for the scheduled run.</p>`;$("#dg-meta").textContent="";return}
   const todo=DG.items.filter(i=>!review[i.id]);

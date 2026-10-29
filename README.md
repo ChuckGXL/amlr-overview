@@ -7,15 +7,26 @@ plus the Dutch implementation, with a daily digest of new publications from the 
 
 Every day at 06:17 UTC a GitHub Actions job (`.github/workflows/daily.yml`):
 
-1. runs `monitor/fetch.py`, which reads the sources below, keeps only what it has not seen before
+1. runs `monitor/stamp.py`, which sets an instrument's `reviewed` date to today when its details
+   changed since the last run (`data/fingerprints.json`);
+2. runs `monitor/fetch.py`, which reads the sources below, keeps only what it has not seen before
    (`data/seen.json`) and links each item to a tracked instrument by article reference
    ("Art. 28(1) AMLR"), keyword or similar title;
-2. runs `monitor/linkcheck.py --if-due` once a month to confirm every source link still opens;
-3. commits `data/` and republishes the page.
+3. runs `monitor/linkcheck.py --if-due` once a month to confirm every source link still opens;
+4. commits `data/` and republishes the page.
 
 Nothing changes an instrument's status automatically. The digest suggests a change; you review it on the
-page ("Mark reviewed" / "Dismiss", remembered in your browser) and the instrument data in
-`data/instruments.js` and `data/pages.js` is updated by hand.
+page ("Mark reviewed" / "Dismiss", remembered in your browser) and the instrument data is updated by hand.
+The digest also lists any instrument whose dates say its status is out of date (a consultation that has
+closed, or an expected date that has passed).
+
+### Updating an instrument
+
+1. `data/instruments.js`: change `status`.
+2. `data/pages.js`, the instrument's entry: tick the stage in `v` (versions) and give its date, label and
+   link; update the facts in `f` ("Consultation closed", "Expected"); add the document to `s` (sources).
+3. Push. "Last step" and "Next date" are worked out from the versions and facts, and the next run of
+   `monitor/stamp.py` dates the change. Counts, the framework and the deadline cards follow on their own.
 
 | Source | How it is read |
 |---|---|
@@ -42,6 +53,6 @@ Then open http://localhost:4317.
 ## Files
 
 - `index.html`: the dashboard
-- `data/instruments.js`: tracked instruments, statuses, dates and match keywords
+- `data/instruments.js`: tracked instruments, statuses, last-updated dates and match keywords
 - `data/pages.js`: per-instrument facts, version history, sources and framework blocks
-- `data/digest.js`, `data/seen.json`, `data/linkcheck.js`: written by the scripts
+- `data/digest.js`, `data/seen.json`, `data/linkcheck.js`, `data/fingerprints.json`: written by the scripts
