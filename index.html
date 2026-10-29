@@ -5,9 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#FF6200">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 <title>AMLR Overview – status of every RTS, Guideline and ITS</title>
 <meta name="description" content="A dashboard layout clone: tracks the status of technical standards and guidelines under the EU anti-money-laundering package.">
 <style>
@@ -31,7 +28,7 @@
 .c-pub,.c-brand{--c:var(--brand);--on:var(--on-dark)}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:90px}
-body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.45 Nunito,"Segoe UI",system-ui,-apple-system,Roboto,sans-serif}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.45 "Segoe UI",system-ui,-apple-system,Roboto,sans-serif}
 body.locked{overflow:hidden}
 a{color:var(--brand);text-decoration:none}
 a:hover{text-decoration:underline}
@@ -40,7 +37,6 @@ main{max-width:1480px;margin:0 auto;padding:21px 17.5px 42px}
 main[hidden]{display:none}
 section{margin-top:34px}
 h2{font-size:21px;font-weight:800;margin:0 0 12px;display:flex;align-items:center;gap:8px;color:var(--brand)}
-h2 .num{background:var(--wine);color:var(--on-dark);border-radius:var(--blob);min-width:26px;height:24px;padding:0 8px;font-size:13px;font-weight:800;display:inline-grid;place-items:center}
 .muted{color:var(--muted)}
 .small{font-size:12px}
 .ext{width:10px;height:10px;fill:none;stroke:currentColor;stroke-width:2.2;vertical-align:-1px;margin-left:2px}
@@ -228,7 +224,6 @@ details.versions summary{cursor:pointer;color:var(--ink);font-weight:700}
 .dg-list{padding:6px 18px 12px;max-height:760px;overflow-y:auto}
 .dg-day{font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--ink);margin:14px 0 4px;position:sticky;top:-6px;background:var(--card);padding:4px 0}
 .dg-item{padding:10px 0;border-bottom:1px solid var(--line)}
-.dg-item.done{opacity:.55}
 .dg-top{display:flex;gap:8px;align-items:center;font-size:11px;color:var(--muted);flex-wrap:wrap}
 .dg-title{display:block;font-weight:700;font-size:13.5px;margin:3px 0}
 .dg-sum{margin:0 0 6px;font-size:12px;color:var(--muted)}
@@ -248,7 +243,12 @@ details.versions summary{cursor:pointer;color:var(--ink);font-weight:700}
 .dg-sources i.ok{background:var(--sky);box-shadow:0 0 0 1px #10101030}
 .dg-sources i.error{background:var(--pink)}
 .dg-sources small{display:block;color:var(--muted);font-size:11px}
-.link-btn-plain{background:none;border:0;padding:0;color:var(--brand);font:inherit;font-weight:600;cursor:pointer}
+.dg-tools{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.dg-all{background:var(--card);color:var(--wine);border:1.5px solid var(--wine);border-radius:var(--blob);padding:6px 14px;font-size:12px;font-weight:700}
+.dg-all:hover{background:var(--wine);color:var(--on-dark)}
+.dg-main{min-width:0}
+.dg-feedhead{display:flex;justify-content:flex-end;margin-bottom:8px}
+.dg-feedhead[hidden]{display:none}
 
 .ms{display:grid;grid-template-columns:1fr 1fr;gap:18px}
 .ms h3{font-size:11px;letter-spacing:.12em;margin:0 0 10px}
@@ -306,7 +306,7 @@ footer a{color:var(--on-dark);text-decoration:underline}
 
 <nav class="subnav"><div class="in">
   <div class="links">
-    <a href="#top">Overview</a><a href="#updates">Daily digest<span class="nav-count" id="nav-n" hidden></span></a><a href="#framework">Framework</a><a href="#instruments">Instruments</a>
+    <a href="#top">Overview</a><a href="#updates">Daily Digest<span class="nav-count" id="nav-n" hidden></span></a><a href="#framework">Framework</a><a href="#instruments">Instruments</a>
     <a href="#timeline">Timeline</a><a href="#sources">Sources</a>
   </div>
 </div></nav>
@@ -325,7 +325,7 @@ footer a{color:var(--on-dark);text-decoration:underline}
   </header>
 
   <section id="instruments">
-    <h2><span class="num">1</span>All instruments</h2>
+    <h2>All Instruments</h2>
     <div class="toolbar">
       <div class="seg" id="view"><button class="on" data-v="table">Table</button><button data-v="board">Board</button></div>
       <input type="search" id="q" placeholder="Search by name, article, block…">
@@ -361,12 +361,17 @@ footer a{color:var(--on-dark);text-decoration:underline}
 
   <section id="updates">
     <div class="dg-head">
-      <h2><span class="num">2</span>Daily digest</h2>
-      <div class="seg" id="dg-view"><button class="on" data-dv="todo">To review <b id="dg-n"></b></button><button data-dv="all">All</button><button data-dv="done">Reviewed</button></div>
+      <h2>Daily Digest</h2>
+      <div class="dg-tools">
+        <div class="seg" id="dg-view"><button data-dv="done">Reviewed</button><button class="on" data-dv="todo">To Review <b id="dg-n"></b></button><button data-dv="all">All</button></div>
+      </div>
     </div>
     <p class="meta" id="dg-meta"></p>
     <div class="dg-grid">
-      <div class="card dg-list" id="dg-list"></div>
+      <div class="dg-main">
+        <div class="dg-feedhead" id="dg-feedhead" hidden><button type="button" class="dg-all" id="dg-all">Mark all as reviewed</button></div>
+        <div class="card dg-list" id="dg-list"></div>
+      </div>
       <aside class="card dg-side">
         <h3>Sources checked</h3><ul class="dg-sources" id="dg-sources"></ul>
         <h3>Source links</h3><div id="dg-links" class="small"></div>
@@ -376,14 +381,14 @@ footer a{color:var(--on-dark);text-decoration:underline}
 
   <section id="framework">
     <div class="fw-head">
-      <h2><span class="num">3</span>Framework</h2>
+      <h2>Framework</h2>
       <div class="legend" id="legend"></div>
     </div>
     <div class="fw-scroll"><div class="fw" id="fw"></div></div>
   </section>
 
   <section id="timeline">
-    <h2><span class="num">4</span>Developments &amp; milestones</h2>
+    <h2>Developments &amp; Milestones</h2>
     <div class="ms card">
       <div class="up">
         <h3 style="color:var(--brand)">UPCOMING</h3>
@@ -406,7 +411,7 @@ footer a{color:var(--on-dark);text-decoration:underline}
   </section>
 
   <section id="sources">
-    <h2><span class="num">5</span>Sources</h2>
+    <h2>Sources</h2>
     <div class="card" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:6px 24px">
       <a href="https://eur-lex.europa.eu/eli/reg/2024/1624/oj" target="_blank" rel="noopener noreferrer">AMLR - Regulation (EU) 2024/1624 (EUR-Lex)</a>
       <a href="https://eur-lex.europa.eu/eli/dir/2024/1640/oj" target="_blank" rel="noopener noreferrer">AMLD6 - Directive (EU) 2024/1640 (EUR-Lex)</a>
@@ -742,8 +747,8 @@ function renderDigest(){
   $("#dg-n").textContent=todo.length;$("#nav-n").textContent=todo.length;$("#nav-n").hidden=!todo.length;
   const list=dgState.view==="todo"?todo:dgState.view==="done"?DG.items.filter(i=>review[i.id]):DG.items;
   const ok=DG.sources.filter(s=>s.state==="ok").length,auto=DG.sources.filter(s=>s.state!=="manual").length;
-  $("#dg-meta").innerHTML=`Last check ${new Date(DG.generated).toLocaleString("en-GB",{day:"numeric",month:"short",year:"numeric",hour:"2-digit",minute:"2-digit"})} · ${ok} of ${auto} automated sources answered · statuses only change after your review`
-    +(dgState.view==="todo"&&todo.length?` · <button type="button" class="link-btn-plain" id="dg-all">Mark all ${todo.length} reviewed</button>`:"");
+  $("#dg-feedhead").hidden=!(dgState.view==="todo"&&todo.length);
+  $("#dg-meta").textContent=`Last check ${new Date(DG.generated).toLocaleString("en-GB",{day:"numeric",month:"short",year:"numeric",hour:"2-digit",minute:"2-digit"})} · ${ok} of ${auto} automated sources answered · statuses only change after your review`;
   let html="",day=null;
   list.forEach(i=>{const d=dayLabel(i.found,i.backfill);if(d!==day){day=d;html+=`<div class="dg-day">${d}</div>`}html+=digestItem(i)});
   $("#dg-list").innerHTML=html||`<p class="dg-empty">${dgState.view==="todo"?"Nothing left to review.":"Nothing here yet."}</p>`;
