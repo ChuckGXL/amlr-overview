@@ -664,7 +664,10 @@ function instCard(id){
 const versionList=v=>`<ol class="vlist">${v.map(x=>`<li class="${x[0]?"done":""}"><span class="v-stage">${esc(x[1])}</span><span class="muted small">${esc(x[2])}</span>${x[3]?`<span class="lbl">${esc(x[3])}</span>`:""}${x[4]?`<a class="small" href="${esc(x[4])}" target="_blank" rel="noopener noreferrer">Sources ${EXT}</a>`:""}</li>`).join("")}</ol>`;
 
 /* ---------- framework matrix ---------- */
-$("#legend").innerHTML=PRIO.map(k=>`<span title="${esc(ST[k].t)}"><span class="cnt c-${ST[k].c}"><b>n</b></span>${ST[k].l}</span>`).join("");
+// legend: how many of the instruments placed in the framework have each status
+const FW_IDS=new Set(Object.values(BLK).flatMap(b=>b[2]));
+$("#legend").innerHTML=PRIO.map(k=>{const n=[...FW_IDS].filter(id=>BY[id].status===k).length;
+  return `<span title="${n} instrument${n===1?"":"s"} in the framework: ${esc(ST[k].t)}"><span class="cnt c-${ST[k].c}"><b>${n}</b></span>${ST[k].l}</span>`}).join("");
 function blockHTML(name,extra=""){
   const [kind,,ids]=BLK[name],st=blockStatus(name);
   const tip=ids.map(id=>`${BY[id].type} · ${BY[id].short}: ${ST[BY[id].status].l}`).join("\n");
