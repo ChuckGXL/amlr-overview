@@ -4,109 +4,97 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>AML Rules Tracker – status of every RTS, Guideline and ITS</title>
+<meta name="theme-color" content="#FF6200">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<title>AMLR Overview – status of every RTS, Guideline and ITS</title>
 <meta name="description" content="A dashboard layout clone: tracks the status of technical standards and guidelines under the EU anti-money-laundering package.">
 <style>
 :root{
-  --navy:#0b2a6f;--blue:#1a56db;--blue-soft:#e8efff;--amber:#e69a1a;--amber-soft:#fff4de;
-  --red:#d2322d;--red-soft:#ffe7e6;--green:#1f9d55;--green-soft:#e3f6ea;--gray:#6b7280;--gray-soft:#eef0f3;
-  --slate:#4b6584;--slate-soft:#e6ecf3;--ink:#0f172a;--muted:#5b6474;--line:#d9dee7;--bg:#f4f6fa;--card:#fff;
-  --radius:10px;--shadow:0 1px 2px #0f172a0f,0 4px 16px #0f172a0d;
+  /* theme */
+  --brand:#FF6200;--wine:#4D0020;--sky:#89D6FD;--sun:#FFE100;--pink:#D40199;--violet:#7724FF;
+  /* text */
+  --ink:#101010;--on-dark:#FFFFFF;--muted:#101010b0;
+  /* surfaces */
+  --tint:color-mix(in srgb,var(--brand) 8%,#fff);--line:#e6e2de;--bg:#f7f5f3;--card:#fff;
+  --radius:10px;--shadow:0 1px 2px #1010100f,0 4px 16px #1010100d;
+  /* blob shapes: uneven corners, two variants so neighbours differ */
+  --blob:1.1em 1.35em 1.25em 1em/1.3em 1em 1.35em 1.15em;--blob2:1.35em 1.05em 1.15em 1.3em/1.05em 1.35em 1.1em 1.3em;
 }
+/* status colours: --c is the fill, --on the text or icon colour on that fill */
+.c-consult{--c:var(--sun);--on:var(--ink)}
+.c-closed{--c:var(--sky);--on:var(--ink)}
+.c-final{--c:var(--pink);--on:var(--on-dark)}
+.c-eba{--c:var(--violet);--on:var(--on-dark)}
+.c-ann{--c:var(--wine);--on:var(--on-dark)}
+.c-pub,.c-brand{--c:var(--brand);--on:var(--on-dark)}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:90px}
-body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.45 "Segoe UI",system-ui,-apple-system,Roboto,sans-serif}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.45 Nunito,"Segoe UI",system-ui,-apple-system,Roboto,sans-serif}
 body.locked{overflow:hidden}
-a{color:var(--blue);text-decoration:none}
+a{color:var(--brand);text-decoration:none}
 a:hover{text-decoration:underline}
 button{font:inherit;cursor:pointer}
 main{max-width:1480px;margin:0 auto;padding:21px 17.5px 42px}
 main[hidden]{display:none}
 section{margin-top:34px}
-h2{font-size:20px;margin:0 0 12px;display:flex;align-items:center;gap:8px;color:var(--navy)}
-h2 .num{background:var(--navy);color:#fff;border-radius:50%;width:20px;height:20px;font-size:11px;display:inline-grid;place-items:center}
-.lead{color:var(--muted);max-width:760px;margin:0 0 14px}
+h2{font-size:21px;font-weight:800;margin:0 0 12px;display:flex;align-items:center;gap:8px;color:var(--brand)}
+h2 .num{background:var(--wine);color:var(--on-dark);border-radius:var(--blob);min-width:26px;height:24px;padding:0 8px;font-size:13px;font-weight:800;display:inline-grid;place-items:center}
 .muted{color:var(--muted)}
 .small{font-size:12px}
 .ext{width:10px;height:10px;fill:none;stroke:currentColor;stroke-width:2.2;vertical-align:-1px;margin-left:2px}
 
 /* top bar */
-.topbar{background:var(--navy);color:#fff;position:sticky;top:0;z-index:30}
+.topbar{background:var(--brand);color:var(--on-dark);position:sticky;top:0;z-index:30}
 .topbar .in{max-width:1480px;margin:0 auto;padding:0 17.5px;height:32px;display:flex;align-items:center;gap:22px}
 .topbar .navlinks{display:flex;gap:22px}
-.brand{white-space:nowrap;font-weight:800;font-size:14px;letter-spacing:.2px;margin-right:auto;color:#fff}
-.topbar a{color:#fff;font-size:13px}
-.lang{display:flex;gap:2px;border:1px solid #ffffff55;border-radius:999px;padding:2px}
-.lang button{background:none;border:0;color:#fff;font-size:10px;font-weight:700;padding:2px 7px;border-radius:999px}
-.lang button.on{background:#fff;color:var(--navy)}
-.signin{background:#ffffff22;border:1px solid #ffffff44;color:#fff;border-radius:8px;padding:3px 11px;font-size:11px;font-weight:700}
+.brand{white-space:nowrap;font-weight:800;font-size:14px;letter-spacing:.2px;margin-right:auto;color:var(--on-dark)}
+.topbar a{color:var(--on-dark);font-size:13px}
+.lang{display:flex;gap:2px;border:1px solid #ffffff80;border-radius:999px;padding:2px}
+.lang button{background:none;border:0;color:var(--on-dark);font-size:10px;font-weight:700;padding:2px 7px;border-radius:999px}
+.lang button.on{background:var(--on-dark);color:var(--brand)}
+.signin{white-space:nowrap;background:var(--wine);border:0;color:var(--on-dark);border-radius:var(--blob);padding:4px 13px;font-size:11.5px;font-weight:700}
 .subnav{background:var(--bg);border-bottom:1px solid var(--line);position:sticky;top:32px;z-index:20}
 .subnav .in{max-width:1480px;margin:0 auto;padding:0 17.5px;display:flex;align-items:center;gap:22px;height:50px}
-.subnav a{color:var(--navy);font-size:11.5px;font-weight:600;white-space:nowrap}
-.subnav .cta{margin-left:auto;background:var(--blue);color:#fff;border-radius:8px;padding:7px 14px;font-weight:700;font-size:11.5px}
+.subnav a{color:var(--ink);font-size:11.5px;font-weight:600;white-space:nowrap}
+.subnav a:hover{color:var(--brand)}
 .subnav .links{display:flex;gap:22px;overflow-x:auto;scrollbar-width:none}
+.subnav .nav-count{background:var(--sun);color:var(--ink);border-radius:var(--blob);padding:0 6px;font-size:10px;margin-left:4px}
 
-/* hero */
-.hero{background:radial-gradient(1200px 400px at 85% -20%,#ffd27a40,#0000 60%),linear-gradient(135deg,#0b2a6f 0%,#123c99 55%,#1a56db 100%);
-  color:#fff;border-radius:18px;padding:28px 30px 22px;box-shadow:0 20px 50px #0b2a6f40;display:grid;grid-template-columns:1.25fr 1fr;gap:30px;margin-top:6px}
+/* hero: maroon label over a white box on the orange panel; the countdown is the XL blob */
+.hero{background:var(--brand);border-radius:4px;padding:22px 22px 20px;margin-top:6px}
+.hero-label{display:inline-block;position:relative;z-index:1;margin:0 0 0 18px;background:var(--wine);color:var(--on-dark);font-weight:800;font-size:18px;line-height:1.3;padding:9px 20px;border-radius:var(--blob)}
+.hero-box{background:var(--card);margin-top:-16px;padding:30px 24px 20px;display:flex;gap:28px;align-items:center;border-radius:var(--blob2)}
+.xl{flex:none;background:var(--brand);color:var(--on-dark);text-align:center;padding:14px 26px;transform:rotate(-2deg);font-weight:700;font-size:13px;line-height:1.3;border-radius:var(--blob)}
+.xl b{display:block;font-weight:800;font-size:56px;line-height:1.05;white-space:nowrap}
+.xl b small{font-size:24px;font-weight:800}
+.hero-side{flex:1;min-width:0}
+.hstats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px 12px}
+.hs{display:flex;align-items:center;gap:9px;background:none;border:0;border-radius:var(--blob);padding:5px 6px;text-align:left;color:var(--ink);font-weight:700;font-size:12.5px;line-height:1.2}
+.hs:hover{background:var(--tint)}
+.hs.on{background:color-mix(in srgb,var(--brand) 16%,#fff)}
+.hs b{flex:none;background:var(--c);color:var(--on);font-weight:800;font-size:16px;padding:3px 11px;border-radius:var(--blob)}
+.hs:nth-child(even) b{border-radius:var(--blob2)}
+.bar{height:9px;background:#F5E6DC;margin-top:16px;overflow:hidden;border-radius:var(--blob)}
+.bar i{display:block;height:100%;background:var(--brand);border-radius:var(--blob)}
 .eyebrow{font-size:9.5px;letter-spacing:.14em;font-weight:700;color:var(--muted);text-transform:uppercase}
-.hero .eyebrow,.band .eyebrow{color:#ffd27a}
-.hero h1{font-size:26.6px;line-height:1.15;margin:8px 0 12px;max-width:520px}
-.hero p{margin:0 0 16px;font-size:14.5px;max-width:520px;color:#e6edff}
-.btn{display:inline-block;border-radius:8px;padding:9px 16px;font-weight:700;font-size:13px;border:1px solid transparent}
-.btn.white{background:#fff;color:var(--navy)}
-.btn.ghost{border-color:#ffffff88;color:#fff;background:#ffffff10}
-.btn:hover{text-decoration:none;filter:brightness(.96)}
-.hero .note{font-size:11.5px;color:#dbe5ff;border-bottom:1px solid #ffffff30;padding:12px 0;margin-top:12px;max-width:520px}
-.chips-hero{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
-.chips-hero span{background:#ffffff1c;border:1px solid #ffffff3a;border-radius:8px;padding:4px 10px;font-size:11px}
-.apply{background:#ffffff12;border:1px solid #ffffff40;border-radius:16px;padding:16px 18px;align-self:start;backdrop-filter:blur(4px)}
-.apply .row{display:flex;justify-content:space-between;font-size:10.5px;letter-spacing:.1em;font-weight:700;color:#ffd27a}
-.apply .row span:last-child{color:#dbe5ff;letter-spacing:0;font-weight:500;font-size:12px}
-.count{display:flex;align-items:baseline;gap:10px;margin:8px 0 10px}
-.count b{font-size:44px;line-height:1;color:#f4c869}
-.count span{font-size:13px;color:#e6edff}
-.bar{height:6px;border-radius:99px;background:#ffffff30;overflow:hidden}
-.bar i{display:block;height:100%;background:#f4c869;border-radius:99px}
-.mini{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0;padding-bottom:12px;border-bottom:1px solid #ffffff30}
-.mini b{display:block;font-size:17px}
-.mini span{font-size:10.5px;color:#dbe5ff;line-height:1.2;display:block}
-.apply label{display:block;font-size:9.5px;font-weight:700;letter-spacing:.12em;color:#dbe5ff;margin-bottom:5px}
-select,input[type=search]{font:inherit;font-size:13px;border:1px solid var(--line);border-radius:8px;padding:8px 10px;background:#fff;color:var(--ink)}
-.apply select{width:100%;border-radius:10px;padding:9px 10px}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+select,input[type=search]{font:inherit;font-size:13px;border:1px solid var(--line);border-radius:8px;padding:8px 10px;background:var(--card);color:var(--ink)}
 
-/* stat tiles */
-.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:11px;margin-top:14px}
-.tile{background:var(--card);border-radius:12px;box-shadow:0 1px 2px #0f172a0a,0 6px 18px #0f172a0d;border:0;border-left:4px solid var(--navy);padding:9px 12px 10px;text-align:left;color:var(--ink)}
-.tile b{display:block;font-size:20px;color:var(--navy);line-height:1.2}
-.tile span{font-size:11px;color:var(--muted);line-height:1.2;display:block}
-.tile.on{outline:2px solid var(--blue)}
-.tile[data-c=amber]{border-left-color:var(--amber)}
-.tile[data-c=red]{border-left-color:var(--red)}
-.tile[data-c=slate]{border-left-color:var(--slate)}
-.tile[data-c=gray]{border-left-color:var(--gray)}
-.tile[data-c=green]{border-left-color:var(--green)}
-
-/* status colours */
-.c-amber{color:var(--amber)}.c-blue{color:var(--blue)}.c-red{color:var(--red)}.c-slate{color:var(--slate)}.c-gray{color:var(--gray)}.c-green{color:var(--green)}
-.badge{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;border:1.6px solid currentColor;flex:none;vertical-align:middle}
+/* status marks */
+.badge{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;background:var(--c);color:var(--on);flex:none;vertical-align:middle}
 .badge svg{width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:2}
 .badge.md{width:28px;height:28px}.badge.md svg{width:16px;height:16px}
-.pill{display:inline-block;border-radius:999px;font-size:10.5px;font-weight:700;padding:1.5px 8.5px;white-space:nowrap}
-.pill-amber{background:var(--amber-soft);color:#8a5a00}
-.pill-blue{background:var(--blue-soft);color:#1e3a8a}
-.pill-red{background:var(--red-soft);color:#9b1c1c}
-.pill-slate{background:var(--slate-soft);color:#334e68}
-.pill-gray{background:var(--gray-soft);color:#4b5563}
-.pill-green{background:var(--green-soft);color:#166534}
+.pill{display:inline-block;border-radius:var(--blob);font-size:10.5px;font-weight:700;padding:2px 9px;white-space:nowrap;background:var(--c);color:var(--on)}
 .art-link{background:none;border:0;padding:0;color:inherit;font:inherit;text-decoration:underline dotted;text-underline-offset:2px;cursor:pointer}
-.art-link:hover{color:var(--blue)}
+.art-link:hover{color:var(--brand)}
 
 /* toolbar */
 .toolbar{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;align-items:center}
-.seg{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:#fff}
-.seg button{border:0;background:#fff;padding:8px 12px;font-size:11.5px;font-weight:700;color:var(--muted)}
-.seg button.on{background:var(--navy);color:#fff}
+.seg{display:inline-flex;gap:2px;align-items:center}
+.seg button{border:0;background:none;border-radius:var(--blob);padding:7px 14px;font-size:12px;font-weight:700;color:var(--ink)}
+.seg button.on{background:var(--wine);color:var(--on-dark)}
 .toolbar input[type=search]{min-width:190px;flex:1;max-width:300px}
 .toolbar select{min-width:110px}
 .toolbar select.wide{flex:1;max-width:280px}
@@ -114,44 +102,44 @@ select,input[type=search]{font:inherit;font-size:13px;border:1px solid var(--lin
 /* table */
 .tablewrap{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);overflow:auto;max-height:620px}
 table{border-collapse:collapse;width:100%;font-size:12.6px}
-th{position:sticky;top:0;background:#f3f5f9;color:var(--muted);font-size:9.8px;letter-spacing:.08em;text-transform:uppercase;text-align:left;padding:8px 10.5px;border-bottom:1px solid var(--line);white-space:nowrap;z-index:2}
+th{position:sticky;top:0;background:#f4f1ee;color:var(--muted);font-size:9.8px;letter-spacing:.08em;text-transform:uppercase;text-align:left;padding:8px 10.5px;border-bottom:1px solid var(--line);white-space:nowrap;z-index:2}
 .th-sort{background:none;border:0;padding:0;font:inherit;color:inherit;letter-spacing:inherit;text-transform:inherit;cursor:pointer}
-.th-sort.on{color:var(--navy)}
+.th-sort.on{color:var(--brand)}
 .th-sort i{font-style:normal;margin-left:3px}
-td{padding:10px 10.5px;border-bottom:1px solid var(--line);vertical-align:top;background:#fafbfd}
-tr:hover td{background:#f0f4fc}
+td{padding:10px 10.5px;border-bottom:1px solid var(--line);vertical-align:top;background:#fdfcfb}
+tr:hover td{background:var(--tint)}
 tr.flash td{animation:flash 2.2s ease-out}
-@keyframes flash{0%,30%{background:#fff4c2}100%{background:#fafbfd}}
+@keyframes flash{0%,30%{background:color-mix(in srgb,var(--sun) 45%,#fff)}100%{background:#fdfcfb}}
 td.c-type{white-space:nowrap;font-weight:700}
-td.c-type .badge{margin-right:6px}
 td.c-title{min-width:210px}
-td.c-title a{font-weight:700;color:var(--blue)}
+td.c-title a{font-weight:700;color:var(--brand)}
 td small,.sub{display:block;color:var(--muted);font-size:11px;margin-top:2px}
 .t-art-inline{display:none}
 td.c-art{white-space:nowrap}
-.src-link{font-weight:600;white-space:nowrap}
+.src-link{font-weight:600;white-space:nowrap;color:#0000EE}
+.src-link:visited{color:#551A8B}
 .tablefoot{display:flex;justify-content:space-between;font-size:11.5px;color:var(--muted);margin-top:8px}
 
 /* board */
 .board{display:none;grid-template-columns:repeat(6,minmax(210px,1fr));gap:10px;overflow-x:auto;padding-bottom:6px;align-items:start}
 .board.show{display:grid}
-.bcol{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:8px}
-.bhead{display:flex;align-items:center;gap:6px;font-size:11.5px;font-weight:700;color:var(--navy);margin-bottom:8px}
-.bhead i{width:8px;height:8px;border-radius:50%;background:currentColor}
-.bhead .n{margin-left:auto;background:var(--gray-soft);border-radius:99px;padding:0 7px;color:var(--muted)}
-.bcard{background:var(--bg);border:1px solid var(--line);border-radius:8px;margin-bottom:6px}
+.bcol{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:8px}
+.bhead{display:flex;align-items:center;gap:6px;font-size:11.5px;font-weight:700;color:var(--ink);margin-bottom:8px}
+.bhead i{width:9px;height:9px;border-radius:50%;background:var(--c)}
+.bhead .n{margin-left:auto;background:#f0ece8;border-radius:var(--blob);padding:0 7px;color:var(--muted)}
+.bcard{background:var(--bg);border:1px solid var(--line);border-radius:var(--blob2);margin-bottom:6px}
 .bcard-btn{display:flex;flex-direction:column;gap:3px;width:100%;text-align:left;background:none;border:0;padding:8px 9px;color:var(--ink)}
 .bcard-top{display:flex;gap:6px;align-items:center;font-size:10.5px}
-.chip{display:inline-block;background:var(--gray-soft);color:var(--ink);border:0;border-radius:6px;padding:2px 7px;font-size:11px;font-weight:600}
-button.chip:hover{background:var(--blue-soft);color:var(--navy)}
+.chip{display:inline-block;background:#f0ece8;color:var(--ink);border:0;border-radius:var(--blob);padding:2px 7px;font-size:11px;font-weight:600}
+button.chip:hover{background:var(--tint);color:var(--brand)}
 .bcard-title{font-weight:700;font-size:12px}
 .bcard-meta{display:flex;flex-direction:column;color:var(--muted);font-size:11px}
-.link-btn{color:var(--blue);font-weight:700;font-size:11px}
-.bcard.open{border-color:var(--blue);background:#fff}
+.link-btn{color:var(--brand);font-weight:700;font-size:11px}
+.bcard.open{border-color:var(--brand);background:var(--card)}
 .bcard-detail{padding:0 6px 8px}
 
 /* instrument card (drawers + board) */
-.inst{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin-top:10px}
+.inst{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin-top:10px}
 .inst-head{display:flex;gap:10px;align-items:flex-start}
 .inst-type{font-size:10px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:var(--muted)}
 .inst h4{margin:2px 0;font-size:14px}
@@ -161,27 +149,27 @@ ul.links{list-style:none;padding:0;margin:8px 0;font-size:12px}
 ul.links li{margin-bottom:4px}
 .chips{display:flex;flex-wrap:wrap;gap:5px;margin:8px 0}
 details.versions{margin-top:8px;font-size:12px}
-details.versions summary{cursor:pointer;color:var(--navy);font-weight:700}
+details.versions summary{cursor:pointer;color:var(--ink);font-weight:700}
 .vlist{list-style:none;padding:0;margin:8px 0 0}
 .vlist li{position:relative;padding:0 0 12px 18px;border-left:2px solid var(--line);margin-left:5px}
-.vlist li::before{content:"";position:absolute;left:-6px;top:3px;width:10px;height:10px;border-radius:50%;background:#fff;border:2px solid var(--line)}
-.vlist li.done::before{background:var(--green);border-color:var(--green)}
+.vlist li::before{content:"";position:absolute;left:-6px;top:3px;width:10px;height:10px;border-radius:50%;background:var(--card);border:2px solid var(--line)}
+.vlist li.done::before{background:var(--brand);border-color:var(--brand)}
 .vlist li:last-child{border-left-color:transparent}
 .v-stage{font-weight:700;margin-right:8px}
 
 /* drawers */
-.backdrop{position:fixed;inset:0;background:#0f172a40;opacity:0;pointer-events:none;transition:opacity .2s;z-index:60}
+.backdrop{position:fixed;inset:0;background:#10101040;opacity:0;pointer-events:none;transition:opacity .2s;z-index:60}
 .backdrop.open{opacity:1;pointer-events:auto}
-.backdrop.b2{z-index:62;background:#0f172a20}
-.drawer{position:fixed;top:0;right:0;bottom:0;width:480px;max-width:100%;background:var(--bg);box-shadow:-8px 0 30px #0f172a33;padding:17.5px 17.5px 28px;overflow-y:auto;transform:translateX(105%);transition:transform .22s ease;z-index:61}
+.backdrop.b2{z-index:62;background:#10101020}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:480px;max-width:100%;background:var(--bg);box-shadow:-8px 0 30px #10101033;padding:17.5px 17.5px 28px;overflow-y:auto;transform:translateX(105%);transition:transform .22s ease;z-index:61}
 .drawer.d2{z-index:63}
 .drawer.open{transform:none}
 .dhead{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;margin-bottom:10px}
 .dhead h3{margin:2px 0 4px;font-size:17px;color:var(--ink);line-height:1.25}
-.icon-btn{background:#fff;border:1px solid var(--line);border-radius:8px;width:30px;height:30px;font-size:18px;line-height:1;flex:none}
-.dsub{font-weight:700;color:var(--navy);margin:16px 0 4px}
+.icon-btn{background:var(--card);border:1px solid var(--line);border-radius:8px;width:30px;height:30px;font-size:18px;line-height:1;flex:none;color:var(--ink)}
+.dsub{font-weight:700;color:var(--ink);margin:16px 0 4px}
 .rel-list{list-style:none;padding:0;margin:0}
-.rel-list>li{background:#fff;border:1px solid var(--line);border-radius:10px;padding:8px 10px;margin-bottom:6px;font-size:12.5px}
+.rel-list>li{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:8px 10px;margin-bottom:6px;font-size:12.5px}
 .rel-list .pill{margin-left:4px}
 
 /* framework matrix */
@@ -189,27 +177,27 @@ details.versions summary{cursor:pointer;color:var(--navy);font-weight:700}
 .fw-head h2{margin:0}
 .legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:11px;color:var(--muted)}
 .legend span{display:inline-flex;align-items:center;gap:5px}
-.cnt{display:inline-grid;place-items:center;min-width:20px;height:20px;border-radius:99px;font-size:10.5px;font-weight:800;padding:0 5px;background:currentColor;flex:none}
-.cnt b{color:#fff}
+.cnt{display:inline-grid;place-items:center;min-width:22px;height:21px;border-radius:var(--blob);font-size:10.5px;font-weight:800;padding:0 5px;background:var(--c);color:var(--on);flex:none}
+.cnt b{color:inherit}
 .fw-scroll{overflow-x:auto;padding-bottom:8px}
 .fw{min-width:1100px;display:flex;flex-direction:column;gap:8px}
 .fw-row{display:grid;grid-template-columns:120px 1fr;gap:10px;align-items:start}
-.fw-label{font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--navy);padding-top:8px}
+.fw-label{font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--ink);padding-top:8px}
 .fw-cells{display:grid;gap:6px}
-.blk{position:relative;display:flex;justify-content:space-between;align-items:center;gap:8px;border-radius:8px;padding:8px 10px;min-height:46px;cursor:pointer;border:1px solid var(--line);border-left:4px solid var(--navy);background:#fff;font-size:12px;font-weight:600;text-align:left;transition:box-shadow .15s}
-.blk.solid{background:#eef2fb;border-color:#d6def0;border-left-color:var(--navy)}
-.blk:hover{box-shadow:0 0 0 2px #1a56db55}
-.blk.sel{box-shadow:0 0 0 2px var(--blue)}
-.blk.empty{opacity:.85}
-.blk.empty.solid{background:#f3f5fa}
+.blk{position:relative;display:flex;justify-content:space-between;align-items:center;gap:8px;border-radius:var(--blob2);padding:9px 12px;min-height:46px;cursor:pointer;border:1px solid var(--line);background:var(--card);font-size:12px;font-weight:700;text-align:left;transition:box-shadow .15s}
+.blk.solid{background:var(--tint);border-color:color-mix(in srgb,var(--brand) 18%,#fff)}
+.blk:hover{box-shadow:0 0 0 2px #FF620066}
+.blk.sel{box-shadow:0 0 0 2px var(--brand)}
+.blk.empty{opacity:.8}
+.blk.empty.solid{background:#faf8f6}
 .blk-art{display:block;font-size:10.5px;font-weight:400;color:var(--muted);margin-top:2px}
 .lc{display:grid;grid-template-columns:auto 1fr 18px auto 1.35fr 18px auto .9fr;gap:6px;align-items:stretch}
-.vbar{writing-mode:vertical-rl;transform:rotate(180deg);background:#d7f3e6;color:#1f7a50;border:0;border-radius:6px;font-size:11px;font-weight:700;padding:10px 6px;display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer}
-.vbar:hover{box-shadow:0 0 0 2px #1f9d5555}
-.vbar.sel{box-shadow:0 0 0 2px var(--green)}
+.vbar{writing-mode:vertical-rl;transform:rotate(180deg);background:color-mix(in srgb,var(--sky) 45%,#fff);color:var(--ink);border:0;border-radius:var(--blob);font-size:11px;font-weight:700;padding:10px 6px;display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer}
+.vbar:hover{box-shadow:0 0 0 2px var(--sky)}
+.vbar.sel{box-shadow:0 0 0 2px var(--ink)}
 .vbar .cnt{transform:rotate(90deg)}
 .lc-stack{display:flex;flex-direction:column;gap:6px}
-.lc-arrow{display:grid;place-items:center;color:var(--gray);font-size:20px}
+.lc-arrow{display:grid;place-items:center;color:var(--muted);font-size:20px}
 .mon{display:grid;grid-template-columns:1fr 1fr 1.15fr;grid-auto-rows:min-content;gap:6px;align-content:start}
 .mon .fiu{grid-column:3;grid-row:1 / span 2}
 .mon .alerts{grid-column:1 / span 2}
@@ -218,28 +206,27 @@ details.versions summary{cursor:pointer;color:var(--navy);font-weight:700}
 /* other dashboard sections */
 .card{background:var(--card);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);padding:16px 18px}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
 .glance{margin-top:14px;display:grid;grid-template-columns:1.1fr 1fr;gap:14px}
-.card h3{margin:0 0 8px;font-size:14px;color:var(--navy)}
+.card h3{margin:0 0 8px;font-size:14px;color:var(--ink)}
 .gbars{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:10px}
-.gbars div{background:var(--blue-soft);border-radius:10px;padding:8px 10px}
-.gbars b{display:block;font-size:20px;color:var(--navy)}
+.gbars div{background:var(--tint);border-radius:10px;padding:8px 10px}
+.gbars b{display:block;font-size:20px;color:var(--brand)}
 .gbars span{font-size:11px;color:var(--muted)}
 .dl{display:flex;flex-direction:column;gap:8px}
 .dl div{display:grid;grid-template-columns:96px 1fr;gap:10px;font-size:12px;border-bottom:1px dashed var(--line);padding-bottom:8px}
-.dl b{color:var(--navy)}
+.dl b{color:var(--ink)}
 .dl small{display:block;color:var(--muted);font-size:10px;letter-spacing:.06em}
-.tag{font-size:10px;font-weight:700;background:var(--blue-soft);color:var(--navy);border-radius:6px;padding:1px 6px;height:max-content;text-align:center}
-.tag.new{background:var(--amber-soft);color:#8a5a00}
+.tag{font-size:10px;font-weight:700;background:var(--sky);color:var(--ink);border-radius:var(--blob);padding:1px 6px;height:max-content;text-align:center}
+.tag.new{background:var(--sun)}
 .meta{font-size:11px;color:var(--muted);margin-bottom:8px}
 
 /* daily digest */
 .dg-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:6px}
 .dg-head h2{margin:0}
-.dg-head .seg b{background:var(--amber);color:#fff;border-radius:99px;padding:0 6px;margin-left:3px;font-size:10px}
+.dg-head .seg b{background:var(--sun);color:var(--ink);border-radius:var(--blob);padding:0 6px;margin-left:3px;font-size:10px}
 .dg-grid{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:14px;align-items:start}
 .dg-list{padding:6px 18px 12px;max-height:760px;overflow-y:auto}
-.dg-day{font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--navy);margin:14px 0 4px;position:sticky;top:-6px;background:#fff;padding:4px 0}
+.dg-day{font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--ink);margin:14px 0 4px;position:sticky;top:-6px;background:var(--card);padding:4px 0}
 .dg-item{padding:10px 0;border-bottom:1px solid var(--line)}
 .dg-item.done{opacity:.55}
 .dg-top{display:flex;gap:8px;align-items:center;font-size:11px;color:var(--muted);flex-wrap:wrap}
@@ -250,43 +237,34 @@ details.versions summary{cursor:pointer;color:var(--navy);font-weight:700}
 .dg-match li .badge{margin-top:-1px}
 .dg-match em{color:var(--ink);font-style:normal;display:block}
 .dg-acts{display:flex;gap:6px;margin-top:6px;align-items:center;font-size:11.5px}
-.dg-acts button{border:1px solid var(--line);background:#fff;border-radius:7px;padding:3px 9px;font-size:11.5px;font-weight:600}
-.dg-acts button.primary{background:var(--navy);border-color:var(--navy);color:#fff}
+.dg-acts button{border:1px solid var(--line);background:var(--card);border-radius:var(--blob);padding:3px 9px;font-size:11.5px;font-weight:600;color:var(--ink)}
+.dg-acts button.primary{background:var(--wine);border-color:var(--wine);color:var(--on-dark)}
 .dg-empty{color:var(--muted);padding:18px 0}
 .dg-side h3{margin-top:4px}
 .dg-side h3+*{margin-bottom:16px}
 .dg-sources{list-style:none;padding:0;margin:0;font-size:12px}
 .dg-sources li{display:grid;grid-template-columns:10px 1fr;gap:8px;padding:5px 0;border-bottom:1px dashed var(--line)}
-.dg-sources i{width:8px;height:8px;border-radius:50%;margin-top:5px;background:var(--gray)}
-.dg-sources i.ok{background:var(--green)}.dg-sources i.error{background:var(--red)}
+.dg-sources i{width:8px;height:8px;border-radius:50%;margin-top:5px;background:var(--wine)}
+.dg-sources i.ok{background:var(--sky);box-shadow:0 0 0 1px #10101030}
+.dg-sources i.error{background:var(--pink)}
 .dg-sources small{display:block;color:var(--muted);font-size:11px}
-.subnav .nav-count{background:var(--amber);color:#fff;border-radius:99px;padding:0 6px;font-size:10px;margin-left:4px}
-.link-btn-plain{background:none;border:0;padding:0;color:var(--blue);font:inherit;font-weight:600;cursor:pointer}
-.ad{border:1px dashed var(--line);border-radius:12px;padding:16px;text-align:center;color:var(--muted);font-size:12px;background:#fff;margin-top:34px}
-.ad b{display:block;color:var(--navy);font-size:10px;letter-spacing:.14em}
-.band{background:linear-gradient(135deg,#0b2a6f,#1a56db);color:#fff;border-radius:16px;padding:24px 28px;display:flex;justify-content:space-between;gap:20px;align-items:center;flex-wrap:wrap}
-.band h2{color:#fff;margin:4px 0}
-.band p{margin:0;color:#dbe5ff;max-width:620px}
+.link-btn-plain{background:none;border:0;padding:0;color:var(--brand);font:inherit;font-weight:600;cursor:pointer}
+
 .ms{display:grid;grid-template-columns:1fr 1fr;gap:18px}
 .ms h3{font-size:11px;letter-spacing:.12em;margin:0 0 10px}
 .ms .it{border-left:3px solid var(--line);padding:2px 0 12px 14px;margin-left:5px;position:relative}
-.ms .it::before{content:"";position:absolute;left:-7px;top:4px;width:11px;height:11px;border-radius:50%;background:var(--green);border:2px solid #fff}
-.ms .up .it::before{background:var(--amber)}
-.ms .it time{font-size:11px;font-weight:700;color:var(--navy)}
+.ms .it::before{content:"";position:absolute;left:-7px;top:4px;width:11px;height:11px;border-radius:50%;background:var(--brand);border:2px solid var(--card)}
+.ms .up .it::before{background:var(--sky);box-shadow:0 0 0 1px #10101040}
+.ms .it time{font-size:11px;font-weight:700;color:var(--ink)}
 .ms .it b{display:block;font-size:13px}
 .ms .it p{margin:3px 0 0;font-size:12px;color:var(--muted)}
-.phases{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:14px}
-.phase{background:#fff;border:1px solid var(--line);border-top:4px solid var(--blue);border-radius:12px;padding:12px}
-.phase small{font-size:10px;font-weight:700;letter-spacing:.12em;color:var(--amber)}
-.phase h4{margin:2px 0 6px;font-size:14px;color:var(--navy)}
-.phase p{margin:0;font-size:12px;color:var(--muted)}
 
 /* instrument pages */
 .ipage{max-width:780px;margin:0 auto}
 .crumb{font-size:12px;margin:8px 0 26px}
-.ipage h1{font-size:26px;margin:6px 0 8px;color:var(--navy)}
+.ipage h1{font-size:26px;margin:6px 0 8px;color:var(--ink)}
 .ip-status{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:12px}
-.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:12px 20px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:14px 0 6px}
+.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:12px 20px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:14px 0 6px}
 .facts dt{font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--muted)}
 .facts dd{margin:2px 0 0;font-weight:700;font-size:13px}
 .ipage section.card{margin-top:22px}
@@ -296,21 +274,21 @@ details.versions summary{cursor:pointer;color:var(--navy);font-weight:700}
 .inst-related li{display:flex;justify-content:space-between;gap:10px;padding:7px 0;border-bottom:1px solid var(--line);font-size:13px}
 .idx-group h2{font-size:15px;margin-top:22px}
 
-footer{background:var(--navy);color:#cbd8f6;padding:22px 17.5px;font-size:12px;margin-top:20px}
+footer{background:var(--brand);color:var(--on-dark);padding:22px 17.5px;font-size:12px;margin-top:20px}
 footer .in{max-width:1480px;margin:0 auto}
-footer a{color:#fff}
-.consent{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);background:#fff;border-radius:12px;box-shadow:0 10px 40px #0b2a6f55;padding:14px 18px;max-width:560px;width:calc(100% - 24px);z-index:50;font-size:12.5px}
+footer a{color:var(--on-dark);text-decoration:underline}
+.consent{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);background:var(--card);border-radius:12px;box-shadow:0 10px 40px #10101040;padding:14px 18px;max-width:560px;width:calc(100% - 24px);z-index:50;font-size:12.5px}
 .consent .acts{display:flex;gap:8px;margin-top:10px}
-.consent button{border-radius:8px;padding:7px 14px;font-weight:700;border:1.5px solid var(--blue)}
-.consent .y{background:var(--blue);color:#fff}
-.consent .n{background:#fff;color:var(--blue)}
+.consent button{border-radius:var(--blob);padding:7px 14px;font-weight:700;border:1.5px solid var(--wine)}
+.consent .y{background:var(--wine);color:var(--on-dark)}
+.consent .n{background:var(--card);color:var(--wine)}
 
-@media (max-width:1100px){.phases{grid-template-columns:repeat(2,1fr)}}
 @media (max-width:820px){
-  .hero{grid-template-columns:1fr;padding:22px 18px}.tiles{grid-template-columns:repeat(2,1fr)}
-  .glance,.grid2,.ms{grid-template-columns:1fr}.grid4{grid-template-columns:1fr 1fr}
+  .hero{padding:18px 14px 14px}.hero-label{font-size:15px;margin-left:10px}
+  .hero-box{flex-direction:column;gap:18px;padding:26px 14px 14px}.hero-side{width:100%}.hstats{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .glance,.grid2,.ms{grid-template-columns:1fr}
   .topbar .navlinks{display:none}.topbar .in{gap:10px}.lang button{padding:2px 5px}
-  .subnav .cta{display:none}.gbars{grid-template-columns:repeat(2,1fr)}.phases{grid-template-columns:1fr}
+  .gbars{grid-template-columns:repeat(2,1fr)}
   .dg-grid{grid-template-columns:1fr}
   td.c-art{display:none}th.c-art{display:none}.t-art-inline{display:inline}
   .facts{grid-template-columns:1fr 1fr}
@@ -320,8 +298,8 @@ footer a{color:#fff}
 <body>
 
 <div class="topbar"><div class="in">
-  <a class="brand" href="#/">AML Rules Tracker</a>
-  <span class="navlinks"><a href="#instruments">Dashboard</a><a href="#about">What we do</a></span>
+  <a class="brand" href="#/">AMLR Overview</a>
+  <span class="navlinks"><a href="#instruments">Dashboard</a></span>
   <div class="lang" id="lang"><button class="on">EN</button><button>NL</button><button>FR</button><button>DE</button><button>ES</button></div>
   <button class="signin">Sign in</button>
 </div></div>
@@ -331,36 +309,20 @@ footer a{color:#fff}
     <a href="#top">Overview</a><a href="#updates">Daily digest<span class="nav-count" id="nav-n" hidden></span></a><a href="#framework">Framework</a><a href="#instruments">Instruments</a>
     <a href="#timeline">Timeline</a><a href="#sources">Sources</a>
   </div>
-  <a class="cta" href="#about">✦ What this tool does</a>
 </div></nav>
 
 <main id="top">
 
   <header class="hero">
-    <div>
-      <div class="eyebrow">Regulatory monitor · status as of 6 Oct 2026</div>
-      <h1>Where every RTS, Guideline and ITS stands</h1>
-      <p><span id="n-total">34</span> instruments, reviewed 6 Oct 2026 and re-checked each day against the regulators' own pages. Every row links back to its source.</p>
-      <a class="btn white" href="#instruments">Browse the instruments</a>
-      <a class="btn ghost" href="#about">What you can do</a>
-      <div class="note">Free to follow. Statuses, dates and source links for every instrument in the AML package.</div>
-      <div class="chips-hero"><span>34 RTS / GL / ITS</span><span>Checked daily</span><span>EBA · AMLA · EUR-Lex</span><span>EN · NL · FR · DE · ES</span><span>Encrypted</span></div>
-    </div>
-    <aside class="apply">
-      <div class="row"><span>RULES APPLY</span><span>10 Jul 2027</span></div>
-      <div class="count"><b id="days">254</b><span>days until 10 Jul 2027</span></div>
-      <div class="bar"><i id="prog" style="width:76%"></i></div>
-      <div class="mini">
-        <div><b id="h-consult">2</b><span>in consultation</span></div>
-        <div><b id="h-closed">3</b><span>consultation closed, being finalised</span></div>
-        <div><b id="h-pub">2</b><span>published / definitive</span></div>
+    <h1 class="hero-label">Where are we?</h1>
+    <div class="hero-box">
+      <div class="xl"><span>The AMLR applies in</span><b><span id="days">254</span> <small>days</small></b><span>10 Jul 2027</span></div>
+      <div class="hero-side">
+        <div class="hstats" id="hstats"></div>
+        <div class="bar"><i id="prog" style="width:76%"></i></div>
       </div>
-      <label for="entity">SHOW FOR</label>
-      <select id="entity"></select>
-    </aside>
+    </div>
   </header>
-
-  <div class="tiles" id="tiles"></div>
 
   <section id="instruments">
     <h2><span class="num">1</span>All instruments</h2>
@@ -420,30 +382,11 @@ footer a{color:#fff}
     <div class="fw-scroll"><div class="fw" id="fw"></div></div>
   </section>
 
-  <div class="ad"><b>ADVERTISEMENT</b>Advertise here — reach AML and compliance professionals preparing for the new rules.</div>
-
-  <section id="about">
-    <div class="band">
-      <div>
-        <div class="eyebrow">What this tool does</div>
-        <h2>Start with the monitor, add a workspace when you need one</h2>
-        <p>Free to create. Data is encrypted field by field, two-factor sign-in is built in, and every organisation gets its own workspace.</p>
-      </div>
-      <a class="btn white" href="#instruments">Browse the instruments</a>
-    </div>
-    <div class="grid4" style="margin-top:14px">
-      <div class="card"><div class="eyebrow" style="color:var(--amber)">01</div><h3>Know</h3><p class="lead" style="margin:0">Every instrument with its status, deadline and source, filtered for your type of organisation.</p></div>
-      <div class="card"><div class="eyebrow" style="color:var(--amber)">02</div><h3>Assess</h3><p class="lead" style="margin:0">An impact assessment built from your company profile: what applies, what does not.</p></div>
-      <div class="card"><div class="eyebrow" style="color:var(--amber)">03</div><h3>Run</h3><p class="lead" style="margin:0">Readiness per framework block, tasks, consultations and a roadmap.</p></div>
-      <div class="card"><div class="eyebrow" style="color:var(--amber)">04</div><h3>Prove</h3><p class="lead" style="margin:0">A log of every measure taken, exportable as a printable report for supervisors.</p></div>
-    </div>
-  </section>
-
   <section id="timeline">
     <h2><span class="num">4</span>Developments &amp; milestones</h2>
     <div class="ms card">
       <div class="up">
-        <h3 style="color:var(--amber)">UPCOMING</h3>
+        <h3 style="color:var(--brand)">UPCOMING</h3>
         <div class="it"><time>31 Dec 2026 · in <span class="d" data-to="2026-12-31"></span> days</time><b>Delivery target for 2026</b><p>First standards on CDD, thresholds and group-wide requirements go to the Commission; several guidelines are published.</p></div>
         <div class="it"><time>1 Jan 2027 · in <span class="d" data-to="2027-01-01"></span> days</time><b>Data collection for the 2027 selection</b><p>Provisionally eligible institutions report through their national supervisor, January to March.</p></div>
         <div class="it"><time>1 Jul 2027 · in <span class="d" data-to="2027-07-01"></span> days</time><b>First selection for direct supervision begins</b><p>Up to 40 cross-border institutions chosen; outcome communicated by the end of 2027.</p></div>
@@ -451,7 +394,7 @@ footer a{color:#fff}
         <div class="it"><time>10 Jul 2029 · in <span class="d" data-to="2029-07-10"></span> days</time><b>Football clubs and agents</b><p>Later application date for the newly added sectors.</p></div>
       </div>
       <div>
-        <h3 style="color:var(--green)">COMPLETED</h3>
+        <h3 style="color:var(--ink)">COMPLETED</h3>
         <div class="it"><time>15 Aug 2026</time><b>Eligibility data due at AMLA</b><p>National supervisors deliver data on provisionally eligible institutions.</p></div>
         <div class="it"><time>10 Jul 2026</time><b>Statutory deadline, first tranche of standards</b><p>Several of the first RTS, ITS and guidelines were delivered; others are scheduled for late 2026 or 2027.</p></div>
         <div class="it"><time>1 Jan 2026</time><b>Mandates handed over from the EBA to AMLA</b><p>Existing EBA guidelines stay in force until replaced.</p></div>
@@ -459,13 +402,6 @@ footer a{color:#fff}
         <div class="it"><time>1 Jul 2025</time><b>AMLA operational in Frankfurt</b><p>The Authority begins operating.</p></div>
         <div class="it"><time>19 Jun 2024</time><b>AML package published in the Official Journal</b><p>Regulation, directive and the AMLA regulation all published.</p></div>
       </div>
-    </div>
-    <div class="phases">
-      <div class="phase"><small>NOW</small><h4>Prepare</h4><p>Gap analysis, redesign of onboarding, monitoring and reporting, and consultation responses.</p></div>
-      <div class="phase"><small>10 JUL 2027</small><h4>Rules apply</h4><p>Obligations apply directly; first supervisory reviews test the new processes.</p></div>
-      <div class="phase"><small>2028</small><h4>Direct supervision</h4><p>AMLA supervises the first selected cross-border institutions with national supervisors.</p></div>
-      <div class="phase"><small>10 JUL 2029</small><h4>Football sector</h4><p>Clubs and agents become obliged entities.</p></div>
-      <div class="phase"><small>ONGOING</small><h4>Maintain</h4><p>Compliance becomes a standing register of obligations, reviews and findings.</p></div>
     </div>
   </section>
 
@@ -502,12 +438,12 @@ footer a{color:#fff}
 <script>
 const P=window.PAGES||{};
 const ST={
-  consult:{l:"In consultation",s:"In consultation",c:"amber",t:"A draft is open for comment; the text can still change."},
-  closed:{l:"Consultation closed, being finalised",s:"Closed, being finalised",c:"blue",t:"The consultation has closed and the final draft is being prepared."},
-  final:{l:"Final text, awaiting publication",s:"Final, awaiting publication",c:"red",t:"Final text adopted or sent to the Commission, not yet in the Official Journal."},
-  eba:{l:"EBA guideline in force, AMLA successor pending",s:"EBA applies, AMLA pending",c:"slate",t:"An existing EBA text applies until AMLA adopts its own successor."},
-  ann:{l:"Announced, no draft yet",s:"Announced, no draft",c:"gray",t:"Mandated and scheduled, but no draft has been published yet."},
-  pub:{l:"Published",s:"Published",c:"green",t:"Published and in force, or applying from the date shown."}
+  consult:{l:"In consultation",s:"In consultation",c:"consult",t:"A draft is open for comment; the text can still change."},
+  closed:{l:"Consultation closed, being finalised",s:"Closed, being finalised",c:"closed",t:"The consultation has closed and the final draft is being prepared."},
+  final:{l:"Final text, awaiting publication",s:"Final, awaiting publication",c:"final",t:"Final text adopted or sent to the Commission, not yet in the Official Journal."},
+  eba:{l:"EBA guideline in force, AMLA successor pending",s:"EBA applies, AMLA pending",c:"eba",t:"An existing EBA text applies until AMLA adopts its own successor."},
+  ann:{l:"Announced, no draft yet",s:"Announced, no draft",c:"ann",t:"Mandated and scheduled, but no draft has been published yet."},
+  pub:{l:"Published",s:"Published",c:"pub",t:"Published and in force, or applying from the date shown."}
 };
 const PRIO=["consult","closed","final","eba","ann","pub"];
 const ICON={
@@ -611,7 +547,7 @@ const dayDiff=to=>Math.ceil((new Date(to+"T00:00:00")-today)/864e5);
 const fact=(id,k)=>(P[id]?.f||[]).find(f=>f[0]===k)?.[1];
 const artTitle=k=>`Article ${k.split(" ")[1]}: ${ART[k]}`;
 const badge=(d,cls="")=>`<span class="badge ${cls} c-${ST[d.status].c}" title="${esc(ST[d.status].l)}"><svg viewBox="0 0 24 24" aria-hidden="true">${ICON[d.type]}</svg></span>`;
-const pill=(st,long)=>`<span class="pill pill-${ST[st].c}" title="${esc(ST[st].t)}">${esc(long?ST[st].l:ST[st].s)}</span>`;
+const pill=(st,long)=>`<span class="pill c-${ST[st].c}" title="${esc(ST[st].t)}">${esc(long?ST[st].l:ST[st].s)}</span>`;
 const artBtn=(k,label)=>`<button type="button" class="art-link" data-art="${k}" title="${esc(artTitle(k))}">${label}</button>`;
 // link every number in an article reference that matches one of the given article keys
 function artHTML(text,keys){
@@ -627,16 +563,14 @@ const blocksOf=id=>(P[id]?.bl||[]).map(n=>CHIP_ALIAS[n]||n);
 const C={total:L2.length,open:0};PRIO.forEach(k=>C[k]=L2.filter(d=>d.status===k).length);
 $("#days").textContent=$("#g-days").textContent=dayDiff("2027-07-10");
 document.querySelectorAll(".d").forEach(e=>e.textContent=dayDiff(e.dataset.to));
-$("#h-consult").textContent=C.consult;$("#h-closed").textContent=C.closed;$("#h-pub").textContent=C.pub;
-$("#n-total").textContent=C.total;$("#g-open").textContent=`${C.total-C.pub} of ${C.total}`;
+$("#g-open").textContent=`${C.total-C.pub} of ${C.total}`;
 $("#prog").style.width=Math.min(100,Math.max(0,(1-dayDiff("2027-07-10")/1000)*100))+"%";
-$("#entity").innerHTML=["All entity types","Bank / credit institution","Other financial institution","Mortgage lender / credit intermediary","Payment / e-money institution","Investment firm / fund manager","Life insurer / intermediary","Pension fund / administrator","Crowdfunding service provider","Crypto-asset service provider","Trust or company service provider","Accountant / auditor","Tax adviser","Lawyer / notary","External compliance / CDD adviser","Estate agent / valuer","Dealer in high-value goods","Auction house","Gambling operator","Football club / agent","Other obliged entity"].map(e=>`<option>${e}</option>`).join("");
 
-/* ---------- instruments: tiles, filters, table, board ---------- */
-const TILES=[["total","RTS / GL / ITS tracked","navy"],["consult","In consultation","amber"],["closed","Consultation closed, being finalised","navy"],["final","Final, not yet published","red"],["eba","EBA guideline in force, AMLA successor pending","slate"],["ann","Announced, no draft yet","gray"],["pub","Published / definitive","green"],["open","Consultations open now","navy"]];
+/* ---------- instruments: hero status counts, filters, table, board ---------- */
 const state={status:"",type:"",q:"",sort:"last",dir:-1,view:"table",openCard:null};
 $("#fstatus").innerHTML='<option value="">All statuses</option><option value="open">Consultation open now</option>'+PRIO.map(k=>`<option value="${k}">${ST[k].l}</option>`).join("");
-$("#tiles").innerHTML=TILES.map(([k,l,c])=>`<button type="button" class="tile" data-c="${c}" data-k="${k}"><b>${C[k]}</b><span>${l}</span></button>`).join("");
+// every instrument in the table, by status; clicking one filters the table
+$("#hstats").innerHTML=PRIO.map(k=>`<button type="button" class="hs c-${ST[k].c}" data-k="${k}" title="Show only: ${esc(ST[k].l)}"><b>${D.filter(d=>d.status===k).length}</b><span>${ST[k].s}</span></button>`).join("");
 const isOpen=d=>d.status==="consult"&&fact(d.id,"Consultation closed")&&new Date(fact(d.id,"Consultation closed"))>=today;
 function pass(d){
   if(state.type&&d.type!==state.type)return false;
@@ -647,13 +581,13 @@ function pass(d){
 const COLS=[["type","Type","c-type"],["name","Instrument","c-title"],[null,"Articles","c-art"],["status","Status","c-status"],["next","Next date","c-next"],["last","Last step","c-last"],[null,"Source","c-src"]];
 function sortVal(d,k){return k==="status"?PRIO.indexOf(d.status):(d[k]||"")}
 function render(){
-  document.querySelectorAll(".tile").forEach(t=>t.classList.toggle("on",(t.dataset.k==="total"&&!state.status)||t.dataset.k===state.status));
+  document.querySelectorAll(".hs").forEach(t=>t.classList.toggle("on",t.dataset.k===state.status));
   $("#thead").innerHTML=COLS.map(([k,l,c])=>`<th class="${c}">${k?`<button type="button" class="th-sort${state.sort===k?" on":""}" data-sort="${k}" title="Sort by ${l}">${l}<i>${state.sort===k?(state.dir<0?"↓":"↑"):"↕"}</i></button>`:l}</th>`).join("");
   const list=D.filter(pass).sort((a,b)=>{const x=sortVal(a,state.sort),y=sortVal(b,state.sort);
     if(x===""&&y!=="")return 1;if(y===""&&x!=="")return -1;return (x>y?1:x<y?-1:0)*state.dir;});
   $("#count").textContent=`${list.length} of ${D.length} instruments shown`;
   $("#rows").innerHTML=list.map(d=>{const src=P[d.id]?.s?.[0];return `<tr id="${d.id}">
-    <td class="c-type">${badge(d)}${d.type}</td>
+    <td class="c-type">${d.type}</td>
     <td class="c-title"><a href="#/instruments/${d.id}" title="Page with status, dates and sources">${esc(d.name)}</a><small>${esc(d.by)}<span class="t-art-inline"> · ${esc(d.art)}</span></small></td>
     <td class="c-art">${artHTML(d.art,d.arts)}</td>
     <td class="c-status">${pill(d.status)}</td>
@@ -661,7 +595,7 @@ function render(){
     <td class="c-last">${d.last?`${fmt(d.last)}<small>${d.lastNote}</small>`:`<small>No dated step yet</small>`}</td>
     <td class="c-src">${src?`<a class="src-link" href="${esc(src[0])}" target="_blank" rel="noopener noreferrer" title="${esc(src[1])}">${esc(d.by)} ${EXT}</a>`:"—"}</td></tr>`}).join("");
   $("#board").innerHTML=PRIO.map(k=>{const items=list.filter(d=>d.status===k);
-    return `<div class="bcol"><div class="bhead c-${ST[k].c}" title="${esc(ST[k].l+". "+ST[k].t)}"><i></i><span style="color:var(--navy)">${ST[k].s}</span><span class="n">${items.length}</span></div>${items.map(boardCard).join("")}</div>`}).join("");
+    return `<div class="bcol"><div class="bhead c-${ST[k].c}" title="${esc(ST[k].l+". "+ST[k].t)}"><i></i><span>${ST[k].s}</span><span class="n">${items.length}</span></div>${items.map(boardCard).join("")}</div>`}).join("");
 }
 function boardCard(d){
   const open=state.openCard===d.id,meta=[];
@@ -756,7 +690,7 @@ function openArt(key){
 function pageHTML(id){
   const d=BY[id],p=P[id]||{f:[],v:[],s:[],bl:[],r:[]};
   return `<div class="ipage">
-    <nav class="crumb"><a href="#/">AML Rules Tracker</a> · <a href="#/instruments">Every RTS, Guideline and ITS</a></nav>
+    <nav class="crumb"><a href="#/">AMLR Overview</a> · <a href="#/instruments">Every RTS, Guideline and ITS</a></nav>
     <div class="eyebrow">Register · ${esc(p.eb)}</div>
     <h1>${esc(d.name)}</h1>
     <div class="ip-status">${badge(d,"md")}${pill(d.status,true)}<span class="muted">Status reviewed October 6, 2026</span></div>
@@ -772,7 +706,7 @@ function pageHTML(id){
 }
 function indexHTML(){
   const groups=[["RTS","Regulatory Technical Standards"],["ITS","Implementing Technical Standards"],["GL","Guidelines"],["L1","Level-1 legislation"],["NL","Dutch guidance"]];
-  return `<div class="ipage"><nav class="crumb"><a href="#/">AML Rules Tracker</a></nav>
+  return `<div class="ipage"><nav class="crumb"><a href="#/">AMLR Overview</a></nav>
     <div class="eyebrow">Register</div><h1>Every RTS, Guideline and ITS under the AMLR</h1>
     <p class="muted">${D.length} instruments, each with its own page of status, dates and sources.</p>
     ${groups.map(([t,l])=>`<div class="idx-group"><h2>${l}</h2><ul class="inst-related">${D.filter(d=>d.type===t).map(d=>`<li><a href="#/instruments/${d.id}">${esc(d.name)}</a>${pill(d.status,true)}</li>`).join("")}</ul></div>`).join("")}
@@ -862,7 +796,7 @@ document.addEventListener("click",e=>{
   const blk=t.closest("[data-block]");if(blk){openBlock(blk.dataset.block);return}
   const cl=t.closest("[data-close]");if(cl){closeDrawer(+cl.dataset.close);return}
   if(t.classList.contains("backdrop")){closeDrawer(t.id==="bd2"?2:1);return}
-  const tile=t.closest(".tile");if(tile){const k=tile.dataset.k;state.status=(k==="total"||state.status===k)?"":k;$("#fstatus").value=state.status;render();return}
+  const hs=t.closest(".hs");if(hs){const k=hs.dataset.k;state.status=state.status===k?"":k;$("#fstatus").value=state.status;render();document.getElementById("instruments").scrollIntoView({behavior:"smooth"});return}
   const th=t.closest("[data-sort]");if(th){const k=th.dataset.sort;state.dir=state.sort===k?-state.dir:1;state.sort=k;render();return}
   const card=t.closest("[data-card]");if(card){state.openCard=state.openCard===card.dataset.card?null:card.dataset.card;render();return}
   const vb=t.closest("#view button");if(vb){setView(vb.dataset.v);return}
