@@ -1,0 +1,891 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>AML Rules Tracker – status of every RTS, Guideline and ITS</title>
+<meta name="description" content="A dashboard layout clone: tracks the status of technical standards and guidelines under the EU anti-money-laundering package.">
+<style>
+:root{
+  --navy:#0b2a6f;--blue:#1a56db;--blue-soft:#e8efff;--amber:#e69a1a;--amber-soft:#fff4de;
+  --red:#d2322d;--red-soft:#ffe7e6;--green:#1f9d55;--green-soft:#e3f6ea;--gray:#6b7280;--gray-soft:#eef0f3;
+  --slate:#4b6584;--slate-soft:#e6ecf3;--ink:#0f172a;--muted:#5b6474;--line:#d9dee7;--bg:#f4f6fa;--card:#fff;
+  --radius:10px;--shadow:0 1px 2px #0f172a0f,0 4px 16px #0f172a0d;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:90px}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.45 "Segoe UI",system-ui,-apple-system,Roboto,sans-serif}
+body.locked{overflow:hidden}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+button{font:inherit;cursor:pointer}
+main{max-width:1480px;margin:0 auto;padding:21px 17.5px 42px}
+main[hidden]{display:none}
+section{margin-top:34px}
+h2{font-size:20px;margin:0 0 12px;display:flex;align-items:center;gap:8px;color:var(--navy)}
+h2 .num{background:var(--navy);color:#fff;border-radius:50%;width:20px;height:20px;font-size:11px;display:inline-grid;place-items:center}
+.lead{color:var(--muted);max-width:760px;margin:0 0 14px}
+.muted{color:var(--muted)}
+.small{font-size:12px}
+.ext{width:10px;height:10px;fill:none;stroke:currentColor;stroke-width:2.2;vertical-align:-1px;margin-left:2px}
+
+/* top bar */
+.topbar{background:var(--navy);color:#fff;position:sticky;top:0;z-index:30}
+.topbar .in{max-width:1480px;margin:0 auto;padding:0 17.5px;height:32px;display:flex;align-items:center;gap:22px}
+.topbar .navlinks{display:flex;gap:22px}
+.brand{white-space:nowrap;font-weight:800;font-size:14px;letter-spacing:.2px;margin-right:auto;color:#fff}
+.topbar a{color:#fff;font-size:13px}
+.lang{display:flex;gap:2px;border:1px solid #ffffff55;border-radius:999px;padding:2px}
+.lang button{background:none;border:0;color:#fff;font-size:10px;font-weight:700;padding:2px 7px;border-radius:999px}
+.lang button.on{background:#fff;color:var(--navy)}
+.signin{background:#ffffff22;border:1px solid #ffffff44;color:#fff;border-radius:8px;padding:3px 11px;font-size:11px;font-weight:700}
+.subnav{background:var(--bg);border-bottom:1px solid var(--line);position:sticky;top:32px;z-index:20}
+.subnav .in{max-width:1480px;margin:0 auto;padding:0 17.5px;display:flex;align-items:center;gap:22px;height:50px}
+.subnav a{color:var(--navy);font-size:11.5px;font-weight:600;white-space:nowrap}
+.subnav .cta{margin-left:auto;background:var(--blue);color:#fff;border-radius:8px;padding:7px 14px;font-weight:700;font-size:11.5px}
+.subnav .links{display:flex;gap:22px;overflow-x:auto;scrollbar-width:none}
+
+/* hero */
+.hero{background:radial-gradient(1200px 400px at 85% -20%,#ffd27a40,#0000 60%),linear-gradient(135deg,#0b2a6f 0%,#123c99 55%,#1a56db 100%);
+  color:#fff;border-radius:18px;padding:28px 30px 22px;box-shadow:0 20px 50px #0b2a6f40;display:grid;grid-template-columns:1.25fr 1fr;gap:30px;margin-top:6px}
+.eyebrow{font-size:9.5px;letter-spacing:.14em;font-weight:700;color:var(--muted);text-transform:uppercase}
+.hero .eyebrow,.band .eyebrow{color:#ffd27a}
+.hero h1{font-size:26.6px;line-height:1.15;margin:8px 0 12px;max-width:520px}
+.hero p{margin:0 0 16px;font-size:14.5px;max-width:520px;color:#e6edff}
+.btn{display:inline-block;border-radius:8px;padding:9px 16px;font-weight:700;font-size:13px;border:1px solid transparent}
+.btn.white{background:#fff;color:var(--navy)}
+.btn.ghost{border-color:#ffffff88;color:#fff;background:#ffffff10}
+.btn:hover{text-decoration:none;filter:brightness(.96)}
+.hero .note{font-size:11.5px;color:#dbe5ff;border-bottom:1px solid #ffffff30;padding:12px 0;margin-top:12px;max-width:520px}
+.chips-hero{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.chips-hero span{background:#ffffff1c;border:1px solid #ffffff3a;border-radius:8px;padding:4px 10px;font-size:11px}
+.apply{background:#ffffff12;border:1px solid #ffffff40;border-radius:16px;padding:16px 18px;align-self:start;backdrop-filter:blur(4px)}
+.apply .row{display:flex;justify-content:space-between;font-size:10.5px;letter-spacing:.1em;font-weight:700;color:#ffd27a}
+.apply .row span:last-child{color:#dbe5ff;letter-spacing:0;font-weight:500;font-size:12px}
+.count{display:flex;align-items:baseline;gap:10px;margin:8px 0 10px}
+.count b{font-size:44px;line-height:1;color:#f4c869}
+.count span{font-size:13px;color:#e6edff}
+.bar{height:6px;border-radius:99px;background:#ffffff30;overflow:hidden}
+.bar i{display:block;height:100%;background:#f4c869;border-radius:99px}
+.mini{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0;padding-bottom:12px;border-bottom:1px solid #ffffff30}
+.mini b{display:block;font-size:17px}
+.mini span{font-size:10.5px;color:#dbe5ff;line-height:1.2;display:block}
+.apply label{display:block;font-size:9.5px;font-weight:700;letter-spacing:.12em;color:#dbe5ff;margin-bottom:5px}
+select,input[type=search]{font:inherit;font-size:13px;border:1px solid var(--line);border-radius:8px;padding:8px 10px;background:#fff;color:var(--ink)}
+.apply select{width:100%;border-radius:10px;padding:9px 10px}
+
+/* stat tiles */
+.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:11px;margin-top:14px}
+.tile{background:var(--card);border-radius:12px;box-shadow:0 1px 2px #0f172a0a,0 6px 18px #0f172a0d;border:0;border-left:4px solid var(--navy);padding:9px 12px 10px;text-align:left;color:var(--ink)}
+.tile b{display:block;font-size:20px;color:var(--navy);line-height:1.2}
+.tile span{font-size:11px;color:var(--muted);line-height:1.2;display:block}
+.tile.on{outline:2px solid var(--blue)}
+.tile[data-c=amber]{border-left-color:var(--amber)}
+.tile[data-c=red]{border-left-color:var(--red)}
+.tile[data-c=slate]{border-left-color:var(--slate)}
+.tile[data-c=gray]{border-left-color:var(--gray)}
+.tile[data-c=green]{border-left-color:var(--green)}
+
+/* status colours */
+.c-amber{color:var(--amber)}.c-blue{color:var(--blue)}.c-red{color:var(--red)}.c-slate{color:var(--slate)}.c-gray{color:var(--gray)}.c-green{color:var(--green)}
+.badge{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;border:1.6px solid currentColor;flex:none;vertical-align:middle}
+.badge svg{width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:2}
+.badge.md{width:28px;height:28px}.badge.md svg{width:16px;height:16px}
+.pill{display:inline-block;border-radius:999px;font-size:10.5px;font-weight:700;padding:1.5px 8.5px;white-space:nowrap}
+.pill-amber{background:var(--amber-soft);color:#8a5a00}
+.pill-blue{background:var(--blue-soft);color:#1e3a8a}
+.pill-red{background:var(--red-soft);color:#9b1c1c}
+.pill-slate{background:var(--slate-soft);color:#334e68}
+.pill-gray{background:var(--gray-soft);color:#4b5563}
+.pill-green{background:var(--green-soft);color:#166534}
+.art-link{background:none;border:0;padding:0;color:inherit;font:inherit;text-decoration:underline dotted;text-underline-offset:2px;cursor:pointer}
+.art-link:hover{color:var(--blue)}
+
+/* toolbar */
+.toolbar{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;align-items:center}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:#fff}
+.seg button{border:0;background:#fff;padding:8px 12px;font-size:11.5px;font-weight:700;color:var(--muted)}
+.seg button.on{background:var(--navy);color:#fff}
+.toolbar input[type=search]{min-width:190px;flex:1;max-width:300px}
+.toolbar select{min-width:110px}
+.toolbar select.wide{flex:1;max-width:280px}
+
+/* table */
+.tablewrap{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);overflow:auto;max-height:620px}
+table{border-collapse:collapse;width:100%;font-size:12.6px}
+th{position:sticky;top:0;background:#f3f5f9;color:var(--muted);font-size:9.8px;letter-spacing:.08em;text-transform:uppercase;text-align:left;padding:8px 10.5px;border-bottom:1px solid var(--line);white-space:nowrap;z-index:2}
+.th-sort{background:none;border:0;padding:0;font:inherit;color:inherit;letter-spacing:inherit;text-transform:inherit;cursor:pointer}
+.th-sort.on{color:var(--navy)}
+.th-sort i{font-style:normal;margin-left:3px}
+td{padding:10px 10.5px;border-bottom:1px solid var(--line);vertical-align:top;background:#fafbfd}
+tr:hover td{background:#f0f4fc}
+tr.flash td{animation:flash 2.2s ease-out}
+@keyframes flash{0%,30%{background:#fff4c2}100%{background:#fafbfd}}
+td.c-type{white-space:nowrap;font-weight:700}
+td.c-type .badge{margin-right:6px}
+td.c-title{min-width:210px}
+td.c-title a{font-weight:700;color:var(--blue)}
+td small,.sub{display:block;color:var(--muted);font-size:11px;margin-top:2px}
+.t-art-inline{display:none}
+td.c-art{white-space:nowrap}
+.src-link{font-weight:600;white-space:nowrap}
+.tablefoot{display:flex;justify-content:space-between;font-size:11.5px;color:var(--muted);margin-top:8px}
+
+/* board */
+.board{display:none;grid-template-columns:repeat(6,minmax(210px,1fr));gap:10px;overflow-x:auto;padding-bottom:6px;align-items:start}
+.board.show{display:grid}
+.bcol{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:8px}
+.bhead{display:flex;align-items:center;gap:6px;font-size:11.5px;font-weight:700;color:var(--navy);margin-bottom:8px}
+.bhead i{width:8px;height:8px;border-radius:50%;background:currentColor}
+.bhead .n{margin-left:auto;background:var(--gray-soft);border-radius:99px;padding:0 7px;color:var(--muted)}
+.bcard{background:var(--bg);border:1px solid var(--line);border-radius:8px;margin-bottom:6px}
+.bcard-btn{display:flex;flex-direction:column;gap:3px;width:100%;text-align:left;background:none;border:0;padding:8px 9px;color:var(--ink)}
+.bcard-top{display:flex;gap:6px;align-items:center;font-size:10.5px}
+.chip{display:inline-block;background:var(--gray-soft);color:var(--ink);border:0;border-radius:6px;padding:2px 7px;font-size:11px;font-weight:600}
+button.chip:hover{background:var(--blue-soft);color:var(--navy)}
+.bcard-title{font-weight:700;font-size:12px}
+.bcard-meta{display:flex;flex-direction:column;color:var(--muted);font-size:11px}
+.link-btn{color:var(--blue);font-weight:700;font-size:11px}
+.bcard.open{border-color:var(--blue);background:#fff}
+.bcard-detail{padding:0 6px 8px}
+
+/* instrument card (drawers + board) */
+.inst{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin-top:10px}
+.inst-head{display:flex;gap:10px;align-items:flex-start}
+.inst-type{font-size:10px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:var(--muted)}
+.inst h4{margin:2px 0;font-size:14px}
+.inst-art{font-size:12px;color:var(--muted)}
+.inst-status{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;margin:8px 0;font-size:11.5px;color:var(--muted)}
+ul.links{list-style:none;padding:0;margin:8px 0;font-size:12px}
+ul.links li{margin-bottom:4px}
+.chips{display:flex;flex-wrap:wrap;gap:5px;margin:8px 0}
+details.versions{margin-top:8px;font-size:12px}
+details.versions summary{cursor:pointer;color:var(--navy);font-weight:700}
+.vlist{list-style:none;padding:0;margin:8px 0 0}
+.vlist li{position:relative;padding:0 0 12px 18px;border-left:2px solid var(--line);margin-left:5px}
+.vlist li::before{content:"";position:absolute;left:-6px;top:3px;width:10px;height:10px;border-radius:50%;background:#fff;border:2px solid var(--line)}
+.vlist li.done::before{background:var(--green);border-color:var(--green)}
+.vlist li:last-child{border-left-color:transparent}
+.v-stage{font-weight:700;margin-right:8px}
+
+/* drawers */
+.backdrop{position:fixed;inset:0;background:#0f172a40;opacity:0;pointer-events:none;transition:opacity .2s;z-index:60}
+.backdrop.open{opacity:1;pointer-events:auto}
+.backdrop.b2{z-index:62;background:#0f172a20}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:480px;max-width:100%;background:var(--bg);box-shadow:-8px 0 30px #0f172a33;padding:17.5px 17.5px 28px;overflow-y:auto;transform:translateX(105%);transition:transform .22s ease;z-index:61}
+.drawer.d2{z-index:63}
+.drawer.open{transform:none}
+.dhead{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;margin-bottom:10px}
+.dhead h3{margin:2px 0 4px;font-size:17px;color:var(--ink);line-height:1.25}
+.icon-btn{background:#fff;border:1px solid var(--line);border-radius:8px;width:30px;height:30px;font-size:18px;line-height:1;flex:none}
+.dsub{font-weight:700;color:var(--navy);margin:16px 0 4px}
+.rel-list{list-style:none;padding:0;margin:0}
+.rel-list>li{background:#fff;border:1px solid var(--line);border-radius:10px;padding:8px 10px;margin-bottom:6px;font-size:12.5px}
+.rel-list .pill{margin-left:4px}
+
+/* framework matrix */
+.fw-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+.fw-head h2{margin:0}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:11px;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:5px}
+.cnt{display:inline-grid;place-items:center;min-width:20px;height:20px;border-radius:99px;font-size:10.5px;font-weight:800;padding:0 5px;background:currentColor;flex:none}
+.cnt b{color:#fff}
+.fw-scroll{overflow-x:auto;padding-bottom:8px}
+.fw{min-width:1100px;display:flex;flex-direction:column;gap:8px}
+.fw-row{display:grid;grid-template-columns:120px 1fr;gap:10px;align-items:start}
+.fw-label{font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--navy);padding-top:8px}
+.fw-cells{display:grid;gap:6px}
+.blk{position:relative;display:flex;justify-content:space-between;align-items:center;gap:8px;border-radius:8px;padding:8px 10px;min-height:46px;cursor:pointer;border:1px solid var(--line);border-left:4px solid var(--navy);background:#fff;font-size:12px;font-weight:600;text-align:left;transition:box-shadow .15s}
+.blk.solid{background:#eef2fb;border-color:#d6def0;border-left-color:var(--navy)}
+.blk:hover{box-shadow:0 0 0 2px #1a56db55}
+.blk.sel{box-shadow:0 0 0 2px var(--blue)}
+.blk.empty{opacity:.85}
+.blk.empty.solid{background:#f3f5fa}
+.blk-art{display:block;font-size:10.5px;font-weight:400;color:var(--muted);margin-top:2px}
+.lc{display:grid;grid-template-columns:auto 1fr 18px auto 1.35fr 18px auto .9fr;gap:6px;align-items:stretch}
+.vbar{writing-mode:vertical-rl;transform:rotate(180deg);background:#d7f3e6;color:#1f7a50;border:0;border-radius:6px;font-size:11px;font-weight:700;padding:10px 6px;display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer}
+.vbar:hover{box-shadow:0 0 0 2px #1f9d5555}
+.vbar.sel{box-shadow:0 0 0 2px var(--green)}
+.vbar .cnt{transform:rotate(90deg)}
+.lc-stack{display:flex;flex-direction:column;gap:6px}
+.lc-arrow{display:grid;place-items:center;color:var(--gray);font-size:20px}
+.mon{display:grid;grid-template-columns:1fr 1fr 1.15fr;grid-auto-rows:min-content;gap:6px;align-content:start}
+.mon .fiu{grid-column:3;grid-row:1 / span 2}
+.mon .alerts{grid-column:1 / span 2}
+.mon .reviews{grid-column:1 / span 3;display:grid;grid-template-columns:1fr 1.4fr;gap:6px}
+
+/* other dashboard sections */
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);padding:16px 18px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.glance{margin-top:14px;display:grid;grid-template-columns:1.1fr 1fr;gap:14px}
+.card h3{margin:0 0 8px;font-size:14px;color:var(--navy)}
+.gbars{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:10px}
+.gbars div{background:var(--blue-soft);border-radius:10px;padding:8px 10px}
+.gbars b{display:block;font-size:20px;color:var(--navy)}
+.gbars span{font-size:11px;color:var(--muted)}
+.dl{display:flex;flex-direction:column;gap:8px}
+.dl div{display:grid;grid-template-columns:96px 1fr;gap:10px;font-size:12px;border-bottom:1px dashed var(--line);padding-bottom:8px}
+.dl b{color:var(--navy)}
+.dl small{display:block;color:var(--muted);font-size:10px;letter-spacing:.06em}
+.tag{font-size:10px;font-weight:700;background:var(--blue-soft);color:var(--navy);border-radius:6px;padding:1px 6px;height:max-content;text-align:center}
+.tag.new{background:var(--amber-soft);color:#8a5a00}
+.meta{font-size:11px;color:var(--muted);margin-bottom:8px}
+
+/* daily digest */
+.dg-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:6px}
+.dg-head h2{margin:0}
+.dg-head .seg b{background:var(--amber);color:#fff;border-radius:99px;padding:0 6px;margin-left:3px;font-size:10px}
+.dg-grid{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:14px;align-items:start}
+.dg-list{padding:6px 18px 12px;max-height:760px;overflow-y:auto}
+.dg-day{font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--navy);margin:14px 0 4px;position:sticky;top:-6px;background:#fff;padding:4px 0}
+.dg-item{padding:10px 0;border-bottom:1px solid var(--line)}
+.dg-item.done{opacity:.55}
+.dg-top{display:flex;gap:8px;align-items:center;font-size:11px;color:var(--muted);flex-wrap:wrap}
+.dg-title{display:block;font-weight:700;font-size:13.5px;margin:3px 0}
+.dg-sum{margin:0 0 6px;font-size:12px;color:var(--muted)}
+.dg-match{list-style:none;padding:0;margin:4px 0;font-size:12px}
+.dg-match li{display:flex;gap:6px;align-items:flex-start;margin-bottom:4px}
+.dg-match li .badge{margin-top:-1px}
+.dg-match em{color:var(--ink);font-style:normal;display:block}
+.dg-acts{display:flex;gap:6px;margin-top:6px;align-items:center;font-size:11.5px}
+.dg-acts button{border:1px solid var(--line);background:#fff;border-radius:7px;padding:3px 9px;font-size:11.5px;font-weight:600}
+.dg-acts button.primary{background:var(--navy);border-color:var(--navy);color:#fff}
+.dg-empty{color:var(--muted);padding:18px 0}
+.dg-side h3{margin-top:4px}
+.dg-side h3+*{margin-bottom:16px}
+.dg-sources{list-style:none;padding:0;margin:0;font-size:12px}
+.dg-sources li{display:grid;grid-template-columns:10px 1fr;gap:8px;padding:5px 0;border-bottom:1px dashed var(--line)}
+.dg-sources i{width:8px;height:8px;border-radius:50%;margin-top:5px;background:var(--gray)}
+.dg-sources i.ok{background:var(--green)}.dg-sources i.error{background:var(--red)}
+.dg-sources small{display:block;color:var(--muted);font-size:11px}
+.subnav .nav-count{background:var(--amber);color:#fff;border-radius:99px;padding:0 6px;font-size:10px;margin-left:4px}
+.link-btn-plain{background:none;border:0;padding:0;color:var(--blue);font:inherit;font-weight:600;cursor:pointer}
+.ad{border:1px dashed var(--line);border-radius:12px;padding:16px;text-align:center;color:var(--muted);font-size:12px;background:#fff;margin-top:34px}
+.ad b{display:block;color:var(--navy);font-size:10px;letter-spacing:.14em}
+.band{background:linear-gradient(135deg,#0b2a6f,#1a56db);color:#fff;border-radius:16px;padding:24px 28px;display:flex;justify-content:space-between;gap:20px;align-items:center;flex-wrap:wrap}
+.band h2{color:#fff;margin:4px 0}
+.band p{margin:0;color:#dbe5ff;max-width:620px}
+.ms{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.ms h3{font-size:11px;letter-spacing:.12em;margin:0 0 10px}
+.ms .it{border-left:3px solid var(--line);padding:2px 0 12px 14px;margin-left:5px;position:relative}
+.ms .it::before{content:"";position:absolute;left:-7px;top:4px;width:11px;height:11px;border-radius:50%;background:var(--green);border:2px solid #fff}
+.ms .up .it::before{background:var(--amber)}
+.ms .it time{font-size:11px;font-weight:700;color:var(--navy)}
+.ms .it b{display:block;font-size:13px}
+.ms .it p{margin:3px 0 0;font-size:12px;color:var(--muted)}
+.phases{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:14px}
+.phase{background:#fff;border:1px solid var(--line);border-top:4px solid var(--blue);border-radius:12px;padding:12px}
+.phase small{font-size:10px;font-weight:700;letter-spacing:.12em;color:var(--amber)}
+.phase h4{margin:2px 0 6px;font-size:14px;color:var(--navy)}
+.phase p{margin:0;font-size:12px;color:var(--muted)}
+
+/* instrument pages */
+.ipage{max-width:780px;margin:0 auto}
+.crumb{font-size:12px;margin:8px 0 26px}
+.ipage h1{font-size:26px;margin:6px 0 8px;color:var(--navy)}
+.ip-status{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:12px}
+.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:12px 20px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:14px 0 6px}
+.facts dt{font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--muted)}
+.facts dd{margin:2px 0 0;font-weight:700;font-size:13px}
+.ipage section.card{margin-top:22px}
+.ipage section h2{font-size:17px}
+.ipage .vlist .lbl{display:block;font-size:12px}
+.inst-related{list-style:none;padding:0;margin:0}
+.inst-related li{display:flex;justify-content:space-between;gap:10px;padding:7px 0;border-bottom:1px solid var(--line);font-size:13px}
+.idx-group h2{font-size:15px;margin-top:22px}
+
+footer{background:var(--navy);color:#cbd8f6;padding:22px 17.5px;font-size:12px;margin-top:20px}
+footer .in{max-width:1480px;margin:0 auto}
+footer a{color:#fff}
+.consent{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);background:#fff;border-radius:12px;box-shadow:0 10px 40px #0b2a6f55;padding:14px 18px;max-width:560px;width:calc(100% - 24px);z-index:50;font-size:12.5px}
+.consent .acts{display:flex;gap:8px;margin-top:10px}
+.consent button{border-radius:8px;padding:7px 14px;font-weight:700;border:1.5px solid var(--blue)}
+.consent .y{background:var(--blue);color:#fff}
+.consent .n{background:#fff;color:var(--blue)}
+
+@media (max-width:1100px){.phases{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:820px){
+  .hero{grid-template-columns:1fr;padding:22px 18px}.tiles{grid-template-columns:repeat(2,1fr)}
+  .glance,.grid2,.ms{grid-template-columns:1fr}.grid4{grid-template-columns:1fr 1fr}
+  .topbar .navlinks{display:none}.topbar .in{gap:10px}.lang button{padding:2px 5px}
+  .subnav .cta{display:none}.gbars{grid-template-columns:repeat(2,1fr)}.phases{grid-template-columns:1fr}
+  .dg-grid{grid-template-columns:1fr}
+  td.c-art{display:none}th.c-art{display:none}.t-art-inline{display:inline}
+  .facts{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar"><div class="in">
+  <a class="brand" href="#/">AML Rules Tracker</a>
+  <span class="navlinks"><a href="#instruments">Dashboard</a><a href="#about">What we do</a></span>
+  <div class="lang" id="lang"><button class="on">EN</button><button>NL</button><button>FR</button><button>DE</button><button>ES</button></div>
+  <button class="signin">Sign in</button>
+</div></div>
+
+<nav class="subnav"><div class="in">
+  <div class="links">
+    <a href="#top">Overview</a><a href="#updates">Daily digest<span class="nav-count" id="nav-n" hidden></span></a><a href="#framework">Framework</a><a href="#instruments">Instruments</a>
+    <a href="#timeline">Timeline</a><a href="#sources">Sources</a>
+  </div>
+  <a class="cta" href="#about">✦ What this tool does</a>
+</div></nav>
+
+<main id="top">
+
+  <header class="hero">
+    <div>
+      <div class="eyebrow">Regulatory monitor · status as of 6 Oct 2026</div>
+      <h1>Where every RTS, Guideline and ITS stands</h1>
+      <p><span id="n-total">34</span> instruments, reviewed 6 Oct 2026 and re-checked each day against the regulators' own pages. Every row links back to its source.</p>
+      <a class="btn white" href="#instruments">Browse the instruments</a>
+      <a class="btn ghost" href="#about">What you can do</a>
+      <div class="note">Free to follow. Statuses, dates and source links for every instrument in the AML package.</div>
+      <div class="chips-hero"><span>34 RTS / GL / ITS</span><span>Checked daily</span><span>EBA · AMLA · EUR-Lex</span><span>EN · NL · FR · DE · ES</span><span>Encrypted</span></div>
+    </div>
+    <aside class="apply">
+      <div class="row"><span>RULES APPLY</span><span>10 Jul 2027</span></div>
+      <div class="count"><b id="days">254</b><span>days until 10 Jul 2027</span></div>
+      <div class="bar"><i id="prog" style="width:76%"></i></div>
+      <div class="mini">
+        <div><b id="h-consult">2</b><span>in consultation</span></div>
+        <div><b id="h-closed">3</b><span>consultation closed, being finalised</span></div>
+        <div><b id="h-pub">2</b><span>published / definitive</span></div>
+      </div>
+      <label for="entity">SHOW FOR</label>
+      <select id="entity"></select>
+    </aside>
+  </header>
+
+  <div class="tiles" id="tiles"></div>
+
+  <section id="instruments">
+    <h2><span class="num">1</span>All instruments</h2>
+    <div class="toolbar">
+      <div class="seg" id="view"><button class="on" data-v="table">Table</button><button data-v="board">Board</button></div>
+      <input type="search" id="q" placeholder="Search by name, article, block…">
+      <select id="ftype"><option value="">All types</option><option value="RTS">RTS</option><option value="GL">Guidelines</option><option value="ITS">ITS</option><option value="L1">Level-1</option><option value="NL">Dutch guidance</option></select>
+      <select id="fstatus" class="wide"></select>
+    </div>
+    <div class="tablewrap" id="tw">
+      <table>
+        <thead><tr id="thead"></tr></thead>
+        <tbody id="rows"></tbody>
+      </table>
+    </div>
+    <div class="board" id="board"></div>
+    <div class="tablefoot"><span id="count"></span><a href="#" id="csv">Download the instrument list as CSV</a></div>
+
+    <div class="glance">
+      <div class="card">
+        <h3>At a glance</h3>
+        <p style="margin:0;color:var(--muted)"><b id="g-open" style="color:var(--ink)">32 of 34</b> Level-2/3 instruments are not yet definitive. The base regulation is final and applies in <b id="g-days">254</b> days; the detailed rules are still arriving. The most uncertainty sits in:</p>
+        <div class="gbars"><div><b>8</b><span>Governance</span></div><div><b>4</b><span>Enhanced Due Diligence</span></div><div><b>4</b><span>Policies &amp; procedures</span></div><div><b>4</b><span>Compliance function</span></div></div>
+      </div>
+      <div class="card">
+        <h3>Next deadlines and expected dates</h3>
+        <div class="dl">
+          <div><span><b>31 Dec 2026</b><small>EXPECTED · 11</small></span><span>Risk-assessment RTS (financial and non-financial), AMLA selection RTS, FIU cross-border exchange RTS, +7</span></div>
+          <div><span><b>31 Mar 2027</b><small>EXPECTED · 1</small></span><span>RTS on supervisory colleges</span></div>
+          <div><span><b>30 Jun 2027</b><small>EXPECTED · 2</small></span><span>GL internal controls · GL targeted financial sanctions</span></div>
+          <div><span><b>10 Jul 2027</b><small>EXPECTED · 17</small></span><span>RTS CDD · RTS sanctions &amp; measures · RTS business relationships · RTS group-wide, +13</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="updates">
+    <div class="dg-head">
+      <h2><span class="num">2</span>Daily digest</h2>
+      <div class="seg" id="dg-view"><button class="on" data-dv="todo">To review <b id="dg-n"></b></button><button data-dv="all">All</button><button data-dv="done">Reviewed</button></div>
+    </div>
+    <p class="meta" id="dg-meta"></p>
+    <div class="dg-grid">
+      <div class="card dg-list" id="dg-list"></div>
+      <aside class="card dg-side">
+        <h3>Sources checked</h3><ul class="dg-sources" id="dg-sources"></ul>
+        <h3>Source links</h3><div id="dg-links" class="small"></div>
+      </aside>
+    </div>
+  </section>
+
+  <section id="framework">
+    <div class="fw-head">
+      <h2><span class="num">3</span>Framework</h2>
+      <div class="legend" id="legend"></div>
+    </div>
+    <div class="fw-scroll"><div class="fw" id="fw"></div></div>
+  </section>
+
+  <div class="ad"><b>ADVERTISEMENT</b>Advertise here — reach AML and compliance professionals preparing for the new rules.</div>
+
+  <section id="about">
+    <div class="band">
+      <div>
+        <div class="eyebrow">What this tool does</div>
+        <h2>Start with the monitor, add a workspace when you need one</h2>
+        <p>Free to create. Data is encrypted field by field, two-factor sign-in is built in, and every organisation gets its own workspace.</p>
+      </div>
+      <a class="btn white" href="#instruments">Browse the instruments</a>
+    </div>
+    <div class="grid4" style="margin-top:14px">
+      <div class="card"><div class="eyebrow" style="color:var(--amber)">01</div><h3>Know</h3><p class="lead" style="margin:0">Every instrument with its status, deadline and source, filtered for your type of organisation.</p></div>
+      <div class="card"><div class="eyebrow" style="color:var(--amber)">02</div><h3>Assess</h3><p class="lead" style="margin:0">An impact assessment built from your company profile: what applies, what does not.</p></div>
+      <div class="card"><div class="eyebrow" style="color:var(--amber)">03</div><h3>Run</h3><p class="lead" style="margin:0">Readiness per framework block, tasks, consultations and a roadmap.</p></div>
+      <div class="card"><div class="eyebrow" style="color:var(--amber)">04</div><h3>Prove</h3><p class="lead" style="margin:0">A log of every measure taken, exportable as a printable report for supervisors.</p></div>
+    </div>
+  </section>
+
+  <section id="timeline">
+    <h2><span class="num">4</span>Developments &amp; milestones</h2>
+    <div class="ms card">
+      <div class="up">
+        <h3 style="color:var(--amber)">UPCOMING</h3>
+        <div class="it"><time>31 Dec 2026 · in <span class="d" data-to="2026-12-31"></span> days</time><b>Delivery target for 2026</b><p>First standards on CDD, thresholds and group-wide requirements go to the Commission; several guidelines are published.</p></div>
+        <div class="it"><time>1 Jan 2027 · in <span class="d" data-to="2027-01-01"></span> days</time><b>Data collection for the 2027 selection</b><p>Provisionally eligible institutions report through their national supervisor, January to March.</p></div>
+        <div class="it"><time>1 Jul 2027 · in <span class="d" data-to="2027-07-01"></span> days</time><b>First selection for direct supervision begins</b><p>Up to 40 cross-border institutions chosen; outcome communicated by the end of 2027.</p></div>
+        <div class="it"><time>10 Jul 2027 · in <span class="d" data-to="2027-07-10"></span> days</time><b>The regulation applies</b><p>Obligations apply directly; Member States' transposition deadline for the directive.</p></div>
+        <div class="it"><time>10 Jul 2029 · in <span class="d" data-to="2029-07-10"></span> days</time><b>Football clubs and agents</b><p>Later application date for the newly added sectors.</p></div>
+      </div>
+      <div>
+        <h3 style="color:var(--green)">COMPLETED</h3>
+        <div class="it"><time>15 Aug 2026</time><b>Eligibility data due at AMLA</b><p>National supervisors deliver data on provisionally eligible institutions.</p></div>
+        <div class="it"><time>10 Jul 2026</time><b>Statutory deadline, first tranche of standards</b><p>Several of the first RTS, ITS and guidelines were delivered; others are scheduled for late 2026 or 2027.</p></div>
+        <div class="it"><time>1 Jan 2026</time><b>Mandates handed over from the EBA to AMLA</b><p>Existing EBA guidelines stay in force until replaced.</p></div>
+        <div class="it"><time>16 Dec 2025</time><b>First two final RTS and first public consultation</b><p>Risk-profile and selection RTS sent to the Commission.</p></div>
+        <div class="it"><time>1 Jul 2025</time><b>AMLA operational in Frankfurt</b><p>The Authority begins operating.</p></div>
+        <div class="it"><time>19 Jun 2024</time><b>AML package published in the Official Journal</b><p>Regulation, directive and the AMLA regulation all published.</p></div>
+      </div>
+    </div>
+    <div class="phases">
+      <div class="phase"><small>NOW</small><h4>Prepare</h4><p>Gap analysis, redesign of onboarding, monitoring and reporting, and consultation responses.</p></div>
+      <div class="phase"><small>10 JUL 2027</small><h4>Rules apply</h4><p>Obligations apply directly; first supervisory reviews test the new processes.</p></div>
+      <div class="phase"><small>2028</small><h4>Direct supervision</h4><p>AMLA supervises the first selected cross-border institutions with national supervisors.</p></div>
+      <div class="phase"><small>10 JUL 2029</small><h4>Football sector</h4><p>Clubs and agents become obliged entities.</p></div>
+      <div class="phase"><small>ONGOING</small><h4>Maintain</h4><p>Compliance becomes a standing register of obligations, reviews and findings.</p></div>
+    </div>
+  </section>
+
+  <section id="sources">
+    <h2><span class="num">5</span>Sources</h2>
+    <div class="card" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:6px 24px">
+      <a href="https://eur-lex.europa.eu/eli/reg/2024/1624/oj" target="_blank" rel="noopener noreferrer">AMLR - Regulation (EU) 2024/1624 (EUR-Lex)</a>
+      <a href="https://eur-lex.europa.eu/eli/dir/2024/1640/oj" target="_blank" rel="noopener noreferrer">AMLD6 - Directive (EU) 2024/1640 (EUR-Lex)</a>
+      <a href="https://eur-lex.europa.eu/eli/reg/2024/1620/oj" target="_blank" rel="noopener noreferrer">AMLAR - Regulation (EU) 2024/1620 (EUR-Lex)</a>
+      <a href="https://www.amla.europa.eu/" target="_blank" rel="noopener noreferrer">AMLA - Authority for Anti-Money Laundering</a>
+      <a href="https://www.amla.europa.eu/policy/regulatory-instruments_en" target="_blank" rel="noopener noreferrer">AMLA - regulatory instruments overview</a>
+      <a href="https://www.eba.europa.eu/" target="_blank" rel="noopener noreferrer">EBA - European Banking Authority</a>
+    </div>
+    <p class="meta" style="margin-top:8px">Statuses and expected dates are maintained by hand and were last reviewed on 6 Oct 2026. Check each source link for the current position.</p>
+  </section>
+</main>
+
+<main id="page" hidden></main>
+
+<footer><div class="in">RTS · Guideline · ITS · Level-1 · Dutch guidance &nbsp;|&nbsp; <a href="#/">Back to the dashboard</a><br>Layout study of a regulatory-tracker dashboard. Not legal advice; check each source for the current position.</div></footer>
+
+<div class="backdrop" id="bd1"></div><aside class="drawer" id="dr1" role="dialog" aria-modal="true"></aside>
+<div class="backdrop b2" id="bd2"></div><aside class="drawer d2" id="dr2" role="dialog" aria-modal="true"></aside>
+
+<div class="consent" id="consent">
+  We use analytics to see which pages are read. Only if you accept does it set cookies.
+  <div class="acts"><button class="y" id="acc">Accept</button><button class="n" id="dec">Decline</button></div>
+</div>
+
+<script src="data/instruments.js"></script>
+<script src="data/pages.js"></script>
+<script src="data/digest.js" onerror="window.DIGEST=null"></script>
+<script src="data/linkcheck.js" onerror="window.LINKCHECK=null"></script>
+<script>
+const P=window.PAGES||{};
+const ST={
+  consult:{l:"In consultation",s:"In consultation",c:"amber",t:"A draft is open for comment; the text can still change."},
+  closed:{l:"Consultation closed, being finalised",s:"Closed, being finalised",c:"blue",t:"The consultation has closed and the final draft is being prepared."},
+  final:{l:"Final text, awaiting publication",s:"Final, awaiting publication",c:"red",t:"Final text adopted or sent to the Commission, not yet in the Official Journal."},
+  eba:{l:"EBA guideline in force, AMLA successor pending",s:"EBA applies, AMLA pending",c:"slate",t:"An existing EBA text applies until AMLA adopts its own successor."},
+  ann:{l:"Announced, no draft yet",s:"Announced, no draft",c:"gray",t:"Mandated and scheduled, but no draft has been published yet."},
+  pub:{l:"Published",s:"Published",c:"green",t:"Published and in force, or applying from the date shown."}
+};
+const PRIO=["consult","closed","final","eba","ann","pub"];
+const ICON={
+  RTS:'<path d="M14.5 4.5l5 5-2 2-5-5z"/><path d="M9.5 9.5l5 5-2 2-5-5z"/><path d="M12 12L4 20" stroke-linecap="round"/><path d="M13 7l4 4" stroke-linecap="round"/>',
+  ITS:'<path d="M5 7h3M5 12h3M5 17h3" stroke-linecap="round"/><path d="M11 7h8M11 12h8M11 17h8" stroke-linecap="round"/>',
+  GL:'<path d="M7 3h7l4 4v14H7z" stroke-linejoin="round"/><path d="M14 3v4h4"/><path d="M10 12h6M10 15h6M10 18h4" stroke-linecap="round"/>',
+  L1:'<path d="M12 3v18M6 8l6-3 6 3M6 8v9l6 3 6-3V8" stroke-linejoin="round"/>',
+  NL:'<path d="M6 21V4" stroke-linecap="round"/><path d="M6 4h12l-3 4 3 4H6" stroke-linejoin="round"/>'
+};
+const EXT='<svg class="ext" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6" stroke-linecap="round" stroke-linejoin="round"/><path d="M20 4l-9 9" stroke-linecap="round"/><path d="M19 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h5" stroke-linecap="round"/></svg>';
+const REG={
+  AMLR:{label:"Regulation (EU) 2024/1624 (AMLR)",oj:"L_202401624",full:"https://eur-lex.europa.eu/eli/reg/2024/1624/oj"},
+  AMLD6:{label:"Directive (EU) 2024/1640 (AMLD6)",oj:"L_202401640",full:"https://eur-lex.europa.eu/eli/dir/2024/1640/oj"},
+  AMLAR:{label:"Regulation (EU) 2024/1620 (AMLAR)",oj:"L_202401620",full:"https://eur-lex.europa.eu/eli/reg/2024/1620/oj"}
+};
+// article titles, keyed "REG number"
+const ART={
+  "AMLR 9":"Internal policies, procedures and controls","AMLR 10":"Business-wide risk assessment","AMLR 11":"Compliance functions","AMLR 12":"Awareness of requirements",
+  "AMLR 13":"Integrity of employees","AMLR 14":"Reporting of breaches and protection of reporting persons","AMLR 15":"Situation of specific employees","AMLR 16":"Group-wide requirements",
+  "AMLR 17":"Branches and subsidiaries in third countries","AMLR 18":"Outsourcing","AMLR 19":"Provisions on customer due diligence","AMLR 20":"Customer due diligence measures",
+  "AMLR 21":"Inability to comply with customer due diligence","AMLR 22":"Identification and verification of the customer","AMLR 23":"Identification and verification of the beneficial owner",
+  "AMLR 24":"Verification against registers and discrepancy reporting","AMLR 25":"Purpose and intended nature of the business relationship","AMLR 26":"Ongoing monitoring of the business relationship",
+  "AMLR 27":"Targeted financial sanctions","AMLR 28":"Regulatory technical standards on customer due diligence","AMLR 29":"Identification of high-risk third countries",
+  "AMLR 30":"Third countries with compliance weaknesses","AMLR 31":"Third countries posing a specific and serious threat","AMLR 32":"Guidelines on risk variables and factors",
+  "AMLR 33":"Simplified due diligence","AMLR 34":"Enhanced due diligence","AMLR 37":"Correspondent relationships with crypto-asset service providers","AMLR 40":"Specific enhanced measures",
+  "AMLR 41":"Specific provisions on other higher-risk cases","AMLR 42":"Politically exposed persons","AMLR 43":"Lists of prominent public functions","AMLR 44":"Family members and close associates",
+  "AMLR 45":"Measures after a PEP leaves office","AMLR 46":"Insurance and PEPs","AMLR 47":"Specific provisions for certain customers","AMLR 48":"General provisions on reliance",
+  "AMLR 49":"Process of reliance on another obliged entity","AMLR 50":"Guidelines on reliance and outsourcing","AMLR 51":"Identification of beneficial owners of legal entities",
+  "AMLR 67":"Bearer shares and bearer warrants","AMLR 69":"Reporting of suspicions","AMLR 70":"Specific provisions for certain professions","AMLR 71":"Refraining from carrying out transactions",
+  "AMLR 72":"Disclosure to the FIU","AMLR 73":"Prohibition of disclosure (tipping off)","AMLR 74":"Reporting of threshold-based transactions","AMLR 75":"Partnerships for information sharing",
+  "AMLR 76":"Processing of personal data","AMLR 77":"Retention of records","AMLR 78":"Provision of records to competent authorities","AMLR 81":"FIU reporting to the EPPO",
+  "AMLD6 31":"Exchange of information between FIUs","AMLD6 40":"Risk assessment methodology","AMLD6 41":"Central contact points","AMLD6 46":"Cooperation between home and host supervisors",
+  "AMLD6 49":"AML/CFT supervisory colleges in the financial sector","AMLD6 50":"AML/CFT supervisory colleges in the non-financial sector","AMLD6 53":"Pecuniary sanctions and administrative measures",
+  "AMLAR 11":"Central AML/CFT database","AMLAR 12":"Selection of obliged entities for direct supervision","AMLAR 15":"Cooperation within the AML/CFT supervisory system for direct supervision","AMLAR 41":"AMLA reporting to the EPPO"
+};
+const D=window.INSTRUMENTS||[];
+const BY={};D.forEach(d=>BY[d.id]=d);
+const L2=D.filter(d=>["RTS","GL","ITS"].includes(d.type));
+
+// framework blocks: name -> [kind, AMLR article numbers, instrument ids]
+const BLK={
+  "Commercial Strategy Definition":["solid","",[]],
+  "Risk Appetite":["solid","9, 10",["gl-sira","gl-derisking"]],
+  "Business Wide Risk Assessment / SIRA":["solid","9, 10",["rts-risk-assessment-non-financial","gl-sira"]],
+  "Risk Management and Controls":["solid","9, 16, 17",["rts-risk-assessment","rts-risk-assessment-non-financial","gl-internal-controls"]],
+  "Governance":["solid","9, 16, 17",["rts-selection","rts-sanctions-measures","rts-group-wide","rts-home-host","rts-ccp","its-supervisory-cooperation","gl-internal-controls","gl-sanction-amounts","nl-implementatiewet"]],
+  "Policies & procedures":["solid","9, 16, 17",["rts-risk-assessment","rts-group-wide","gl-internal-controls","gl-tfs","nl-implementatiewet","nl-dnb-leidraad","nl-afm-wwft"]],
+  "3 Lines of Defense Model":["solid","9",["gl-internal-controls"]],
+  "Compliance function":["solid","9, 10, 11, 13, 16",["rts-sanctions-measures","rts-ccp","gl-internal-controls","gl-sanction-amounts","nl-dnb-leidraad"]],
+  "Outsourcing":["solid","18",["gl-outsourcing"]],
+  "Third-party reliance":["solid","48, 49, 50, 75",["gl-partnerships","gl-third-party"]],
+  "Employee Training & Awareness":["solid","12",[]],
+  "Employee Integrity":["solid","13",[]],
+  "Whistleblowing Protection":["solid","14",[]],
+  "Employee Protection":["solid","15",[]],
+  "Client Acceptance - Art. 19":["vbar","19",["rts-cdd","rts-business-relationship","gl-derisking"]],
+  "Identification & Verification of the customer":["default","20, 22, 23, 28",["rts-cdd","eba-gl-remote-onboarding"]],
+  "Identification and verification of the Beneficial Owners":["default","20, 22, 23, 24, 28, 51 to 67",["rts-cdd"]],
+  "Assessing the Ownership and control structure":["default","20, 28",["rts-cdd"]],
+  "Purpose & Nature of Business Relationship":["default","20, 25, 28",["rts-cdd","rts-business-relationship"]],
+  "Transaction profile":["default","20, 25, 28",["rts-cdd","rts-business-relationship"]],
+  "Sanctions Screening":["default","27, 28",["rts-cdd","gl-tfs","nl-dnb-leidraad"]],
+  "Politically Exposed Persons Screening":["default","28, 42, 43, 44, 45, 46",["rts-cdd","gl-pep","nl-pep-list"]],
+  "Simplified Due Diligence":["default","28, 33",["rts-cdd","rts-business-relationship"]],
+  "Enhanced Due Diligence":["default","28, 34 to 41, 47",["rts-cdd","gl-high-risk-countries","gl-edd-crypto","gl-edd-hnwi","nl-afm-wwft"]],
+  "Ongoing monitoring - Art. 20, 26":["vbar","20, 26",[]],
+  "Client Filtering":["default","27",["gl-tfs"]],
+  "Client Monitoring":["default","26",["gl-monitoring"]],
+  "Transaction filtering":["default","27",["gl-tfs","eba-gl-travel-rule"]],
+  "Transaction monitoring":["default","26, 69",["rts-business-relationship","its-str","gl-monitoring","nl-dnb-leidraad"]],
+  "FIU Reporting":["default","21, 69, 70, 71, 72, 73, 74",["amld6","its-str","gl-str","nl-implementatiewet","nl-fiu-goaml"]],
+  "Alert handling":["wide","",["gl-monitoring","gl-str","nl-fiu-goaml"]],
+  "Periodic review":["wide","20, 26",["gl-monitoring","gl-risk-factors"]],
+  "Event Driven Review":["wide","20, 26",[]],
+  "Customer Exit":["vbar","",[]],
+  "Compliance Exit":["default","21",["gl-derisking"]],
+  "Commercial Exit":["default","",[]],
+  "Record Retention":["default","77, 78",[]],
+  "Client Risk Assessment resulting in new/updated/confirmed AML/CFT risk classification":["solid","20, 28, 29, 30, 31, 32",["rts-risk-assessment","gl-risk-factors","gl-high-risk-countries"]],
+  "Data & analytics":["solid","76",["gl-partnerships"]],
+  "Management information & reporting":["solid","",["rts-selection","rts-risk-assessment-non-financial"]],
+  "Systems & tooling":["solid","78",["its-str","eba-gl-remote-onboarding","eba-gl-travel-rule","nl-fiu-goaml"]],
+  "AML/CFT models":["solid","",["gl-monitoring"]]
+};
+const CHIP_ALIAS={"Client Acceptance":"Client Acceptance - Art. 19"};
+const FW_ROWS=[
+  ["Strategy & Risk",["Commercial Strategy Definition","Risk Appetite","Business Wide Risk Assessment / SIRA","Risk Management and Controls"]],
+  ["Governance, policies & oversight",["Governance","Policies & procedures","3 Lines of Defense Model","Compliance function","Outsourcing","Third-party reliance"]],
+  ["People, culture & conduct",["Employee Training & Awareness","Employee Integrity","Whistleblowing Protection","Employee Protection"]],
+  ["Client Lifecycle","lifecycle"],
+  ["",["Client Risk Assessment resulting in new/updated/confirmed AML/CFT risk classification"]],
+  ["Data, technology & detection",["Data & analytics","Management information & reporting","Systems & tooling","AML/CFT models"]]
+];
+
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const fmt=iso=>iso?new Date(iso+"T00:00:00").toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric"}):"—";
+const fmtUS=s=>{const d=new Date(s);return isNaN(d)?s:d.toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric"})};
+const today=new Date(new Date().toDateString());
+const dayDiff=to=>Math.ceil((new Date(to+"T00:00:00")-today)/864e5);
+const fact=(id,k)=>(P[id]?.f||[]).find(f=>f[0]===k)?.[1];
+const artTitle=k=>`Article ${k.split(" ")[1]}: ${ART[k]}`;
+const badge=(d,cls="")=>`<span class="badge ${cls} c-${ST[d.status].c}" title="${esc(ST[d.status].l)}"><svg viewBox="0 0 24 24" aria-hidden="true">${ICON[d.type]}</svg></span>`;
+const pill=(st,long)=>`<span class="pill pill-${ST[st].c}" title="${esc(ST[st].t)}">${esc(long?ST[st].l:ST[st].s)}</span>`;
+const artBtn=(k,label)=>`<button type="button" class="art-link" data-art="${k}" title="${esc(artTitle(k))}">${label}</button>`;
+// link every number in an article reference that matches one of the given article keys
+function artHTML(text,keys){
+  const used=new Set();
+  return esc(text).replace(/\b\d+\b/g,n=>{const k=keys.find(k=>k.split(" ")[1]===n&&!used.has(k));if(!k)return n;used.add(k);return artBtn(k,n)});
+}
+const blockKeys=b=>(BLK[b]?.[1]||"").match(/\d+/g)?.map(n=>"AMLR "+n).filter(k=>ART[k])||[];
+const blockArt=b=>BLK[b][1]?`Art. ${artHTML(BLK[b][1],blockKeys(b))}`:"";
+const blockStatus=b=>{const ids=BLK[b][2];return PRIO.find(p=>ids.some(id=>BY[id].status===p))};
+const blocksOf=id=>(P[id]?.bl||[]).map(n=>CHIP_ALIAS[n]||n);
+
+/* ---------- header counters ---------- */
+const C={total:L2.length,open:0};PRIO.forEach(k=>C[k]=L2.filter(d=>d.status===k).length);
+$("#days").textContent=$("#g-days").textContent=dayDiff("2027-07-10");
+document.querySelectorAll(".d").forEach(e=>e.textContent=dayDiff(e.dataset.to));
+$("#h-consult").textContent=C.consult;$("#h-closed").textContent=C.closed;$("#h-pub").textContent=C.pub;
+$("#n-total").textContent=C.total;$("#g-open").textContent=`${C.total-C.pub} of ${C.total}`;
+$("#prog").style.width=Math.min(100,Math.max(0,(1-dayDiff("2027-07-10")/1000)*100))+"%";
+$("#entity").innerHTML=["All entity types","Bank / credit institution","Other financial institution","Mortgage lender / credit intermediary","Payment / e-money institution","Investment firm / fund manager","Life insurer / intermediary","Pension fund / administrator","Crowdfunding service provider","Crypto-asset service provider","Trust or company service provider","Accountant / auditor","Tax adviser","Lawyer / notary","External compliance / CDD adviser","Estate agent / valuer","Dealer in high-value goods","Auction house","Gambling operator","Football club / agent","Other obliged entity"].map(e=>`<option>${e}</option>`).join("");
+
+/* ---------- instruments: tiles, filters, table, board ---------- */
+const TILES=[["total","RTS / GL / ITS tracked","navy"],["consult","In consultation","amber"],["closed","Consultation closed, being finalised","navy"],["final","Final, not yet published","red"],["eba","EBA guideline in force, AMLA successor pending","slate"],["ann","Announced, no draft yet","gray"],["pub","Published / definitive","green"],["open","Consultations open now","navy"]];
+const state={status:"",type:"",q:"",sort:"last",dir:-1,view:"table",openCard:null};
+$("#fstatus").innerHTML='<option value="">All statuses</option><option value="open">Consultation open now</option>'+PRIO.map(k=>`<option value="${k}">${ST[k].l}</option>`).join("");
+$("#tiles").innerHTML=TILES.map(([k,l,c])=>`<button type="button" class="tile" data-c="${c}" data-k="${k}"><b>${C[k]}</b><span>${l}</span></button>`).join("");
+const isOpen=d=>d.status==="consult"&&fact(d.id,"Consultation closed")&&new Date(fact(d.id,"Consultation closed"))>=today;
+function pass(d){
+  if(state.type&&d.type!==state.type)return false;
+  if(state.status==="open"?!isOpen(d):state.status&&d.status!==state.status)return false;
+  if(state.q){const hay=[d.name,d.art,d.by,d.type,d.short,...blocksOf(d.id)].join(" ").toLowerCase();if(!hay.includes(state.q))return false}
+  return true;
+}
+const COLS=[["type","Type","c-type"],["name","Instrument","c-title"],[null,"Articles","c-art"],["status","Status","c-status"],["next","Next date","c-next"],["last","Last step","c-last"],[null,"Source","c-src"]];
+function sortVal(d,k){return k==="status"?PRIO.indexOf(d.status):(d[k]||"")}
+function render(){
+  document.querySelectorAll(".tile").forEach(t=>t.classList.toggle("on",(t.dataset.k==="total"&&!state.status)||t.dataset.k===state.status));
+  $("#thead").innerHTML=COLS.map(([k,l,c])=>`<th class="${c}">${k?`<button type="button" class="th-sort${state.sort===k?" on":""}" data-sort="${k}" title="Sort by ${l}">${l}<i>${state.sort===k?(state.dir<0?"↓":"↑"):"↕"}</i></button>`:l}</th>`).join("");
+  const list=D.filter(pass).sort((a,b)=>{const x=sortVal(a,state.sort),y=sortVal(b,state.sort);
+    if(x===""&&y!=="")return 1;if(y===""&&x!=="")return -1;return (x>y?1:x<y?-1:0)*state.dir;});
+  $("#count").textContent=`${list.length} of ${D.length} instruments shown`;
+  $("#rows").innerHTML=list.map(d=>{const src=P[d.id]?.s?.[0];return `<tr id="${d.id}">
+    <td class="c-type">${badge(d)}${d.type}</td>
+    <td class="c-title"><a href="#/instruments/${d.id}" title="Page with status, dates and sources">${esc(d.name)}</a><small>${esc(d.by)}<span class="t-art-inline"> · ${esc(d.art)}</span></small></td>
+    <td class="c-art">${artHTML(d.art,d.arts)}</td>
+    <td class="c-status">${pill(d.status)}</td>
+    <td class="c-next">${d.next?`${fmt(d.next)}<small>${d.nextNote}</small>`:"—"}</td>
+    <td class="c-last">${d.last?`${fmt(d.last)}<small>${d.lastNote}</small>`:`<small>No dated step yet</small>`}</td>
+    <td class="c-src">${src?`<a class="src-link" href="${esc(src[0])}" target="_blank" rel="noopener noreferrer" title="${esc(src[1])}">${esc(d.by)} ${EXT}</a>`:"—"}</td></tr>`}).join("");
+  $("#board").innerHTML=PRIO.map(k=>{const items=list.filter(d=>d.status===k);
+    return `<div class="bcol"><div class="bhead c-${ST[k].c}" title="${esc(ST[k].l+". "+ST[k].t)}"><i></i><span style="color:var(--navy)">${ST[k].s}</span><span class="n">${items.length}</span></div>${items.map(boardCard).join("")}</div>`}).join("");
+}
+function boardCard(d){
+  const open=state.openCard===d.id,meta=[];
+  const cc=fact(d.id,"Consultation closed");
+  if(d.status==="consult"&&cc){const n=Math.round((today-new Date(cc))/864e5);meta.push(`Consultation closes ${fmtUS(cc)} (${n>=0?n+" days ago":"in "+(-n)+" days"})`)}
+  if(d.next&&d.nextNote==="Expected")meta.push(`Expected ${fmt(d.next)}`);
+  meta.push(`${blocksOf(d.id).length} blocks`);
+  return `<div class="bcard${open?" open":""}"><button type="button" class="bcard-btn" data-card="${d.id}" aria-expanded="${open}">
+    <span class="bcard-top"><span class="chip">${d.type}</span><span class="muted">${esc(d.by)}</span></span>
+    <span class="bcard-title">${esc(d.name)}</span><span class="muted small">${esc(d.art)}</span>
+    <span class="bcard-meta">${meta.map(m=>`<span>${m}</span>`).join("")}</span><span class="link-btn">${open?"Close":"Details"}</span></button>
+    ${open?`<div class="bcard-detail">${instCard(d.id)}</div>`:""}</div>`;
+}
+
+/* ---------- instrument card, used in block drawers and the board ---------- */
+function instCard(id){
+  const d=BY[id],p=P[id]||{f:[],v:[],s:[],bl:[]};
+  const cc=fact(id,"Consultation closed"),ex=fact(id,"Expected");
+  return `<article class="inst" id="inst-${id}">
+    <header class="inst-head">${badge(d,"md")}<div><div class="inst-type">${esc(p.eb||d.type)}</div><h4>${esc(d.name)}</h4><span class="inst-art">${artHTML(d.art,d.arts)}</span></div></header>
+    <p class="small" style="margin:6px 0"><a href="#/instruments/${id}">Page with status, dates and sources</a></p>
+    <div class="inst-status">${pill(d.status,true)}${cc?`<span>Consultation closed ${fmtUS(cc)}</span>`:""}${ex?`<span>Expected: ${fmtUS(ex)}</span>`:""}</div>
+    <ul class="links">${p.s.map(s=>`<li><a href="${esc(s[0])}" target="_blank" rel="noopener noreferrer">${esc(s[1])} ${EXT}</a></li>`).join("")}</ul>
+    ${p.bl.length?`<div class="chips">${p.bl.map(b=>`<span class="chip">${esc(b)}</span>`).join("")}</div>`:""}
+    ${p.v.length?`<details class="versions"><summary>Versions and what changed</summary>${versionList(p.v)}</details>`:""}
+  </article>`;
+}
+const versionList=v=>`<ol class="vlist">${v.map(x=>`<li class="${x[0]?"done":""}"><span class="v-stage">${esc(x[1])}</span><span class="muted small">${esc(x[2])}</span>${x[3]?`<span class="lbl">${esc(x[3])}</span>`:""}${x[4]?`<a class="small" href="${esc(x[4])}" target="_blank" rel="noopener noreferrer">Sources ${EXT}</a>`:""}</li>`).join("")}</ol>`;
+
+/* ---------- framework matrix ---------- */
+$("#legend").innerHTML=PRIO.map(k=>`<span title="${esc(ST[k].t)}"><span class="cnt c-${ST[k].c}"><b>n</b></span>${ST[k].l}</span>`).join("");
+function blockHTML(name,extra=""){
+  const [kind,,ids]=BLK[name],st=blockStatus(name);
+  const tip=ids.map(id=>`${BY[id].type} · ${BY[id].short}: ${ST[BY[id].status].l}`).join("\n");
+  const cnt=ids.length?`<span class="cnt c-${ST[st].c}" title="${esc(tip)}" aria-label="${ids.length} instruments"><b>${ids.length}</b></span>`:"";
+  if(kind==="vbar")return `<div role="button" tabindex="0" class="vbar" data-block="${esc(name)}"><span>${esc(name)}</span>${cnt}</div>`;
+  return `<div role="button" tabindex="0" class="blk ${kind}${ids.length?"":" empty"} ${extra}" data-block="${esc(name)}"><span><span class="blk-name">${esc(name)}</span>${BLK[name][1]?`<span class="blk-art">${blockArt(name)}</span>`:""}</span>${cnt}</div>`;
+}
+const stack=names=>`<div class="lc-stack">${names.map(n=>blockHTML(n)).join("")}</div>`;
+$("#fw").innerHTML=FW_ROWS.map(([label,cells])=>{
+  if(cells==="lifecycle")return `<div class="fw-row"><div class="fw-label">${label}</div><div class="lc">
+    ${blockHTML("Client Acceptance - Art. 19")}${stack(["Identification & Verification of the customer","Identification and verification of the Beneficial Owners","Assessing the Ownership and control structure","Purpose & Nature of Business Relationship","Transaction profile","Sanctions Screening","Politically Exposed Persons Screening","Simplified Due Diligence","Enhanced Due Diligence"])}
+    <div class="lc-arrow">›</div>
+    ${blockHTML("Ongoing monitoring - Art. 20, 26")}
+    <div class="mon">${["Client Filtering","Client Monitoring"].map(n=>blockHTML(n)).join("")}${blockHTML("FIU Reporting","fiu")}${["Transaction filtering","Transaction monitoring"].map(n=>blockHTML(n)).join("")}
+      ${blockHTML("Alert handling","alerts")}<div class="reviews">${blockHTML("Periodic review")}${blockHTML("Event Driven Review")}</div></div>
+    <div class="lc-arrow">›</div>
+    ${blockHTML("Customer Exit")}${stack(["Compliance Exit","Commercial Exit","Record Retention"])}
+  </div></div>`;
+  return `<div class="fw-row"><div class="fw-label">${label}</div><div class="fw-cells" style="grid-template-columns:repeat(${cells.length},minmax(0,1fr))">${cells.map(n=>blockHTML(n)).join("")}</div></div>`;
+}).join("");
+
+/* ---------- drawers ---------- */
+const dr=[null,$("#dr1"),$("#dr2")],bd=[null,$("#bd1"),$("#bd2")];
+function openDrawer(level,html,label){
+  dr[level].innerHTML=html;dr[level].setAttribute("aria-label",label);dr[level].scrollTop=0;
+  dr[level].classList.add("open");bd[level].classList.add("open");document.body.classList.add("locked");
+}
+function closeDrawer(level){
+  dr[level].classList.remove("open");bd[level].classList.remove("open");
+  if(level===1)document.querySelectorAll("[data-block].sel").forEach(b=>b.classList.remove("sel"));
+  if(!dr[1].classList.contains("open")&&!dr[2].classList.contains("open"))document.body.classList.remove("locked");
+}
+const closeAll=()=>{closeDrawer(2);closeDrawer(1)};
+const dhead=(eyebrow,title,sub,level)=>`<header class="dhead"><div><div class="eyebrow">${eyebrow}</div><h3>${esc(title)}</h3>${sub||""}</div><button type="button" class="icon-btn" data-close="${level}" aria-label="Close">×</button></header>`;
+function openBlock(name){
+  if(!BLK[name])return;
+  closeDrawer(2);
+  document.querySelectorAll("[data-block]").forEach(b=>b.classList.toggle("sel",b.dataset.block===name));
+  const ids=BLK[name][2],keys=name==="Client Acceptance - Art. 19"?["AMLR 19"]:blockKeys(name);
+  const sub=BLK[name][1]?`<span class="inst-art">Art. ${artHTML(BLK[name][1],keys)} AMLR</span>`:"";
+  openDrawer(1,dhead("Framework block",name,sub,1)+
+    `<p class="muted">${ids.length?`${ids.length} instrument${ids.length>1?"s affect":" affects"} this block.`:"No RTS, Guideline or ITS is known for this block. The obligations follow directly from the AMLR articles."}</p>`+
+    ids.map(instCard).join(""),name);
+}
+function openArt(key){
+  const [reg,n]=key.split(" "),R=REG[reg];
+  const rel=D.filter(d=>d.arts.includes(key));
+  const blocks=reg==="AMLR"?Object.keys(BLK).filter(b=>BLK[b][0]!=="vbar"&&blockKeys(b).includes(key)):[];
+  openDrawer(2,dhead(R.label,`Article ${n} - ${ART[key]}`,"",2)+
+    `<ul class="links"><li><a href="https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:${R.oj}#art_${n}" target="_blank" rel="noopener noreferrer">Article ${n} on EUR-Lex (authentic text) ${EXT}</a></li>
+      <li><a href="${R.full}" target="_blank" rel="noopener noreferrer">${R.label.replace(/ \((\w+)\)$/," ($1)")}, full text ${EXT}</a></li>
+      <li><a href="https://www.amla.europa.eu/" target="_blank" rel="noopener noreferrer">AMLA - Authority for Anti-Money Laundering ${EXT}</a></li></ul>
+    <p class="muted small">The EUR-Lex link opens the authentic text at this article.</p>
+    ${rel.length?`<div class="dsub">Related instruments</div><ul class="rel-list">${rel.map(d=>`<li>${badge(d)} <strong>${d.type}</strong> ${esc(d.name)} ${pill(d.status,true)}
+      <ul class="links small">${(P[d.id]?.s||[]).map(s=>`<li><a href="${esc(s[0])}" target="_blank" rel="noopener noreferrer">${esc(s[1])} ${EXT}</a></li>`).join("")}</ul></li>`).join("")}</ul>`:""}
+    ${blocks.length?`<div class="dsub">Framework blocks</div><div class="chips">${blocks.map(b=>`<button type="button" class="chip" data-block="${esc(b)}">${esc(b)}</button>`).join("")}</div>`:""}`,
+    `Article ${n}`);
+}
+
+/* ---------- instrument pages (#/instruments/<id>) ---------- */
+function pageHTML(id){
+  const d=BY[id],p=P[id]||{f:[],v:[],s:[],bl:[],r:[]};
+  return `<div class="ipage">
+    <nav class="crumb"><a href="#/">AML Rules Tracker</a> · <a href="#/instruments">Every RTS, Guideline and ITS</a></nav>
+    <div class="eyebrow">Register · ${esc(p.eb)}</div>
+    <h1>${esc(d.name)}</h1>
+    <div class="ip-status">${badge(d,"md")}${pill(d.status,true)}<span class="muted">Status reviewed October 6, 2026</span></div>
+    <dl class="facts">${p.f.map(f=>`<div><dt>${esc(f[0])}</dt><dd>${esc(f[1])}</dd></div>`).join("")}</dl>
+    <p class="muted small">${esc(ST[d.status].t)}</p>
+    ${p.v.length?`<section class="card"><h2>Versions and what changed</h2>${versionList(p.v)}</section>`:""}
+    <section class="card"><h2>Sources</h2><ul class="links">${p.s.map(s=>`<li><a href="${esc(s[0])}" target="_blank" rel="noopener noreferrer">${esc(s[1])} ${EXT}</a></li>`).join("")}</ul>
+      ${p.bl.length?`<h2>Framework blocks it lands on</h2><div class="chips">${p.bl.map(b=>`<span class="chip">${esc(b)}</span>`).join("")}</div>`:""}
+      <p class="small">This instrument on the dashboard, with the other instruments and the framework: <a href="#${id}">Open on the dashboard</a></p></section>
+    ${p.r.length?`<section class="card"><h2>Other instruments</h2><ul class="inst-related">${p.r.filter(r=>BY[r]).map(r=>`<li><a href="#/instruments/${r}">${esc(BY[r].name)}</a>${pill(BY[r].status,true)}</li>`).join("")}</ul></section>`:""}
+    <p class="small" style="margin-top:22px"><a href="#/instruments">Every RTS, Guideline and ITS under the AMLR</a></p>
+  </div>`;
+}
+function indexHTML(){
+  const groups=[["RTS","Regulatory Technical Standards"],["ITS","Implementing Technical Standards"],["GL","Guidelines"],["L1","Level-1 legislation"],["NL","Dutch guidance"]];
+  return `<div class="ipage"><nav class="crumb"><a href="#/">AML Rules Tracker</a></nav>
+    <div class="eyebrow">Register</div><h1>Every RTS, Guideline and ITS under the AMLR</h1>
+    <p class="muted">${D.length} instruments, each with its own page of status, dates and sources.</p>
+    ${groups.map(([t,l])=>`<div class="idx-group"><h2>${l}</h2><ul class="inst-related">${D.filter(d=>d.type===t).map(d=>`<li><a href="#/instruments/${d.id}">${esc(d.name)}</a>${pill(d.status,true)}</li>`).join("")}</ul></div>`).join("")}
+  </div>`;
+}
+
+/* ---------- daily digest (data/digest.js, written by monitor/fetch.py) ---------- */
+const DG=window.DIGEST,LC=window.LINKCHECK,RV_KEY="amlr-digest-review";
+let review={};try{review=JSON.parse(localStorage.getItem(RV_KEY))||{}}catch(e){}
+const dgState={view:"todo"};
+function saveReview(){try{localStorage.setItem(RV_KEY,JSON.stringify(review))}catch(e){}}
+function dayLabel(iso,backfill){
+  if(backfill)return "Already published when monitoring started";
+  const n=Math.round((today-new Date(iso+"T00:00:00"))/864e5);
+  return n===0?"Found today":n===1?"Found yesterday":"Found "+fmt(iso);
+}
+function digestItem(i){
+  const done=review[i.id];
+  const matches=i.matches.filter(m=>BY[m.id]);
+  return `<article class="dg-item${done?" done":""}">
+    <div class="dg-top">${i.sources.map(s=>`<span class="tag">${esc(s)}</span>`).join("")}${matches.length?"":`<span class="tag new">Not tracked yet</span>`}<time>${i.date?fmt(i.date):""}</time></div>
+    <a class="dg-title" href="${esc(i.link)}" target="_blank" rel="noopener noreferrer">${esc(i.title)} ${EXT}</a>
+    ${i.summary&&i.summary!==i.title?`<p class="dg-sum">${esc(i.summary)}</p>`:""}
+    ${matches.length?`<ul class="dg-match">${matches.map(m=>`<li>${badge(BY[m.id])}<span><a href="#/instruments/${m.id}">${esc(BY[m.id].short)}</a> ${pill(BY[m.id].status)} <span class="muted">· linked by ${esc(m.how)}</span><em>${esc(m.suggest)}</em></span></li>`).join("")}</ul>`
+      :`<p class="dg-sum">Not linked to a tracked instrument. Worth adding as a new instrument?</p>`}
+    <div class="dg-acts">${done?`<span class="muted">${done==="reviewed"?"Reviewed":"Dismissed"}</span><button type="button" data-rv="${i.id}" data-to="">Undo</button>`
+      :`<button type="button" class="primary" data-rv="${i.id}" data-to="reviewed">Mark reviewed</button><button type="button" data-rv="${i.id}" data-to="dismissed">Dismiss</button>`}</div>
+  </article>`;
+}
+function renderDigest(){
+  if(!DG){$("#dg-list").innerHTML=`<p class="dg-empty">No daily check has run yet. Run <code>python3 monitor/fetch.py</code>, or wait for the scheduled run.</p>`;$("#dg-meta").textContent="";return}
+  const todo=DG.items.filter(i=>!review[i.id]);
+  $("#dg-n").textContent=todo.length;$("#nav-n").textContent=todo.length;$("#nav-n").hidden=!todo.length;
+  const list=dgState.view==="todo"?todo:dgState.view==="done"?DG.items.filter(i=>review[i.id]):DG.items;
+  const ok=DG.sources.filter(s=>s.state==="ok").length,auto=DG.sources.filter(s=>s.state!=="manual").length;
+  $("#dg-meta").innerHTML=`Last check ${new Date(DG.generated).toLocaleString("en-GB",{day:"numeric",month:"short",year:"numeric",hour:"2-digit",minute:"2-digit"})} · ${ok} of ${auto} automated sources answered · statuses only change after your review`
+    +(dgState.view==="todo"&&todo.length?` · <button type="button" class="link-btn-plain" id="dg-all">Mark all ${todo.length} reviewed</button>`:"");
+  let html="",day=null;
+  list.forEach(i=>{const d=dayLabel(i.found,i.backfill);if(d!==day){day=d;html+=`<div class="dg-day">${d}</div>`}html+=digestItem(i)});
+  $("#dg-list").innerHTML=html||`<p class="dg-empty">${dgState.view==="todo"?"Nothing left to review.":"Nothing here yet."}</p>`;
+  $("#dg-sources").innerHTML=DG.sources.map(s=>`<li><i class="${s.state}"></i><span><a href="${esc(s.url)}" target="_blank" rel="noopener noreferrer">${esc(s.label)}</a>
+    <small>${s.state==="ok"?`${s.fetched} relevant in feed · ${s.new} new on last run`:s.state==="manual"?"Blocks scripts or has no feed: check by hand":`Failed: ${esc(s.error)}`}</small></span></li>`).join("");
+  $("#dg-links").innerHTML=LC?`${LC.counts.ok+LC.counts.unchecked+LC.counts.broken+LC.counts.error} links checked on ${fmt(LC.checked.slice(0,10))}: ${LC.counts.ok} open, ${LC.counts.unchecked} not checkable (site blocks scripts), ${LC.counts.broken+LC.counts.error} failed.
+    ${LC.problems.length?`<ul class="links">${LC.problems.map(p=>`<li><a href="${esc(p.url)}" target="_blank" rel="noopener noreferrer">${esc(p.title)}</a> <span class="muted">(${esc(p.code)}) · ${p.instruments.map(id=>`<a href="#/instruments/${id}">${esc(BY[id]?.short||id)}</a>`).join(", ")}</span></li>`).join("")}</ul>`:""}`
+    :"The monthly link check has not run yet.";
+}
+document.addEventListener("click",e=>{
+  const rv=e.target.closest("[data-rv]");
+  if(rv){if(rv.dataset.to)review[rv.dataset.rv]=rv.dataset.to;else delete review[rv.dataset.rv];saveReview();renderDigest();return}
+  if(e.target.id==="dg-all"){DG.items.forEach(i=>{if(!review[i.id])review[i.id]="reviewed"});saveReview();renderDigest();return}
+  const dv=e.target.closest("[data-dv]");
+  if(dv){dgState.view=dv.dataset.dv;document.querySelectorAll("#dg-view button").forEach(b=>b.classList.toggle("on",b===dv));renderDigest()}
+});
+
+/* ---------- routing ---------- */
+const BASE_TITLE=document.title;
+function route(){
+  const h=decodeURIComponent(location.hash);
+  const m=h.match(/^#\/instruments(?:\/([\w-]+))?\/?$/);
+  closeAll();
+  if(m){
+    $("#top").hidden=true;$("#page").hidden=false;
+    const id=m[1]&&BY[m[1]]?m[1]:null;
+    $("#page").innerHTML=id?pageHTML(id):indexHTML();
+    document.title=id?`${BY[id].name}: status, dates and sources`:"Every RTS, Guideline and ITS";
+    window.scrollTo({top:0,behavior:"instant"});return;
+  }
+  const wasPage=!$("#page").hidden;
+  $("#top").hidden=false;$("#page").hidden=true;document.title=BASE_TITLE;
+  const id=h.slice(1);
+  if(BY[id]){ // "Open on the dashboard": show the row and flash it
+    Object.assign(state,{status:"",type:"",q:""});$("#q").value="";$("#ftype").value="";$("#fstatus").value="";
+    if(state.view!=="table")setView("table");
+    render();const row=document.getElementById(id);
+    requestAnimationFrame(()=>{document.getElementById("instruments").scrollIntoView({behavior:"instant"});row.scrollIntoView({block:"center",behavior:"instant"});row.classList.add("flash")});
+  }else if(id&&id!=="/"){const el=document.getElementById(id);if(el)el.scrollIntoView({behavior:wasPage?"instant":"smooth"})}
+  else if(wasPage)window.scrollTo({top:0,behavior:"instant"});
+}
+window.addEventListener("hashchange",route);
+
+/* ---------- events ---------- */
+function setView(v){state.view=v;document.querySelectorAll("#view button").forEach(x=>x.classList.toggle("on",x.dataset.v===v));
+  $("#tw").style.display=v==="board"?"none":"";$("#board").classList.toggle("show",v==="board");}
+document.addEventListener("click",e=>{
+  const t=e.target;
+  const art=t.closest(".art-link");if(art){e.preventDefault();e.stopPropagation();openArt(art.dataset.art);return}
+  const blk=t.closest("[data-block]");if(blk){openBlock(blk.dataset.block);return}
+  const cl=t.closest("[data-close]");if(cl){closeDrawer(+cl.dataset.close);return}
+  if(t.classList.contains("backdrop")){closeDrawer(t.id==="bd2"?2:1);return}
+  const tile=t.closest(".tile");if(tile){const k=tile.dataset.k;state.status=(k==="total"||state.status===k)?"":k;$("#fstatus").value=state.status;render();return}
+  const th=t.closest("[data-sort]");if(th){const k=th.dataset.sort;state.dir=state.sort===k?-state.dir:1;state.sort=k;render();return}
+  const card=t.closest("[data-card]");if(card){state.openCard=state.openCard===card.dataset.card?null:card.dataset.card;render();return}
+  const vb=t.closest("#view button");if(vb){setView(vb.dataset.v);return}
+});
+document.addEventListener("keydown",e=>{
+  if(e.key==="Escape"){if(dr[2].classList.contains("open"))closeDrawer(2);else closeDrawer(1)}
+  if((e.key==="Enter"||e.key===" ")&&e.target.matches("[role=button][data-block]")){e.preventDefault();openBlock(e.target.dataset.block)}
+});
+$("#q").addEventListener("input",e=>{state.q=e.target.value.trim().toLowerCase();render()});
+$("#ftype").addEventListener("change",e=>{state.type=e.target.value;render()});
+$("#fstatus").addEventListener("change",e=>{state.status=e.target.value;render()});
+$("#csv").addEventListener("click",e=>{e.preventDefault();
+  const rows=[["Type","Instrument","Issuer","Articles","Status","Next date","Last step","Source"],...D.map(d=>[d.type,d.name,d.by,d.art,ST[d.status].l,d.next,d.last,P[d.id]?.s?.[0]?.[0]||""])];
+  const csv=rows.map(r=>r.map(c=>`"${String(c).replace(/"/g,'""')}"`).join(",")).join("\n");
+  const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([csv],{type:"text/csv"}));a.download="instruments.csv";a.click();});
+$("#lang").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;document.querySelectorAll("#lang button").forEach(x=>x.classList.toggle("on",x===b))});
+let seen=false;try{seen=localStorage.getItem("consent")}catch(e){}
+if(seen)$("#consent").remove();
+else ["acc","dec"].forEach(id=>$("#"+id).addEventListener("click",()=>{try{localStorage.setItem("consent",id)}catch(e){}$("#consent").remove()}));
+
+render();
+renderDigest();
+route();
+</script>
+</body>
+</html>
