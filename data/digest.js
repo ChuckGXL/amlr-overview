@@ -1,7 +1,7 @@
 // Written by monitor/fetch.py. Do not edit by hand.
 window.DIGEST={
- "generated": "2026-10-29T09:26+00:00",
- "firstRun": true,
+ "generated": "2026-10-29T09:28+00:00",
+ "firstRun": false,
  "sources": [
   {
    "id": "amla-news",
@@ -10,7 +10,7 @@ window.DIGEST={
    "kind": "rss",
    "state": "ok",
    "fetched": 30,
-   "new": 13
+   "new": 0
   },
   {
    "id": "amla-consultations",
@@ -19,7 +19,7 @@ window.DIGEST={
    "kind": "rss",
    "state": "ok",
    "fetched": 11,
-   "new": 4
+   "new": 0
   },
   {
    "id": "amla-docs",
@@ -28,7 +28,7 @@ window.DIGEST={
    "kind": "rss",
    "state": "ok",
    "fetched": 25,
-   "new": 12
+   "new": 0
   },
   {
    "id": "amla-hearings",
@@ -37,7 +37,7 @@ window.DIGEST={
    "kind": "rss",
    "state": "ok",
    "fetched": 11,
-   "new": 1
+   "new": 0
   },
   {
    "id": "amla-events",
@@ -73,7 +73,7 @@ window.DIGEST={
    "kind": "sparql",
    "state": "ok",
    "fetched": 9,
-   "new": 1
+   "new": 0
   },
   {
    "id": "afm",
@@ -82,7 +82,7 @@ window.DIGEST={
    "kind": "rss",
    "state": "ok",
    "fetched": 3,
-   "new": 1
+   "new": 0
   },
   {
    "id": "tk",
@@ -91,7 +91,7 @@ window.DIGEST={
    "kind": "tk",
    "state": "ok",
    "fetched": 1,
-   "new": 1
+   "new": 0
   },
   {
    "id": "ob",
