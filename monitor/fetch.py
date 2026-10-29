@@ -3,7 +3,7 @@
 
 Reads the regulators' feeds and open-data APIs, keeps what has not been seen before,
 links each new item to a tracked instrument and writes data/digest.js for the page.
-Nothing here changes an instrument's status: the digest only suggests changes for review.
+Nothing here changes an instrument's status: monitor/changes.py does that from the digest.
 Standard library only, so it runs on a bare GitHub Actions runner.
 """
 import datetime as dt

@@ -66,7 +66,48 @@ body.signed-out>:not(.topbar):not(#signin-box){filter:blur(12px);pointer-events:
 .subnav a{color:var(--ink);font-size:11.5px;font-weight:600;white-space:nowrap}
 .subnav a:hover{color:var(--brand)}
 .subnav .links{display:flex;gap:22px;overflow-x:auto;scrollbar-width:none}
-.subnav .nav-count{background:var(--sun);color:var(--ink);border-radius:var(--blob);padding:0 6px;font-size:10px;margin-left:4px}
+
+/* notification bell: new changes and digest items since you last marked them seen */
+.bell{position:relative;display:grid;place-items:center;width:28px;height:28px;margin-right:-10px;background:none;border:0;border-radius:50%;color:var(--on-dark)}
+.bell[hidden]{display:none}
+.bell:hover,.bell[aria-expanded=true]{background:#ffffff2e}
+.bell svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.bell-n{position:absolute;top:-2px;right:-4px;min-width:17px;height:17px;padding:0 4px;border-radius:9px;background:var(--sun);color:var(--ink);font-size:10px;font-weight:800;line-height:17px;text-align:center;box-shadow:0 0 0 2px var(--brand)}
+.bell-n[hidden]{display:none}
+.bell-panel{position:fixed;top:38px;right:max(12px,calc((100vw - 1480px)/2 + 12px));width:min(400px,calc(100vw - 24px));max-height:calc(100vh - 56px);overflow-y:auto;background:var(--card);color:var(--ink);border-radius:14px;box-shadow:0 14px 44px #4D002040,0 0 0 1px var(--line);z-index:45;font-size:12.5px}
+.bell-panel[hidden]{display:none}
+.bp-head{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--card)}
+.bp-head b{font-size:14px}
+.bp-head small{display:block;color:var(--muted);font-weight:400;font-size:11px}
+.bp-head button{border:1.5px solid var(--wine);background:var(--card);color:var(--wine);border-radius:var(--blob);padding:4px 11px;font-size:11.5px;font-weight:700}
+.bp-head button:hover{background:var(--wine);color:var(--on-dark)}
+.bp-group{padding:10px 16px 12px;border-bottom:1px solid var(--line)}
+.bp-group:last-child{border-bottom:0}
+.bp-group h4{margin:0 0 6px;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink);display:flex;gap:6px;align-items:center}
+.bp-group h4 i{font-style:normal;background:var(--tint);border-radius:var(--blob);padding:0 6px;letter-spacing:0}
+.topbar .bp-item{display:block;padding:7px 8px;margin:0 -8px;border-radius:8px;color:var(--ink);font-size:12.5px}
+.topbar .bp-more{color:var(--brand);font-size:12px}
+.bp-item:hover{background:var(--tint);text-decoration:none}
+.bp-item b{display:block;font-size:12.5px;color:var(--ink)}
+.bp-item .pill{vertical-align:1px}
+.bp-item small{display:block;color:var(--muted);font-size:11px;margin-top:2px}
+.bp-empty{margin:0;color:var(--muted)}
+.bp-more{display:inline-block;margin-top:4px;font-weight:700}
+
+/* change log */
+.ch-list{padding:4px 18px 10px;max-height:620px;overflow-y:auto}
+.ch-item{padding:10px 0;border-bottom:1px solid var(--line)}
+.ch-item:last-child{border-bottom:0}
+.ch-top{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:11px;color:var(--muted)}
+.ch-top a{font-weight:700;font-size:13.5px}
+.ch-top time{margin-left:auto}
+.ch-rows{display:flex;flex-direction:column;gap:3px;margin-top:5px;font-size:12px}
+.ch-rows s{color:var(--muted)}
+.ch-why{margin:5px 0 0;font-size:12px;color:var(--muted)}
+.ch-item.new .ch-top::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--brand)}
+.tag.auto{background:var(--sky)}
+.tag.edit{background:#f0ece8}
+.changed-tag{display:block;font-size:10.5px;font-weight:700;color:var(--brand);margin-top:3px}
 
 /* hero: maroon label over a white box on the orange panel; the countdown is the XL blob */
 .hero{background:var(--brand);border-radius:4px;padding:22px 22px 20px;margin-top:6px}
@@ -306,7 +347,7 @@ footer a{color:var(--on-dark);text-decoration:underline}
   .hero{padding:18px 14px 14px}.hero-label{font-size:15px;margin-left:10px}
   .hero-box{flex-direction:column;gap:18px;padding:26px 14px 14px}.hero-side{width:100%}.hstats{grid-template-columns:repeat(2,minmax(0,1fr))}
   .glance,.grid2,.ms{grid-template-columns:1fr}
-  .topbar .in{gap:10px}
+  .topbar .in{gap:10px}.bell{margin-right:0}
   .gbars{grid-template-columns:repeat(2,1fr)}
   .dg-grid{grid-template-columns:1fr}
   td.c-art{display:none}th.c-art{display:none}.t-art-inline{display:inline}
@@ -318,7 +359,12 @@ footer a{color:var(--on-dark);text-decoration:underline}
 
 <div class="topbar"><div class="in">
   <a class="brand" href="#/">AMLR Overview</a>
+  <button class="bell" id="bell" type="button" aria-label="Notifications" aria-expanded="false" aria-controls="bell-panel" hidden>
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+    <span class="bell-n" id="bell-n" hidden></span>
+  </button>
   <button class="signin" type="button">Sign in</button>
+  <div class="bell-panel" id="bell-panel" role="dialog" aria-label="Notifications" hidden></div>
 </div></div>
 
 <dialog id="signin-box" aria-labelledby="signin-title">
@@ -333,7 +379,7 @@ footer a{color:var(--on-dark);text-decoration:underline}
 
 <nav class="subnav"><div class="in">
   <div class="links">
-    <a href="#top">Overview</a><a href="#updates">Daily Digest<span class="nav-count" id="nav-n" hidden></span></a><a href="#framework">Framework</a><a href="#instruments">Instruments</a>
+    <a href="#top">Overview</a><a href="#updates">Daily Digest</a><a href="#changes">Changes</a><a href="#framework">Framework</a><a href="#instruments">Instruments</a>
     <a href="#timeline">Timeline</a><a href="#sources">Sources</a>
   </div>
 </div></nav>
@@ -402,6 +448,12 @@ footer a{color:var(--on-dark);text-decoration:underline}
     </div>
   </section>
 
+  <section id="changes">
+    <h2>Changes</h2>
+    <p class="meta" id="ch-meta"></p>
+    <div class="card ch-list" id="ch-list"></div>
+  </section>
+
   <section id="framework">
     <div class="fw-head">
       <h2>Framework</h2>
@@ -463,6 +515,7 @@ footer a{color:var(--on-dark);text-decoration:underline}
 <script src="data/pages.js"></script>
 <script src="data/digest.js" onerror="window.DIGEST=null"></script>
 <script src="data/linkcheck.js" onerror="window.LINKCHECK=null"></script>
+<script src="data/changes.js" onerror="window.CHANGES=null"></script>
 <script>
 const P=window.PAGES||{};
 const ST={
@@ -610,14 +663,43 @@ D.forEach(d=>{
   const cc=factISO(d.id,"Consultation closed"),ex=factISO(d.id,"Expected");
   [d.next,d.nextNote]=d.status==="consult"&&cc&&dayDiff(cc)>=0?[cc,"Consultation closes"]:ex&&d.status!=="pub"?[ex,"Expected"]:["",""];
 });
-// a status the dates say should have moved on
+// a status the dates say should have moved on; monitor/changes.py closes consultations on its next run
 function staleNote(d){
   const cc=factISO(d.id,"Consultation closed"),ex=factISO(d.id,"Expected");
-  if(d.status==="consult"&&cc&&dayDiff(cc)<0)return `The consultation closed on ${fmt(cc)}, but the status is still In consultation.`;
-  if(d.status!=="pub"&&ex&&dayDiff(ex)<0)return `The expected date, ${fmt(ex)}, has passed and the status is still ${ST[d.status].l}.`;
+  if(d.status==="consult"&&cc&&dayDiff(cc)<0)return `The consultation closed on ${fmt(cc)}; the next daily check moves the status to Consultation closed.`;
+  if(d.status!=="pub"&&ex&&dayDiff(ex)<0)return `The expected date, ${fmt(ex)}, has passed and no later step has been found yet.`;
   return "";
 }
+const staleTag=d=>d.status==="consult"&&dayDiff(factISO(d.id,"Consultation closed")||"9999-12-31")<0?"Closes on the next check":"Expected date passed";
 const STALE=D.filter(staleNote);
+
+/* ---------- change log (data/changes.js, written by monitor/changes.py), newest first ---------- */
+const CH=(window.CHANGES||[]).filter(c=>BY[c.inst]||c.changes[0]?.field==="Removed");
+const CH_BY={};CH.forEach(c=>(CH_BY[c.inst]=CH_BY[c.inst]||[]).push(c));
+const recentChange=id=>CH_BY[id]?.find(c=>dayDiff(c.date)>=-14);  // marks a table row for two weeks
+const appliedBy=(item,m)=>CH_BY[m.id]?.find(c=>c.how==="auto"&&c.link===item.link&&c.changes[0].field==="status");
+const stPill=k=>ST[k]?pill(k):"—";
+function changeRow(r){
+  if(r.field==="status")return `<span>Status: ${stPill(r.old)} → ${stPill(r.new)}</span>`;
+  if(r.field==="Added"||r.field==="Removed")return `<span><b>${r.field==="Added"?"Added to the tracker":"Removed from the tracker"}</b></span>`;
+  if(!r.new)return `<span><b>${esc(r.field)}</b> removed: <s>${esc(r.old)}</s></span>`;
+  return `<span><b>${esc(r.field)}</b>: ${r.old?`<s>${esc(r.old)}</s> → `:""}${esc(r.new)}</span>`;
+}
+const changeText=c=>c.changes.map(r=>r.field==="status"?`Status: ${ST[r.old]?.s||"—"} → ${ST[r.new]?.s||"—"}`:`${r.field}: ${r.old?r.old+" → ":""}${r.new||"removed"}`).join("\n");
+const howTag=c=>c.how==="auto"?`<span class="tag auto" title="Changed by the daily check">Automatic</span>`:`<span class="tag edit" title="Changed in the data files">Edited</span>`;
+function changeHTML(c){
+  return `<div class="ch-item${isNewChange(c)?" new":""}">
+    <div class="ch-top"><a href="#/instruments/${c.inst}">${esc(BY[c.inst]?.short||c.short)}</a>${howTag(c)}<time>${fmt(c.date)}</time></div>
+    <div class="ch-rows">${c.changes.map(changeRow).join("")}</div>
+    ${c.why||c.link?`<p class="ch-why">${esc(c.why)}${c.link?` <a href="${esc(c.link)}" target="_blank" rel="noopener noreferrer">Source ${EXT}</a>`:""}</p>`:""}
+  </div>`;
+}
+// "seen" is remembered per browser; only the last 30 days can count as new
+const SEEN_KEY="amlr-seen";
+let seenIds=new Set();try{seenIds=new Set(JSON.parse(localStorage.getItem(SEEN_KEY))||[])}catch(e){}
+const recent=iso=>iso&&dayDiff(iso)>=-30;
+const isNewChange=c=>!seenIds.has(c.id)&&recent(c.date);
+function markSeen(ids){ids.forEach(i=>seenIds.add(i));try{localStorage.setItem(SEEN_KEY,JSON.stringify([...seenIds]))}catch(e){}}
 
 /* ---------- header counters ---------- */
 const C={total:L2.length,open:0};PRIO.forEach(k=>C[k]=L2.filter(d=>d.status===k).length);
@@ -659,7 +741,7 @@ function render(){
     <td class="c-type">${d.type}</td>
     <td class="c-title"><a href="#/instruments/${d.id}" title="Page with status, dates and sources">${esc(d.name)}</a><small>${esc(d.by)}<span class="t-art-inline"> · ${esc(d.art)}</span></small></td>
     <td class="c-art">${artHTML(d.art,d.arts)}</td>
-    <td class="c-status">${pill(d.status)}${staleNote(d)?`<small class="stale-tag" title="${esc(staleNote(d))}">Status needs updating</small>`:""}</td>
+    <td class="c-status">${pill(d.status)}${recentChange(d.id)?`<small class="changed-tag" title="${esc(changeText(recentChange(d.id)))}">Changed ${fmt(recentChange(d.id).date)}</small>`:""}${staleNote(d)?`<small class="stale-tag" title="${esc(staleNote(d))}">${staleTag(d)}</small>`:""}</td>
     <td class="c-next">${d.next?`${fmt(d.next)}<small>${d.nextNote}</small>`:"—"}</td>
     <td class="c-last">${d.last?`${fmt(d.last)}<small>${d.lastNote}</small>`:`<small>No dated step yet</small>`}</td>
     <td class="c-src">${src?`<a class="src-link" href="${esc(src[0])}" target="_blank" rel="noopener noreferrer" title="${esc(src[1])}">${esc(d.by)} ${EXT}</a>`:"—"}</td></tr>`}).join("");
@@ -766,10 +848,11 @@ function pageHTML(id){
     <div class="eyebrow">Register · ${esc(p.eb)}</div>
     <h1>${esc(d.name)}</h1>
     <div class="ip-status">${badge(d,"md")}${pill(d.status,true)}<span class="muted">Details last updated ${fmt(d.reviewed)}</span></div>
-    ${staleNote(d)?`<p class="stale-note">${esc(staleNote(d))} Check the source and update the status.</p>`:""}
+    ${staleNote(d)?`<p class="stale-note">${esc(staleNote(d))}</p>`:""}
     <dl class="facts">${p.f.map(f=>`<div><dt>${esc(f[0])}</dt><dd>${esc(f[1])}</dd></div>`).join("")}</dl>
     <p class="muted small">${esc(ST[d.status].t)}</p>
     ${p.v.length?`<section class="card"><h2>Versions and what changed</h2>${versionList(p.v)}</section>`:""}
+    ${CH_BY[id]?`<section class="card"><h2>Change history</h2>${CH_BY[id].map(changeHTML).join("")}</section>`:""}
     <section class="card"><h2>Sources</h2><ul class="links">${p.s.map(s=>`<li><a href="${esc(s[0])}" target="_blank" rel="noopener noreferrer">${esc(s[1])} ${EXT}</a></li>`).join("")}</ul>
       ${p.bl.length?`<h2>Framework blocks it lands on</h2><div class="chips">${p.bl.map(b=>`<span class="chip">${esc(b)}</span>`).join("")}</div>`:""}
       <p class="small">This instrument on the dashboard, with the other instruments and the framework: <a href="#${id}">Open on the dashboard</a></p></section>
@@ -803,7 +886,7 @@ function digestItem(i){
     <div class="dg-top">${i.sources.map(s=>`<span class="tag">${esc(s)}</span>`).join("")}${matches.length?"":`<span class="tag new">Not tracked yet</span>`}<time>${i.date?fmt(i.date):""}</time></div>
     <a class="dg-title" href="${esc(i.link)}" target="_blank" rel="noopener noreferrer">${esc(i.title)} ${EXT}</a>
     ${i.summary&&i.summary!==i.title?`<p class="dg-sum">${esc(i.summary)}</p>`:""}
-    ${matches.length?`<ul class="dg-match">${matches.map(m=>`<li>${badge(BY[m.id])}<span><a href="#/instruments/${m.id}">${esc(BY[m.id].short)}</a> ${pill(BY[m.id].status)} <span class="muted">· linked by ${esc(m.how)}</span><em>${esc(m.suggest)}</em></span></li>`).join("")}</ul>`
+    ${matches.length?`<ul class="dg-match">${matches.map(m=>`<li>${badge(BY[m.id])}<span><a href="#/instruments/${m.id}">${esc(BY[m.id].short)}</a> ${pill(BY[m.id].status)} <span class="muted">· linked by ${esc(m.how)}</span>${appliedBy(i,m)?`<em>Status changed automatically: ${changeRow(appliedBy(i,m).changes[0])}</em>`:`<em>${esc(m.suggest)}</em>`}</span></li>`).join("")}</ul>`
       :`<p class="dg-sum">Not linked to a tracked instrument. Worth adding as a new instrument?</p>`}
     <div class="dg-acts">${done?`<span class="muted">${done==="reviewed"?"Reviewed":"Dismissed"}</span><button type="button" data-rv="${i.id}" data-to="">Undo</button>`
       :`<button type="button" class="primary" data-rv="${i.id}" data-to="reviewed">Mark reviewed</button><button type="button" data-rv="${i.id}" data-to="dismissed">Dismiss</button>`}</div>
@@ -811,17 +894,17 @@ function digestItem(i){
 }
 // statuses the dates say are out of date; computed on every load, so they go once the data is fixed
 $("#dg-stale").hidden=!STALE.length;
-$("#dg-stale").innerHTML=`<h3>Status needs updating (${STALE.length})</h3><ul>${STALE.map(d=>`<li><a href="#/instruments/${d.id}">${esc(d.short)}</a> ${pill(d.status)}<span>${esc(staleNote(d))}</span></li>`).join("")}</ul>`;
+$("#dg-stale").innerHTML=`<h3>Behind schedule (${STALE.length})</h3><ul>${STALE.map(d=>`<li><a href="#/instruments/${d.id}">${esc(d.short)}</a> ${pill(d.status)}<span>${esc(staleNote(d))}</span></li>`).join("")}</ul>`;
 const lastChange=D.map(d=>d.reviewed||"").sort().at(-1);
-$("#src-meta").textContent=`Statuses and dates are updated by hand from these sources; the most recent change was on ${fmt(lastChange)}. Check each source link for the current position.`;
+$("#src-meta").innerHTML=`Statuses change automatically when these sources publish the next step (see <a href="#changes">Changes</a>); the most recent change was on ${fmt(lastChange)}.`;
 function renderDigest(){
   if(!DG){$("#dg-list").innerHTML=`<p class="dg-empty">No daily check has run yet. Run <code>python3 monitor/fetch.py</code>, or wait for the scheduled run.</p>`;$("#dg-meta").textContent="";return}
   const todo=DG.items.filter(i=>!review[i.id]);
-  $("#dg-n").textContent=todo.length;$("#nav-n").textContent=todo.length;$("#nav-n").hidden=!todo.length;
+  $("#dg-n").textContent=todo.length;
   const list=dgState.view==="todo"?todo:dgState.view==="done"?DG.items.filter(i=>review[i.id]):DG.items;
   const ok=DG.sources.filter(s=>s.state==="ok").length,auto=DG.sources.filter(s=>s.state!=="manual").length;
   $("#dg-feedhead").hidden=!(dgState.view==="todo"&&todo.length);
-  $("#dg-meta").textContent=`Last check ${new Date(DG.generated).toLocaleString("en-GB",{day:"numeric",month:"short",year:"numeric",hour:"2-digit",minute:"2-digit"})} · ${ok} of ${auto} automated sources answered · statuses only change after your review`;
+  $("#dg-meta").textContent=`Last check ${new Date(DG.generated).toLocaleString("en-GB",{day:"numeric",month:"short",year:"numeric",hour:"2-digit",minute:"2-digit"})} · ${ok} of ${auto} automated sources answered · statuses change automatically, see Changes`;
   let html="",day=null;
   list.forEach(i=>{const d=dayLabel(i.found,i.backfill);if(d!==day){day=d;html+=`<div class="dg-day">${d}</div>`}html+=digestItem(i)});
   $("#dg-list").innerHTML=html||`<p class="dg-empty">${dgState.view==="todo"?"Nothing left to review.":"Nothing here yet."}</p>`;
@@ -830,7 +913,47 @@ function renderDigest(){
   $("#dg-links").innerHTML=LC?`${LC.counts.ok+LC.counts.unchecked+LC.counts.broken+LC.counts.error} links checked on ${fmt(LC.checked.slice(0,10))}: ${LC.counts.ok} open, ${LC.counts.unchecked} not checkable (site blocks scripts), ${LC.counts.broken+LC.counts.error} failed.
     ${LC.problems.length?`<ul class="links">${LC.problems.map(p=>`<li><a href="${esc(p.url)}" target="_blank" rel="noopener noreferrer">${esc(p.title)}</a> <span class="muted">(${esc(p.code)}) · ${p.instruments.map(id=>`<a href="#/instruments/${id}">${esc(BY[id]?.short||id)}</a>`).join(", ")}</span></li>`).join("")}</ul>`:""}`
     :"The monthly link check has not run yet.";
+  renderBell();
 }
+
+/* ---------- changes section and the notification bell ---------- */
+function renderChanges(){
+  const shown=CH.filter(c=>dayDiff(c.date)>=-90);
+  $("#ch-meta").textContent=CH.length?`What changed in the tracker, newest first: Automatic is the daily check acting on a date or a source, Edited is a change to the data files. ${shown.length<CH.length?"Last 90 days; each instrument page keeps its full history.":""}`:"";
+  $("#ch-list").innerHTML=shown.map(changeHTML).join("")||`<p class="dg-empty">No changes logged yet. The daily check logs every change from now on.</p>`;
+}
+// new digest items: found by a daily check (not already published when monitoring started), not reviewed or seen
+const newDigest=()=>DG?DG.items.filter(i=>!i.backfill&&!review[i.id]&&!seenIds.has(i.id)&&recent(i.found)):[];
+function attention(){
+  return [...STALE.map(d=>({href:`#/instruments/${d.id}`,t:d.short,s:staleNote(d)})),
+    ...(DG?.sources||[]).filter(s=>s.state==="error").map(s=>({href:"#updates",t:s.label,s:"Did not answer on the last check."})),
+    ...(LC?.problems||[]).map(p=>({href:"#updates",t:p.title,s:`Source link failed (${p.code}).`}))];
+}
+const bpGroup=(title,items,empty,more)=>`<div class="bp-group"><h4>${title} <i>${items.length}</i></h4>${items.join("")||`<p class="bp-empty">${empty}</p>`}${more||""}</div>`;
+function renderBell(){
+  const nc=CH.filter(isNewChange),nd=newDigest(),at=attention(),n=nc.length+nd.length;
+  $("#bell-n").textContent=n>99?"99+":n;$("#bell-n").hidden=!n;
+  $("#bell").setAttribute("aria-label",n?`Notifications, ${n} new`:"Notifications");
+  const first=r=>r.field==="status"?`${stPill(r.old)} → ${stPill(r.new)}`:esc(changeText({changes:[r]}));
+  $("#bell-panel").innerHTML=`<div class="bp-head"><span><b>${n?`${n} new`:"You're up to date"}</b><small>${n?"Since you last marked them as seen":"Nothing new since you last looked"}</small></span>${n?`<button type="button" id="bp-seen">Mark all as seen</button>`:""}</div>`+
+    bpGroup("Changes",nc.slice(0,6).map(c=>`<a class="bp-item" href="#/instruments/${c.inst}" data-seen="${c.id}"><b>${esc(BY[c.inst]?.short||c.short)}</b>${first(c.changes[0])}${c.changes.length>1?` <span class="muted">+${c.changes.length-1} more</span>`:""}<small>${c.how==="auto"?"Automatic":"Edited"} · ${fmt(c.date)}${c.why?" · "+esc(c.why):""}</small></a>`),
+      "No new changes.",`<a class="bp-more" href="#changes">${nc.length>6?`${nc.length-6} more in `:""}All changes →</a>`)+
+    bpGroup("Daily Digest",nd.slice(0,4).map(i=>`<a class="bp-item" href="${esc(i.link)}" target="_blank" rel="noopener noreferrer" data-seen="${i.id}"><b>${esc(i.title)}</b><small>${esc(i.sources[0])} · ${fmt(i.date||i.found)}</small></a>`),
+      "No new publications.",`<a class="bp-more" href="#updates">${nd.length>4?`${nd.length-4} more in the `:""}Daily Digest →</a>`)+
+    bpGroup("Needs attention",at.map(a=>`<a class="bp-item" href="${a.href}"><b>${esc(a.t)}</b><small>${esc(a.s)}</small></a>`),
+      "No overdue statuses, failed sources or broken links.");
+}
+function toggleBell(open){
+  $("#bell-panel").hidden=!open;$("#bell").setAttribute("aria-expanded",open);
+}
+$("#bell").addEventListener("click",e=>{e.stopPropagation();toggleBell($("#bell-panel").hidden)});
+document.addEventListener("click",e=>{
+  const panel=$("#bell-panel");if(panel.hidden)return;
+  if(e.target.id==="bp-seen"){markSeen([...CH.filter(isNewChange),...newDigest()].map(x=>x.id));renderBell();renderChanges();return}
+  const s=e.target.closest("[data-seen]");if(s){markSeen([s.dataset.seen]);renderBell();renderChanges()}
+  if(!panel.contains(e.target)||e.target.closest("a"))toggleBell(false);
+});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!$("#bell-panel").hidden){toggleBell(false);$("#bell").focus()}});
 document.addEventListener("click",e=>{
   const rv=e.target.closest("[data-rv]");
   if(rv){if(rv.dataset.to)review[rv.dataset.rv]=rv.dataset.to;else delete review[rv.dataset.rv];saveReview();renderDigest();return}
@@ -901,6 +1024,7 @@ const gated=[...document.body.children].filter(e=>!e.matches(".topbar,#signin-bo
 function setSignedIn(on){
   document.body.classList.toggle("signed-out",!on);gated.forEach(e=>e.inert=!on);
   $(".signin").textContent=on?"Sign out":"Sign in";
+  $("#bell").hidden=!on;if(!on)toggleBell(false);
 }
 const sha256=async s=>[...new Uint8Array(await crypto.subtle.digest("SHA-256",new TextEncoder().encode(s)))].map(b=>b.toString(16).padStart(2,"0")).join("");
 let auth=null;try{auth=localStorage.getItem("amlr-auth")}catch(e){}
@@ -918,6 +1042,7 @@ $("#signin-form").addEventListener("submit",async e=>{
 $("#signin-cancel").addEventListener("click",()=>$("#signin-box").close());
 
 render();
+renderChanges();
 renderDigest();
 route();
 </script>

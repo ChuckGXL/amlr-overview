@@ -1,6 +1,6 @@
 // Tracked instruments. Read by index.html and by monitor/fetch.py (everything after "=" must stay strict JSON).
 // kw: phrases that link a new publication to this instrument; only: limit keyword matching to these source ids.
-// reviewed: date the details last changed, set by monitor/stamp.py. Last step and next date come from data/pages.js;
+// reviewed: date the details last changed, set by monitor/changes.py. Last step and next date come from data/pages.js;
 // last/lastNote are only kept for an instrument without a version history.
 window.INSTRUMENTS=[
 {"id":"rts-cdd","type":"RTS","name":"RTS on customer due diligence (CDD)","by":"AMLA","art":"Art. 28(1) AMLR","status":"final","reviewed":"2026-10-06","short":"RTS CDD","arts":["AMLR 28"],"kw":["rts on customer due diligence","standards on customer due diligence","draft rts on cdd"]},
@@ -33,7 +33,7 @@ window.INSTRUMENTS=[
 {"id":"gl-edd-crypto","type":"GL","name":"Guidelines on EDD for correspondent relationships with crypto-asset service providers and on self-hosted addresses","by":"AMLA","art":"Art. 37(3), 40(2) AMLR","status":"eba","reviewed":"2026-10-06","short":"GL EDD Crypto","arts":["AMLR 37","AMLR 40"],"kw":["self-hosted address","self-hosted addresses","correspondent relationships with crypto"]},
 {"id":"gl-derisking","type":"GL","name":"Joint AMLA-EBA Guidelines on access to financial services and de-risking","by":"AMLA","art":"Art. 21(4) AMLR","status":"eba","reviewed":"2026-10-06","short":"GL De-risking","arts":["AMLR 21"],"kw":["de-risking","access to financial services"]},
 {"id":"rts-colleges","type":"RTS","name":"RTS on AML/CFT supervisory colleges in the financial and the non-financial sector","by":"AMLA","art":"Art. 49(14), 50(13) AMLD6","status":"ann","reviewed":"2026-10-06","short":"RTS Supervisory colleges","arts":["AMLD6 49","AMLD6 50"],"kw":["supervisory colleges","aml/cft colleges"]},
-{"id":"rts-central-database","type":"RTS","name":"RTS on the AML/CFT central database (procedure, formats and timelines)","by":"AMLA","art":"Art. 11(6) AMLAR","status":"ann","reviewed":"2026-10-06","short":"RTS Central database","arts":["AMLAR 11"],"kw":["central aml/cft database","eu-wide aml/cft database"]},
+{"id":"rts-central-database","type":"RTS","name":"RTS on the AML/CFT central database (procedure, formats and timelines)","by":"AMLA","art":"Art. 11(6) AMLAR","status":"consult","reviewed":"2026-10-29","short":"RTS Central database","arts":["AMLAR 11"],"kw":["central aml/cft database","eu-wide aml/cft database"]},
 {"id":"gl-sanction-amounts","type":"GL","name":"Guidelines on the base amounts of pecuniary sanctions relative to turnover","by":"AMLA","art":"Art. 53(11) AMLD6","status":"ann","reviewed":"2026-10-06","short":"GL Sanction base amounts","arts":["AMLD6 53"],"kw":["base amounts"]},
 {"id":"gl-partnerships","type":"GL","name":"Joint AMLA-EDPB Guidelines on partnerships for information sharing","by":"AMLA","art":"Art. 75 AMLR","status":"ann","reviewed":"2026-10-06","short":"GL Information-sharing partnerships","arts":["AMLR 75"],"kw":["partnerships for information sharing","information-sharing partnerships","edpb"]},
 {"id":"gl-outsourcing","type":"GL","name":"Guidelines on outsourcing of AML/CFT tasks","by":"AMLA","art":"Art. 18(8) AMLR","status":"ann","reviewed":"2026-10-06","short":"GL Outsourcing","arts":["AMLR 18"],"kw":["outsourcing"]},

@@ -25,11 +25,11 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Date the instruments whose details changed
-        run: python monitor/stamp.py
-
       - name: Read feeds and APIs, update the digest
         run: python monitor/fetch.py
+
+      - name: Apply status changes and log every change
+        run: python monitor/changes.py
 
       - name: Check source links (monthly)
         run: python monitor/linkcheck.py --if-due

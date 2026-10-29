@@ -7,26 +7,40 @@ plus the Dutch implementation, with a daily digest of new publications from the 
 
 Every day at 06:17 UTC a GitHub Actions job (`.github/workflows/daily.yml`):
 
-1. runs `monitor/stamp.py`, which sets an instrument's `reviewed` date to today when its details
-   changed since the last run (`data/fingerprints.json`);
-2. runs `monitor/fetch.py`, which reads the sources below, keeps only what it has not seen before
+1. runs `monitor/fetch.py`, which reads the sources below, keeps only what it has not seen before
    (`data/seen.json`) and links each item to a tracked instrument by article reference
    ("Art. 28(1) AMLR"), keyword or similar title;
+2. runs `monitor/changes.py`, which applies status changes automatically and logs every change (below);
 3. runs `monitor/linkcheck.py --if-due` once a month to confirm every source link still opens;
 4. commits `data/` and republishes the page.
 
-Nothing changes an instrument's status automatically. The digest suggests a change; you review it on the
-page ("Mark reviewed" / "Dismiss", remembered in your browser) and the instrument data is updated by hand.
-The digest also lists any instrument whose dates say its status is out of date (a consultation that has
-closed, or an expected date that has passed).
+### Automatic status changes
 
-### Updating an instrument
+| What the check finds | New status |
+|---|---|
+| The "Consultation closed" date has passed | Consultation closed, being finalised |
+| An AMLA consultation linked to the instrument | In consultation |
+| An AMLA or EBA final report, or a submission to the Commission | Final, awaiting publication |
+| A delegated or implementing regulation on EUR-Lex | Published |
 
-1. `data/instruments.js`: change `status`.
-2. `data/pages.js`, the instrument's entry: tick the stage in `v` (versions) and give its date, label and
-   link; update the facts in `f` ("Consultation closed", "Expected"); add the document to `s` (sources).
-3. Push. "Last step" and "Next date" are worked out from the versions and facts, and the next run of
-   `monitor/stamp.py` dates the change. Counts, the framework and the deadline cards follow on their own.
+A status only moves forward, and only links by article reference or keyword count, never a "similar
+title". Each change also ticks the step in the version history (date, title, link) and adds the document
+as a source, so "Last step" and "Next date" follow. A consultation's closing date is not in the feeds, so
+an instrument found in consultation stays there until its final text appears.
+
+### Change log and notifications
+
+`monitor/changes.py` compares every instrument with `data/snapshot.json`, its state at the last run, and
+writes what changed (old and new values) to `data/changes.js`: **Automatic** for the changes above,
+**Edited** for anything pushed to the data files. The changed instrument's `reviewed` date becomes today.
+
+On the page, the bell next to Sign out counts new changes and new digest publications; its panel also
+lists what needs attention (an expected date that has passed, a source that failed, a broken link).
+"Mark all as seen" clears the count, remembered per browser. The Changes section lists the last 90 days,
+the table marks a changed instrument for two weeks, and each instrument page keeps its full history.
+
+To correct a wrong change, edit `data/instruments.js` / `data/pages.js` and push; it is logged as Edited.
+A status that the check moved forward is not moved back by it.
 
 | Source | How it is read |
 |---|---|
@@ -41,7 +55,7 @@ closed, or an expected date that has passed).
 ## Run locally
 
 ```bash
-python3 monitor/fetch.py
+python3 monitor/fetch.py && python3 monitor/changes.py
 ```
 
 ```bash
@@ -55,4 +69,4 @@ Then open http://localhost:4317.
 - `index.html`: the dashboard
 - `data/instruments.js`: tracked instruments, statuses, last-updated dates and match keywords
 - `data/pages.js`: per-instrument facts, version history, sources and framework blocks
-- `data/digest.js`, `data/seen.json`, `data/linkcheck.js`, `data/fingerprints.json`: written by the scripts
+- `data/digest.js`, `data/seen.json`, `data/linkcheck.js`, `data/changes.js`, `data/snapshot.json`: written by the scripts
