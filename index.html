@@ -201,7 +201,8 @@ details.versions summary{cursor:pointer;color:var(--ink);font-weight:700}
 .glance{margin-top:14px;display:grid;grid-template-columns:1.1fr 1fr;gap:14px}
 .card h3{margin:0 0 8px;font-size:14px;color:var(--ink)}
 .gbars{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:10px}
-.gbars div{background:var(--tint);border-radius:10px;padding:8px 10px}
+.gbars>*{background:var(--tint);border:0;border-radius:10px;padding:8px 10px;text-align:left;font:inherit;color:inherit;cursor:pointer}
+.gbars>*:hover{outline:2px solid var(--brand)}
 .gbars b{display:block;font-size:20px;color:var(--brand)}
 .gbars span{font-size:11px;color:var(--muted)}
 .dl{display:flex;flex-direction:column;gap:8px}
@@ -339,16 +340,11 @@ footer a{color:var(--on-dark);text-decoration:underline}
       <div class="card">
         <h3>At a glance</h3>
         <p style="margin:0;color:var(--muted)"><b id="g-open" style="color:var(--ink)">32 of 34</b> Level-2/3 instruments are not yet definitive. The base regulation is final and applies in <b id="g-days">254</b> days; the detailed rules are still arriving. The most uncertainty sits in:</p>
-        <div class="gbars"><div><b>8</b><span>Governance</span></div><div><b>4</b><span>Enhanced Due Diligence</span></div><div><b>4</b><span>Policies &amp; procedures</span></div><div><b>4</b><span>Compliance function</span></div></div>
+        <div class="gbars" id="g-bars"></div>
       </div>
       <div class="card">
         <h3>Next deadlines and expected dates</h3>
-        <div class="dl">
-          <div><span><b>31 Dec 2026</b><small>EXPECTED · 11</small></span><span>Risk-assessment RTS (financial and non-financial), AMLA selection RTS, FIU cross-border exchange RTS, +7</span></div>
-          <div><span><b>31 Mar 2027</b><small>EXPECTED · 1</small></span><span>RTS on supervisory colleges</span></div>
-          <div><span><b>30 Jun 2027</b><small>EXPECTED · 2</small></span><span>GL internal controls · GL targeted financial sanctions</span></div>
-          <div><span><b>10 Jul 2027</b><small>EXPECTED · 17</small></span><span>RTS CDD · RTS sanctions &amp; measures · RTS business relationships · RTS group-wide, +13</span></div>
-        </div>
+        <div class="dl" id="g-dl"></div>
       </div>
     </div>
   </section>
@@ -482,16 +478,16 @@ const D=window.INSTRUMENTS||[];
 const BY={};D.forEach(d=>BY[d.id]=d);
 const L2=D.filter(d=>["RTS","GL","ITS"].includes(d.type));
 
-// framework blocks: name -> [kind, AMLR article numbers, instrument ids]
+// framework blocks: name -> [kind, article numbers (AMLR unless another regulation is named first), instrument ids]
 const BLK={
   "Commercial Strategy Definition":["solid","",[]],
   "Risk Appetite":["solid","9, 10",["gl-sira","gl-derisking"]],
   "Business Wide Risk Assessment / SIRA":["solid","9, 10",["rts-risk-assessment-non-financial","gl-sira"]],
   "Risk Management and Controls":["solid","9, 16, 17",["rts-risk-assessment","rts-risk-assessment-non-financial","gl-internal-controls"]],
-  "Governance":["solid","9, 16, 17",["rts-selection","rts-sanctions-measures","rts-group-wide","rts-home-host","rts-ccp","its-supervisory-cooperation","gl-internal-controls","gl-sanction-amounts","nl-implementatiewet"]],
+  "Governance":["solid","9, 16, 17",["rts-group-wide","gl-internal-controls","nl-implementatiewet"]],
   "Policies & procedures":["solid","9, 16, 17",["rts-risk-assessment","rts-group-wide","gl-internal-controls","gl-tfs","nl-implementatiewet","nl-dnb-leidraad","nl-afm-wwft"]],
   "3 Lines of Defense Model":["solid","9",["gl-internal-controls"]],
-  "Compliance function":["solid","9, 10, 11, 13, 16",["rts-sanctions-measures","rts-ccp","gl-internal-controls","gl-sanction-amounts","nl-dnb-leidraad"]],
+  "Compliance function":["solid","9, 10, 11, 13, 16",["rts-ccp","gl-internal-controls","nl-dnb-leidraad"]],
   "Outsourcing":["solid","18",["gl-outsourcing"]],
   "Third-party reliance":["solid","48, 49, 50, 75",["gl-partnerships","gl-third-party"]],
   "Employee Training & Awareness":["solid","12",[]],
@@ -525,7 +521,13 @@ const BLK={
   "Data & analytics":["solid","76",["gl-partnerships"]],
   "Management information & reporting":["solid","",["rts-selection","rts-risk-assessment-non-financial"]],
   "Systems & tooling":["solid","78",["its-str","eba-gl-remote-onboarding","eba-gl-travel-rule","nl-fiu-goaml"]],
-  "AML/CFT models":["solid","",["gl-monitoring"]]
+  "AML/CFT models":["solid","",["gl-monitoring"]],
+  // addressed to supervisors and FIUs rather than to firms
+  "AMLA direct supervision":["solid","AMLAR 12, 15",["rts-selection","its-supervisory-cooperation"]],
+  "Home-host & colleges":["solid","AMLD6 41, 46, 49, 50",["rts-home-host","rts-colleges","rts-ccp"]],
+  "Sanctions & enforcement":["solid","AMLD6 53",["rts-sanctions-measures","gl-sanction-amounts"]],
+  "FIU cooperation & EPPO":["solid","AMLD6 31 · AMLR 81 · AMLAR 41",["rts-fiu-exchange","its-fiu-exchange","its-fiu-eppo","its-amla-eppo"]],
+  "Central AML/CFT database":["solid","AMLAR 11",["rts-central-database"]]
 };
 const CHIP_ALIAS={"Client Acceptance":"Client Acceptance - Art. 19"};
 const FW_ROWS=[
@@ -534,8 +536,10 @@ const FW_ROWS=[
   ["People, culture & conduct",["Employee Training & Awareness","Employee Integrity","Whistleblowing Protection","Employee Protection"]],
   ["Client Lifecycle","lifecycle"],
   ["",["Client Risk Assessment resulting in new/updated/confirmed AML/CFT risk classification"]],
-  ["Data, technology & detection",["Data & analytics","Management information & reporting","Systems & tooling","AML/CFT models"]]
+  ["Data, technology & detection",["Data & analytics","Management information & reporting","Systems & tooling","AML/CFT models"]],
+  ["Supervision & cooperation",["AMLA direct supervision","Home-host & colleges","Sanctions & enforcement","FIU cooperation & EPPO","Central AML/CFT database"]]
 ];
+const SUP_BLOCKS=new Set(FW_ROWS.at(-1)[1]);
 
 const $=s=>document.querySelector(s);
 const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
@@ -553,8 +557,10 @@ function artHTML(text,keys){
   const used=new Set();
   return esc(text).replace(/\b\d+\b/g,n=>{const k=keys.find(k=>k.split(" ")[1]===n&&!used.has(k));if(!k)return n;used.add(k);return artBtn(k,n)});
 }
-const blockKeys=b=>(BLK[b]?.[1]||"").match(/\d+/g)?.map(n=>"AMLR "+n).filter(k=>ART[k])||[];
-const blockArt=b=>BLK[b][1]?`Art. ${artHTML(BLK[b][1],blockKeys(b))}`:"";
+// bare numbers are AMLR articles; a regulation name applies to the numbers after it
+const blockKeys=b=>{let reg="AMLR";return ((BLK[b]?.[1]||"").match(/AMLR|AMLD6|AMLAR|\d+/g)||[]).flatMap(t=>/^\d+$/.test(t)?[reg+" "+t]:(reg=t,[])).filter(k=>ART[k])};
+const namesReg=b=>/AML/.test(BLK[b][1]);
+const blockArt=b=>BLK[b][1]?`${namesReg(b)?"":"Art. "}${artHTML(BLK[b][1],blockKeys(b))}`:"";
 const blockStatus=b=>{const ids=BLK[b][2];return PRIO.find(p=>ids.some(id=>BY[id].status===p))};
 const blocksOf=id=>(P[id]?.bl||[]).map(n=>CHIP_ALIAS[n]||n);
 
@@ -563,6 +569,15 @@ const C={total:L2.length,open:0};PRIO.forEach(k=>C[k]=L2.filter(d=>d.status===k)
 $("#days").textContent=$("#g-days").textContent=dayDiff("2027-07-10");
 document.querySelectorAll(".d").forEach(e=>e.textContent=dayDiff(e.dataset.to));
 $("#g-open").textContent=`${C.total-C.pub} of ${C.total}`;
+// at a glance: firm-facing framework blocks with the most RTS/GL/ITS that are not yet published
+const notFinal=id=>["RTS","GL","ITS"].includes(BY[id].type)&&BY[id].status!=="pub";
+$("#g-bars").innerHTML=Object.keys(BLK).filter(b=>!SUP_BLOCKS.has(b)).map(b=>[b,BLK[b][2].filter(notFinal).length]).sort((a,b)=>b[1]-a[1]).slice(0,4)
+  .map(([b,n])=>`<button type="button" data-block="${esc(b)}" title="Open ${esc(b)}"><b>${n}</b><span>${esc(b)}</span></button>`).join("");
+// next deadlines: the next four expected dates of RTS/GL/ITS not yet published
+const expected=d=>{const e=fact(d.id,"Expected");return e?new Date(e).toLocaleDateString("sv-SE"):d.nextNote==="Expected"?d.next:""};
+const DL={};L2.filter(d=>d.status!=="pub").forEach(d=>{const e=expected(d);if(e&&dayDiff(e)>=0)(DL[e]=DL[e]||[]).push(d)});
+$("#g-dl").innerHTML=Object.keys(DL).sort().slice(0,4).map(e=>{const l=DL[e].sort((a,b)=>PRIO.indexOf(a.status)-PRIO.indexOf(b.status)||a.short.localeCompare(b.short));
+  return `<div><span><b>${fmt(e)}</b><small>EXPECTED · ${l.length}</small></span><span>${l.slice(0,4).map(d=>`<a href="#/instruments/${d.id}">${esc(d.short)}</a>`).join(" · ")}${l.length>4?`, +${l.length-4}`:""}</span></div>`}).join("");
 $("#prog").style.width=Math.min(100,Math.max(0,(1-dayDiff("2027-07-10")/1000)*100))+"%";
 
 /* ---------- instruments: hero status counts, filters, table, board ---------- */
@@ -665,7 +680,7 @@ function openBlock(name){
   closeDrawer(2);
   document.querySelectorAll("[data-block]").forEach(b=>b.classList.toggle("sel",b.dataset.block===name));
   const ids=BLK[name][2],keys=name==="Client Acceptance - Art. 19"?["AMLR 19"]:blockKeys(name);
-  const sub=BLK[name][1]?`<span class="inst-art">Art. ${artHTML(BLK[name][1],keys)} AMLR</span>`:"";
+  const sub=BLK[name][1]?`<span class="inst-art">${namesReg(name)?artHTML(BLK[name][1],keys):`Art. ${artHTML(BLK[name][1],keys)} AMLR`}</span>`:"";
   openDrawer(1,dhead("Framework block",name,sub,1)+
     `<p class="muted">${ids.length?`${ids.length} instrument${ids.length>1?"s affect":" affects"} this block.`:"No RTS, Guideline or ITS is known for this block. The obligations follow directly from the AMLR articles."}</p>`+
     ids.map(instCard).join(""),name);
@@ -673,7 +688,7 @@ function openBlock(name){
 function openArt(key){
   const [reg,n]=key.split(" "),R=REG[reg];
   const rel=D.filter(d=>d.arts.includes(key));
-  const blocks=reg==="AMLR"?Object.keys(BLK).filter(b=>BLK[b][0]!=="vbar"&&blockKeys(b).includes(key)):[];
+  const blocks=Object.keys(BLK).filter(b=>BLK[b][0]!=="vbar"&&blockKeys(b).includes(key));
   openDrawer(2,dhead(R.label,`Article ${n} - ${ART[key]}`,"",2)+
     `<ul class="links"><li><a href="https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:${R.oj}#art_${n}" target="_blank" rel="noopener noreferrer">Article ${n} on EUR-Lex (authentic text) ${EXT}</a></li>
       <li><a href="${R.full}" target="_blank" rel="noopener noreferrer">${R.label.replace(/ \((\w+)\)$/," ($1)")}, full text ${EXT}</a></li>
