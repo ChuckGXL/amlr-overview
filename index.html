@@ -377,7 +377,7 @@ footer a{color:var(--on-dark);text-decoration:underline}
     <div class="dg-head">
       <h2>Daily Digest</h2>
       <div class="dg-tools">
-        <div class="seg" id="dg-view"><button data-dv="done">Reviewed</button><button class="on" data-dv="todo">To Review <b id="dg-n"></b></button><button data-dv="all">All</button></div>
+        <div class="seg" id="dg-view"><button data-dv="done">Reviewed</button><button data-dv="todo">To Review <b id="dg-n"></b></button><button class="on" data-dv="all">All</button></div>
       </div>
     </div>
     <p class="meta" id="dg-meta"></p>
@@ -757,7 +757,7 @@ function indexHTML(){
 /* ---------- daily digest (data/digest.js, written by monitor/fetch.py) ---------- */
 const DG=window.DIGEST,LC=window.LINKCHECK,RV_KEY="amlr-digest-review";
 let review={};try{review=JSON.parse(localStorage.getItem(RV_KEY))||{}}catch(e){}
-const dgState={view:"todo"};
+const dgState={view:"all"};
 function saveReview(){try{localStorage.setItem(RV_KEY,JSON.stringify(review))}catch(e){}}
 function dayLabel(iso,backfill){
   if(backfill)return "Already published when monitoring started";
