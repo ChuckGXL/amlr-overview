@@ -1,6 +1,6 @@
 // Written by monitor/fetch.py. Do not edit by hand.
 window.DIGEST={
- "generated": "2026-10-30T08:14+00:00",
+ "generated": "2026-10-30T12:59+00:00",
  "firstRun": false,
  "sources": [
   {
@@ -10,7 +10,7 @@ window.DIGEST={
    "kind": "rss",
    "state": "ok",
    "fetched": 30,
-   "new": 0
+   "new": 1
   },
   {
    "id": "amla-consultations",
@@ -28,7 +28,7 @@ window.DIGEST={
    "kind": "rss",
    "state": "ok",
    "fetched": 25,
-   "new": 0
+   "new": 1
   },
   {
    "id": "amla-hearings",
@@ -118,6 +118,40 @@ window.DIGEST={
   }
  ],
  "items": [
+  {
+   "id": "a6ccdc347c2a",
+   "found": "2026-10-30",
+   "backfill": false,
+   "sources": [
+    "AMLA · news & press releases"
+   ],
+   "source": "amla-news",
+   "title": "Call for expression of interest: technology providers roundtable on partnerships for information sharing",
+   "link": "https://www.amla.europa.eu/call-expression-interest-technology-providers-roundtable-partnerships-information-sharing_en",
+   "date": "2026-10-30",
+   "summary": "AMLA and the European Data Protection Board (EDPB) are inviting technology providers with practical experience of AML/CFT information-sharing arrangements to join an online roundtable on 30 November 2026.",
+   "matches": [
+    {
+     "id": "gl-partnerships",
+     "how": "keyword “partnerships for information sharing”",
+     "suggest": "Add as a source if relevant."
+    }
+   ]
+  },
+  {
+   "id": "89bec2033351",
+   "found": "2026-10-30",
+   "backfill": false,
+   "sources": [
+    "AMLA · document library"
+   ],
+   "source": "amla-docs",
+   "title": "Call for expression of interest - Joint GL - Roundtable for technology providers",
+   "link": "https://www.amla.europa.eu/document/download/7e64962d-2be7-4ec4-92b5-926088b29f2b_en?filename=Call%20for%20expression%20of%20interest%20-%20Roundtable.pdf",
+   "date": "2026-10-30",
+   "summary": "",
+   "matches": []
+  },
   {
    "id": "ab7acec110d9",
    "found": "2026-10-29",
