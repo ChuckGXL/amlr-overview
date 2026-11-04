@@ -1,6 +1,6 @@
 // Written by monitor/fetch.py. Do not edit by hand.
 window.DIGEST={
- "generated": "2026-11-03T14:20+00:00",
+ "generated": "2026-11-04T14:37+00:00",
  "firstRun": false,
  "sources": [
   {
@@ -10,7 +10,7 @@ window.DIGEST={
    "kind": "rss",
    "state": "ok",
    "fetched": 30,
-   "new": 0
+   "new": 1
   },
   {
    "id": "amla-consultations",
@@ -45,7 +45,7 @@ window.DIGEST={
    "url": "https://www.amla.europa.eu/node/4/rss_en",
    "kind": "rss",
    "state": "ok",
-   "fetched": 1,
+   "fetched": 0,
    "new": 0
   },
   {
@@ -118,6 +118,20 @@ window.DIGEST={
   }
  ],
  "items": [
+  {
+   "id": "6ede9f598227",
+   "found": "2026-11-04",
+   "backfill": false,
+   "sources": [
+    "AMLA · news & press releases"
+   ],
+   "source": "amla-news",
+   "title": "AMLA Executive Board Member Derville Rowland attends Eurofi Financial Forum in Dublin",
+   "link": "https://www.amla.europa.eu/news-media/news-articles/amla-executive-board-member-derville-rowland-attends-eurofi-financial-forum-dublin_en",
+   "date": "2026-11-04",
+   "summary": "AMLA Executive Board Member Derville Rowland participated in the panel discussion “AML and AMLA: From Policy to Action” at the Eurofi Financial Forum, held in Dublin from 16 to 19 September 2026.",
+   "matches": []
+  },
   {
    "id": "a6ccdc347c2a",
    "found": "2026-10-30",
