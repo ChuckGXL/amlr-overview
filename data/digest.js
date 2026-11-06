@@ -1,6 +1,6 @@
 // Written by monitor/fetch.py. Do not edit by hand.
 window.DIGEST={
- "generated": "2026-11-05T14:42+00:00",
+ "generated": "2026-11-06T14:20+00:00",
  "firstRun": false,
  "sources": [
   {
@@ -81,7 +81,7 @@ window.DIGEST={
    "url": "https://www.afm.nl/nl-nl/rss-feed/nieuws-professionals",
    "kind": "rss",
    "state": "ok",
-   "fetched": 3,
+   "fetched": 2,
    "new": 0
   },
   {
@@ -91,7 +91,7 @@ window.DIGEST={
    "kind": "tk",
    "state": "ok",
    "fetched": 1,
-   "new": 0
+   "new": 1
   },
   {
    "id": "ob",
@@ -118,6 +118,20 @@ window.DIGEST={
   }
  ],
  "items": [
+  {
+   "id": "306e3390247a",
+   "found": "2026-11-06",
+   "backfill": false,
+   "sources": [
+    "Tweede Kamer · parliamentary documents"
+   ],
+   "source": "tk",
+   "title": "Mededeling (uitstel antwoord): Uitstel beantwoording vragen van het lid Bikkers over het bericht 'Jongerenwerk Amsterdam verdacht van betrokkenheid bij grote witwasconstructie: gemeente stak miljoenen subsidie in stichting'",
+   "link": "https://gegevensmagazijn.tweedekamer.nl/OData/v4/2.0/Document(65d74ead-f67f-4282-97c7-f9ab9971aa8e)/resource",
+   "date": "2026-11-06",
+   "summary": "",
+   "matches": []
+  },
   {
    "id": "6ede9f598227",
    "found": "2026-11-04",
