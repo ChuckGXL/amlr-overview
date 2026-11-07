@@ -1,6 +1,6 @@
 // Written by monitor/fetch.py. Do not edit by hand.
 window.DIGEST={
- "generated": "2026-11-06T14:20+00:00",
+ "generated": "2026-11-07T13:06+00:00",
  "firstRun": false,
  "sources": [
   {
@@ -91,7 +91,7 @@ window.DIGEST={
    "kind": "tk",
    "state": "ok",
    "fetched": 1,
-   "new": 1
+   "new": 0
   },
   {
    "id": "ob",
