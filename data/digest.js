@@ -1,6 +1,6 @@
 // Written by monitor/fetch.py. Do not edit by hand.
 window.DIGEST={
- "generated": "2026-11-10T14:56+00:00",
+ "generated": "2026-11-11T14:27+00:00",
  "firstRun": false,
  "sources": [
   {
