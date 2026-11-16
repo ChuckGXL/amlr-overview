@@ -1,6 +1,6 @@
 // Written by monitor/fetch.py. Do not edit by hand.
 window.DIGEST={
- "generated": "2026-11-15T13:58+00:00",
+ "generated": "2026-11-16T15:51+00:00",
  "firstRun": false,
  "sources": [
   {
@@ -10,7 +10,7 @@ window.DIGEST={
    "kind": "rss",
    "state": "ok",
    "fetched": 30,
-   "new": 0
+   "new": 1
   },
   {
    "id": "amla-consultations",
@@ -118,6 +118,20 @@ window.DIGEST={
   }
  ],
  "items": [
+  {
+   "id": "a8ffaa356468",
+   "found": "2026-11-16",
+   "backfill": false,
+   "sources": [
+    "AMLA · news & press releases"
+   ],
+   "source": "amla-news",
+   "title": "AMLA Executive Board Member Derville Rowland speaks at AFME’s European AML Conference",
+   "link": "https://www.amla.europa.eu/news-media/news-articles/amla-executive-board-member-derville-rowland-speaks-afmes-european-aml-conference_en",
+   "date": "2026-11-16",
+   "summary": "AMLA Executive Board Member Derville Rowland delivered a keynote address at AFME’s European AML Conference 2026 in Frankfurt on 4 November, setting out how AMLA is moving from ambition to delivery.",
+   "matches": []
+  },
   {
    "id": "306e3390247a",
    "found": "2026-11-06",
