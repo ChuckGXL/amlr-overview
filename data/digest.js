@@ -1,6 +1,6 @@
 // Written by monitor/fetch.py. Do not edit by hand.
 window.DIGEST={
- "generated": "2026-11-16T15:51+00:00",
+ "generated": "2026-11-17T16:04+00:00",
  "firstRun": false,
  "sources": [
   {
@@ -44,18 +44,16 @@ window.DIGEST={
    "label": "AMLA · events",
    "url": "https://www.amla.europa.eu/node/4/rss_en",
    "kind": "rss",
-   "state": "ok",
-   "fetched": 0,
-   "new": 0
+   "state": "error",
+   "error": "HTTPError: HTTP Error 429: Too Many Requests"
   },
   {
    "id": "amla-reports",
    "label": "AMLA · reports & notes",
    "url": "https://www.amla.europa.eu/node/267/rss_en",
    "kind": "rss",
-   "state": "ok",
-   "fetched": 1,
-   "new": 0
+   "state": "error",
+   "error": "HTTPError: HTTP Error 429: Too Many Requests"
   },
   {
    "id": "eba",
@@ -118,6 +116,20 @@ window.DIGEST={
   }
  ],
  "items": [
+  {
+   "id": "42539c3af342",
+   "found": "2026-11-17",
+   "backfill": false,
+   "sources": [
+    "AMLA · news & press releases"
+   ],
+   "source": "amla-news",
+   "title": "From vision to reality: AMLA Chair Bruna Szego speaks at 29th Euro Finance Week",
+   "link": "https://www.amla.europa.eu/vision-reality-amla-chair-bruna-szego-speaks-29th-euro-finance-week_en",
+   "date": "2026-11-17",
+   "summary": "AMLA Chair Bruna Szego delivered a speech at the 29th Euro Finance Week in Frankfurt on 16 November 2026, reflecting on AMLA’s progress over the past year and the priorities ahead.",
+   "matches": []
+  },
   {
    "id": "a8ffaa356468",
    "found": "2026-11-16",
