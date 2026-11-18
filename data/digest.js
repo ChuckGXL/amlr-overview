@@ -1,6 +1,6 @@
 // Written by monitor/fetch.py. Do not edit by hand.
 window.DIGEST={
- "generated": "2026-11-17T16:04+00:00",
+ "generated": "2026-11-18T15:42+00:00",
  "firstRun": false,
  "sources": [
   {
@@ -28,7 +28,7 @@ window.DIGEST={
    "kind": "rss",
    "state": "ok",
    "fetched": 25,
-   "new": 0
+   "new": 2
   },
   {
    "id": "amla-hearings",
@@ -44,16 +44,18 @@ window.DIGEST={
    "label": "AMLA · events",
    "url": "https://www.amla.europa.eu/node/4/rss_en",
    "kind": "rss",
-   "state": "error",
-   "error": "HTTPError: HTTP Error 429: Too Many Requests"
+   "state": "ok",
+   "fetched": 0,
+   "new": 0
   },
   {
    "id": "amla-reports",
    "label": "AMLA · reports & notes",
    "url": "https://www.amla.europa.eu/node/267/rss_en",
    "kind": "rss",
-   "state": "error",
-   "error": "HTTPError: HTTP Error 429: Too Many Requests"
+   "state": "ok",
+   "fetched": 1,
+   "new": 0
   },
   {
    "id": "eba",
@@ -116,6 +118,48 @@ window.DIGEST={
   }
  ],
  "items": [
+  {
+   "id": "82e7ded9e837",
+   "found": "2026-11-18",
+   "backfill": false,
+   "sources": [
+    "AMLA · news & press releases"
+   ],
+   "source": "amla-news",
+   "title": "AMLA and the EPPO agree closer cooperation to fight money laundering affecting the EU budget",
+   "link": "https://www.amla.europa.eu/amla-and-eppo-agree-closer-cooperation-fight-money-laundering-affecting-eu-budget_en",
+   "date": "2026-11-17",
+   "summary": "AMLA and the European Public Prosecutor’s Office (EPPO) have today signed a Working Arrangement setting out how they will cooperate and exchange information to counter money laundering.",
+   "matches": []
+  },
+  {
+   "id": "e8de0d8a44ba",
+   "found": "2026-11-18",
+   "backfill": false,
+   "sources": [
+    "AMLA · document library"
+   ],
+   "source": "amla-docs",
+   "title": "AMLA and EPPO - Working Arrangement on Cooperation",
+   "link": "https://www.amla.europa.eu/document/download/21f8c0f0-1c39-4de0-b770-49c2c5436fd6_en?filename=Working%20Arrangement%20-%20AMLA%20and%20EPPO.pdf",
+   "date": "2026-11-17",
+   "summary": "",
+   "matches": []
+  },
+  {
+   "id": "f14e1c0697a4",
+   "found": "2026-11-18",
+   "backfill": false,
+   "sources": [
+    "AMLA · document library"
+   ],
+   "source": "amla-docs",
+   "title": "Press Release - AMLA-EPPO Working Arrangement",
+   "link": "https://www.amla.europa.eu/document/download/21104760-db34-4a30-b593-3ef346df70c6_en?filename=Press%20Release%20-%20AMLA-EPPO%20Working%20Arrangement.pdf",
+   "date": "2026-11-17",
+   "summary": "",
+   "matches": []
+  },
   {
    "id": "42539c3af342",
    "found": "2026-11-17",
