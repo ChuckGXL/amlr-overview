@@ -1,6 +1,6 @@
 // Written by monitor/fetch.py. Do not edit by hand.
 window.DIGEST={
- "generated": "2026-11-19T15:47+00:00",
+ "generated": "2026-11-20T15:30+00:00",
  "firstRun": false,
  "sources": [
   {
@@ -27,7 +27,7 @@ window.DIGEST={
    "url": "https://www.amla.europa.eu/node/105/rss_en",
    "kind": "rss",
    "state": "ok",
-   "fetched": 25,
+   "fetched": 24,
    "new": 0
   },
   {
@@ -90,8 +90,8 @@ window.DIGEST={
    "url": "https://gegevensmagazijn.tweedekamer.nl/OData/v4/2.0/Document",
    "kind": "tk",
    "state": "ok",
-   "fetched": 1,
-   "new": 0
+   "fetched": 7,
+   "new": 6
   },
   {
    "id": "ob",
@@ -118,6 +118,140 @@ window.DIGEST={
   }
  ],
  "items": [
+  {
+   "id": "64c50f02f627",
+   "found": "2026-11-20",
+   "backfill": false,
+   "sources": [
+    "AMLA · news & press releases"
+   ],
+   "source": "amla-news",
+   "title": "Delivering a more consistent and risk-based approach to AML/CFT across Europe: Rikke-Louise Ørum Petersen speaks at AMLP Forum",
+   "link": "https://www.amla.europa.eu/news-media/news-articles/delivering-more-consistent-and-risk-based-approach-amlcft-across-europe-rikke-louise-orum-petersen_en",
+   "date": "2026-11-20",
+   "summary": "At the AMLP Forum in London, AMLA Executive Board Member Rikke-Louise Ørum Petersen outlined AMLA’s work towards a more consistent and effective European AML/CFT framework, highlighting the development of the Single Rulebook, supervisory convergence and stakeholder cooperation.",
+   "matches": []
+  },
+  {
+   "id": "efba7bbaea6c",
+   "found": "2026-11-20",
+   "backfill": false,
+   "sources": [
+    "Tweede Kamer · parliamentary documents"
+   ],
+   "source": "tk",
+   "title": "Bijlage: Beslisnota's bij Regels ter implementatie van Richtlijn (EU) 2024/1640 en uitvoering van Verordening (EU) 2024/1624 tot voorkoming van het gebruik van het financiële stelsel voor witwassen of terrorismefinanciering (Implementatiewet ter voorkoming van witwassen en terrorismefinanciering)(Kamerstuk 37075)",
+   "link": "https://gegevensmagazijn.tweedekamer.nl/OData/v4/2.0/Document(8cf60b8d-c6e5-431b-9099-6938b8e8ff52)/resource",
+   "date": "2026-11-20",
+   "summary": "",
+   "matches": [
+    {
+     "id": "nl-implementatiewet",
+     "how": "keyword “implementatiewet ter voorkoming van witwassen”",
+     "suggest": "Add as a source if relevant."
+    }
+   ]
+  },
+  {
+   "id": "01fb10f8fe52",
+   "found": "2026-11-20",
+   "backfill": false,
+   "sources": [
+    "Tweede Kamer · parliamentary documents"
+   ],
+   "source": "tk",
+   "title": "Bijlage: Nader rapport Implementatiewet ter voorkoming van witwassen en terrorismefinanciering",
+   "link": "https://gegevensmagazijn.tweedekamer.nl/OData/v4/2.0/Document(9685122c-8b1b-4e87-a4dd-847340761e07)/resource",
+   "date": "2026-11-20",
+   "summary": "",
+   "matches": [
+    {
+     "id": "nl-implementatiewet",
+     "how": "keyword “implementatiewet ter voorkoming van witwassen”",
+     "suggest": "Add as a source if relevant."
+    }
+   ]
+  },
+  {
+   "id": "110a1753fcc0",
+   "found": "2026-11-20",
+   "backfill": false,
+   "sources": [
+    "Tweede Kamer · parliamentary documents"
+   ],
+   "source": "tk",
+   "title": "Memorie van toelichting: Memorie van toelichting ",
+   "link": "https://gegevensmagazijn.tweedekamer.nl/OData/v4/2.0/Document(67eda0e3-360b-4450-9a46-4aab2f3acdb7)/resource",
+   "date": "2026-11-19",
+   "summary": "Regels ter implementatie van Richtlijn (EU) 2024/1640 en uitvoering van Verordening (EU) 2024/1624 tot voorkoming van het gebruik van het financiële stelsel voor witwassen of terrorismefinanciering (Implementatiewet ter voorkoming van witwassen en terrorismefinanciering)  · dossier 37075",
+   "matches": [
+    {
+     "id": "nl-implementatiewet",
+     "how": "keyword “implementatiewet ter voorkoming van witwassen”",
+     "suggest": "Add as a source if relevant."
+    }
+   ]
+  },
+  {
+   "id": "c0f0439e00cd",
+   "found": "2026-11-20",
+   "backfill": false,
+   "sources": [
+    "Tweede Kamer · parliamentary documents"
+   ],
+   "source": "tk",
+   "title": "Voorstel van wet: Voorstel van wet ",
+   "link": "https://gegevensmagazijn.tweedekamer.nl/OData/v4/2.0/Document(87c9916f-b602-41e7-b6f0-8384437feef1)/resource",
+   "date": "2026-11-19",
+   "summary": "Regels ter implementatie van Richtlijn (EU) 2024/1640 en uitvoering van Verordening (EU) 2024/1624 tot voorkoming van het gebruik van het financiële stelsel voor witwassen of terrorismefinanciering (Implementatiewet ter voorkoming van witwassen en terrorismefinanciering)  · dossier 37075",
+   "matches": [
+    {
+     "id": "nl-implementatiewet",
+     "how": "keyword “implementatiewet ter voorkoming van witwassen”",
+     "suggest": "Add as a source if relevant."
+    }
+   ]
+  },
+  {
+   "id": "f83d5e2ea00a",
+   "found": "2026-11-20",
+   "backfill": false,
+   "sources": [
+    "Tweede Kamer · parliamentary documents"
+   ],
+   "source": "tk",
+   "title": "Advies Afdeling advisering Raad van State en Nader rapport: Advies Afdeling advisering Raad van State en Nader rapport ",
+   "link": "https://gegevensmagazijn.tweedekamer.nl/OData/v4/2.0/Document(1590c7cd-544c-4edd-8bb2-c01572cb2510)/resource",
+   "date": "2026-11-19",
+   "summary": "Regels ter implementatie van Richtlijn (EU) 2024/1640 en uitvoering van Verordening (EU) 2024/1624 tot voorkoming van het gebruik van het financiële stelsel voor witwassen of terrorismefinanciering (Implementatiewet ter voorkoming van witwassen en terrorismefinanciering)  · dossier 37075",
+   "matches": [
+    {
+     "id": "nl-implementatiewet",
+     "how": "keyword “implementatiewet ter voorkoming van witwassen”",
+     "suggest": "Add as a source if relevant."
+    }
+   ]
+  },
+  {
+   "id": "19f81240827c",
+   "found": "2026-11-20",
+   "backfill": false,
+   "sources": [
+    "Tweede Kamer · parliamentary documents"
+   ],
+   "source": "tk",
+   "title": "Advies Afdeling advisering Raad van State: 37075 Advies Afdeling advisering Raad van State inzake Regels ter implementatie van Richtlijn (EU) 2024/1640 en uitvoering van Verordening (EU) 2024/1624 tot voorkoming van het gebruik van het financiële stelsel voor witwassen of terrorismefinanciering (Implementatiewet ter voorkoming van witwassen en terrorismefinanciering) ",
+   "link": "https://gegevensmagazijn.tweedekamer.nl/OData/v4/2.0/Document(4e3e4ee3-5a3e-4b01-b75c-d89815ebf5a0)/resource",
+   "date": "2026-11-19",
+   "summary": "Regels ter implementatie van Richtlijn (EU) 2024/1640 en uitvoering van Verordening (EU) 2024/1624 tot voorkoming van het gebruik van het financiële stelsel voor witwassen of terrorismefinanciering (Implementatiewet ter voorkoming van witwassen en terrorismefinanciering) ",
+   "matches": [
+    {
+     "id": "nl-implementatiewet",
+     "how": "keyword “implementatiewet ter voorkoming van witwassen”",
+     "suggest": "Add as a source if relevant."
+    }
+   ]
+  },
   {
    "id": "e2358b15973b",
    "found": "2026-11-19",
