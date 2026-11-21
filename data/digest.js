@@ -1,6 +1,6 @@
 // Written by monitor/fetch.py. Do not edit by hand.
 window.DIGEST={
- "generated": "2026-11-20T15:30+00:00",
+ "generated": "2026-11-21T14:42+00:00",
  "firstRun": false,
  "sources": [
   {
@@ -10,7 +10,7 @@ window.DIGEST={
    "kind": "rss",
    "state": "ok",
    "fetched": 30,
-   "new": 1
+   "new": 0
   },
   {
    "id": "amla-consultations",
@@ -54,8 +54,8 @@ window.DIGEST={
    "url": "https://www.amla.europa.eu/node/267/rss_en",
    "kind": "rss",
    "state": "ok",
-   "fetched": 1,
-   "new": 0
+   "fetched": 2,
+   "new": 1
   },
   {
    "id": "eba",
@@ -91,7 +91,7 @@ window.DIGEST={
    "kind": "tk",
    "state": "ok",
    "fetched": 7,
-   "new": 6
+   "new": 0
   },
   {
    "id": "ob",
@@ -118,6 +118,20 @@ window.DIGEST={
   }
  ],
  "items": [
+  {
+   "id": "f4159e7485a1",
+   "found": "2026-11-21",
+   "backfill": false,
+   "sources": [
+    "AMLA · reports & notes"
+   ],
+   "source": "amla-reports",
+   "title": "Report on cooperation - Supervisory authorities in AMLCFT colleges",
+   "link": "https://www.amla.europa.eu/document/download/af147c21-fdb8-4077-bcb2-f725a5d40492_en?filename=REPORT~1.PDF",
+   "date": "2026-11-20",
+   "summary": "",
+   "matches": []
+  },
   {
    "id": "64c50f02f627",
    "found": "2026-11-20",
