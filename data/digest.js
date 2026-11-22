@@ -1,6 +1,6 @@
 // Written by monitor/fetch.py. Do not edit by hand.
 window.DIGEST={
- "generated": "2026-11-21T14:42+00:00",
+ "generated": "2026-11-22T14:38+00:00",
  "firstRun": false,
  "sources": [
   {
@@ -55,7 +55,7 @@ window.DIGEST={
    "kind": "rss",
    "state": "ok",
    "fetched": 2,
-   "new": 1
+   "new": 0
   },
   {
    "id": "eba",
