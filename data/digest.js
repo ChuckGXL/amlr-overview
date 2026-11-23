@@ -1,6 +1,6 @@
 // Written by monitor/fetch.py. Do not edit by hand.
 window.DIGEST={
- "generated": "2026-11-22T14:38+00:00",
+ "generated": "2026-11-23T18:15+00:00",
  "firstRun": false,
  "sources": [
   {
@@ -10,7 +10,7 @@ window.DIGEST={
    "kind": "rss",
    "state": "ok",
    "fetched": 30,
-   "new": 0
+   "new": 2
   },
   {
    "id": "amla-consultations",
@@ -18,8 +18,8 @@ window.DIGEST={
    "url": "https://www.amla.europa.eu/node/8/rss_en",
    "kind": "rss",
    "state": "ok",
-   "fetched": 11,
-   "new": 0
+   "fetched": 13,
+   "new": 2
   },
   {
    "id": "amla-docs",
@@ -28,7 +28,7 @@ window.DIGEST={
    "kind": "rss",
    "state": "ok",
    "fetched": 24,
-   "new": 0
+   "new": 1
   },
   {
    "id": "amla-hearings",
@@ -36,8 +36,8 @@ window.DIGEST={
    "url": "https://www.amla.europa.eu/node/190/rss_en",
    "kind": "rss",
    "state": "ok",
-   "fetched": 11,
-   "new": 0
+   "fetched": 13,
+   "new": 2
   },
   {
    "id": "amla-events",
@@ -45,7 +45,7 @@ window.DIGEST={
    "url": "https://www.amla.europa.eu/node/4/rss_en",
    "kind": "rss",
    "state": "ok",
-   "fetched": 0,
+   "fetched": 2,
    "new": 0
   },
   {
@@ -118,6 +118,153 @@ window.DIGEST={
   }
  ],
  "items": [
+  {
+   "id": "3e6b1d4d56c5",
+   "found": "2026-11-23",
+   "backfill": false,
+   "sources": [
+    "AMLA · news & press releases"
+   ],
+   "source": "amla-news",
+   "title": "Press Release: AMLA consults on AML/CFT supervisory colleges in the EU",
+   "link": "https://www.amla.europa.eu/press-release-amla-consults-amlcft-supervisory-colleges-eu_en",
+   "date": "2026-11-23",
+   "summary": "AMLA has launched two public consultations on draft Regulatory Technical Standards (RTSs) for the functioning of AML/CFT supervisory colleges in the financial and non-financial sectors.",
+   "matches": [
+    {
+     "id": "rts-colleges",
+     "how": "keyword “supervisory colleges”",
+     "suggest": "Add as a source if relevant."
+    }
+   ]
+  },
+  {
+   "id": "513b6a71abad",
+   "found": "2026-11-23",
+   "backfill": false,
+   "sources": [
+    "AMLA · news & press releases"
+   ],
+   "source": "amla-news",
+   "title": "AMLA publishes report on cooperation in AML/CFT supervisory colleges",
+   "link": "https://www.amla.europa.eu/amla-publishes-report-cooperation-amlcft-supervisory-colleges_en",
+   "date": "2026-11-23",
+   "summary": "AMLA has published its first Report on cooperation of supervisory authorities in AML/CFT colleges, covering the period from 15 November 2025 to 15 July 2026.",
+   "matches": [
+    {
+     "id": "rts-colleges",
+     "how": "keyword “supervisory colleges”",
+     "suggest": "Add as a source if relevant."
+    }
+   ]
+  },
+  {
+   "id": "9be3e10cfc5f",
+   "found": "2026-11-23",
+   "backfill": false,
+   "sources": [
+    "AMLA · public consultations"
+   ],
+   "source": "amla-consultations",
+   "title": "Consultation on the draft RTS on the conditions for the functioning of AML/CFT supervisory colleges in the non-financial sector",
+   "link": "https://www.amla.europa.eu/policy/public-consultations/consultation-draft-rts-conditions-functioning-amlcft-supervisory-colleges-non-financial-sector_en",
+   "date": "2026-11-23",
+   "summary": "AMLA welcomes contributions on the draft RTS on the conditions for the functioning of AML/CFT supervisory colleges in the nonfinancial sector.",
+   "matches": [
+    {
+     "id": "rts-risk-assessment-non-financial",
+     "how": "keyword “non-financial sector”",
+     "suggest": "Add as a source if relevant."
+    },
+    {
+     "id": "rts-colleges",
+     "how": "keyword “supervisory colleges”",
+     "suggest": "New consultation: status may move to In consultation. Add as a source."
+    }
+   ]
+  },
+  {
+   "id": "a07a39e4dd4d",
+   "found": "2026-11-23",
+   "backfill": false,
+   "sources": [
+    "AMLA · public consultations"
+   ],
+   "source": "amla-consultations",
+   "title": "Consultation on the draft RTS on the conditions for the functioning of AML/CFT supervisory colleges in the financial sector",
+   "link": "https://www.amla.europa.eu/policy/public-consultations/consultation-draft-rts-conditions-functioning-amlcft-supervisory-colleges-financial-sector_en",
+   "date": "2026-11-23",
+   "summary": "AMLA welcomes contributions on the draft RTS on the conditions for the functioning of AML/CFT supervisory colleges in the financial sector.",
+   "matches": [
+    {
+     "id": "rts-colleges",
+     "how": "keyword “supervisory colleges”",
+     "suggest": "New consultation: status may move to In consultation. Add as a source."
+    }
+   ]
+  },
+  {
+   "id": "8b40f2af70a9",
+   "found": "2026-11-23",
+   "backfill": false,
+   "sources": [
+    "AMLA · document library"
+   ],
+   "source": "amla-docs",
+   "title": "Press Release - AMLA consults on AML/CFT supervisory colleges in the EU",
+   "link": "https://www.amla.europa.eu/document/download/a9b75e33-6f87-4020-ad6c-092c46fda6da_en?filename=Press%20Release%20-%20PC%20on%20AML_CFT%20colleges.pdf",
+   "date": "2026-11-23",
+   "summary": "",
+   "matches": [
+    {
+     "id": "rts-colleges",
+     "how": "keyword “supervisory colleges”",
+     "suggest": "Add as a source if relevant."
+    }
+   ]
+  },
+  {
+   "id": "f0e138d05ec7",
+   "found": "2026-11-23",
+   "backfill": false,
+   "sources": [
+    "AMLA · public hearings",
+    "AMLA · events"
+   ],
+   "source": "amla-hearings",
+   "title": "Public Hearing on the draft RTS on the conditions for the functioning of AML/CFT supervisory colleges in the nonfinancial sector",
+   "link": "https://www.amla.europa.eu/events/public-hearing-draft-rts-conditions-functioning-amlcft-supervisory-colleges-nonfinancial-sector-2026-12-14_en",
+   "date": "2026-11-23",
+   "summary": "Public Hearing on the draft Regulatory Technical Standards under Article 50(13) of Directive (EU) 2024/1640",
+   "matches": [
+    {
+     "id": "rts-colleges",
+     "how": "Art. 50(13) AMLD6",
+     "suggest": "Public hearing: add it as a step in the version history."
+    }
+   ]
+  },
+  {
+   "id": "d52168110b2b",
+   "found": "2026-11-23",
+   "backfill": false,
+   "sources": [
+    "AMLA · public hearings",
+    "AMLA · events"
+   ],
+   "source": "amla-hearings",
+   "title": "Public Hearing on the draft RTS on the conditions for the functioning of AML/CFT supervisory colleges in the financial sector",
+   "link": "https://www.amla.europa.eu/events/public-hearing-draft-rts-conditions-functioning-amlcft-supervisory-colleges-financial-sector-2026-12-14_en",
+   "date": "2026-11-23",
+   "summary": "Public Hearing on the draft Regulatory Technical Standards under Article 49(14) of Directive (EU) 2024/1640",
+   "matches": [
+    {
+     "id": "rts-colleges",
+     "how": "Art. 49(14) AMLD6",
+     "suggest": "Public hearing: add it as a step in the version history."
+    }
+   ]
+  },
   {
    "id": "f4159e7485a1",
    "found": "2026-11-21",

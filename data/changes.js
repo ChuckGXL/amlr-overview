@@ -1,6 +1,33 @@
 // Written by monitor/changes.py. Do not edit by hand. Newest first.
 window.CHANGES=[
  {
+  "id": "c43393a027d9",
+  "at": "2026-11-23T18:15+00:00",
+  "date": "2026-11-23",
+  "inst": "rts-colleges",
+  "short": "RTS Supervisory colleges",
+  "how": "auto",
+  "why": "AMLA opened a public consultation.",
+  "link": "https://www.amla.europa.eu/policy/public-consultations/consultation-draft-rts-conditions-functioning-amlcft-supervisory-colleges-non-financial-sector_en",
+  "changes": [
+   {
+    "field": "status",
+    "old": "ann",
+    "new": "consult"
+   },
+   {
+    "field": "Step",
+    "old": "",
+    "new": "Consultation paper, November 23, 2026"
+   },
+   {
+    "field": "Source",
+    "old": "",
+    "new": "Consultation on the draft RTS on the conditions for the functioning of AML/CFT supervisory colleges in the non-financial sector"
+   }
+  ]
+ },
+ {
   "id": "61b0d36135b5",
   "at": "2026-10-29T21:58+00:00",
   "date": "2026-10-29",
