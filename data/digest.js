@@ -1,6 +1,6 @@
 // Written by monitor/fetch.py. Do not edit by hand.
 window.DIGEST={
- "generated": "2026-11-23T18:15+00:00",
+ "generated": "2026-11-24T17:50+00:00",
  "firstRun": false,
  "sources": [
   {
@@ -10,7 +10,7 @@ window.DIGEST={
    "kind": "rss",
    "state": "ok",
    "fetched": 30,
-   "new": 2
+   "new": 0
   },
   {
    "id": "amla-consultations",
@@ -19,7 +19,7 @@ window.DIGEST={
    "kind": "rss",
    "state": "ok",
    "fetched": 13,
-   "new": 2
+   "new": 0
   },
   {
    "id": "amla-docs",
@@ -27,8 +27,8 @@ window.DIGEST={
    "url": "https://www.amla.europa.eu/node/105/rss_en",
    "kind": "rss",
    "state": "ok",
-   "fetched": 24,
-   "new": 1
+   "fetched": 25,
+   "new": 0
   },
   {
    "id": "amla-hearings",
@@ -37,7 +37,7 @@ window.DIGEST={
    "kind": "rss",
    "state": "ok",
    "fetched": 13,
-   "new": 2
+   "new": 0
   },
   {
    "id": "amla-events",
@@ -90,8 +90,8 @@ window.DIGEST={
    "url": "https://gegevensmagazijn.tweedekamer.nl/OData/v4/2.0/Document",
    "kind": "tk",
    "state": "ok",
-   "fetched": 7,
-   "new": 0
+   "fetched": 8,
+   "new": 1
   },
   {
    "id": "ob",
@@ -118,6 +118,26 @@ window.DIGEST={
   }
  ],
  "items": [
+  {
+   "id": "50dd06418d61",
+   "found": "2026-11-24",
+   "backfill": false,
+   "sources": [
+    "Tweede Kamer · parliamentary documents"
+   ],
+   "source": "tk",
+   "title": "Koninklijke boodschap: Koninklijke boodschap",
+   "link": "https://gegevensmagazijn.tweedekamer.nl/OData/v4/2.0/Document(dbbdf279-2cd1-4fb8-abac-739603964b50)/resource",
+   "date": "2026-11-19",
+   "summary": "Regels ter implementatie van Richtlijn (EU) 2024/1640 en uitvoering van Verordening (EU) 2024/1624 tot voorkoming van het gebruik van het financiële stelsel voor witwassen of terrorismefinanciering (Implementatiewet ter voorkoming van witwassen en terrorismefinanciering)  · dossier 37075",
+   "matches": [
+    {
+     "id": "nl-implementatiewet",
+     "how": "keyword “implementatiewet ter voorkoming van witwassen”",
+     "suggest": "Add as a source if relevant."
+    }
+   ]
+  },
   {
    "id": "3e6b1d4d56c5",
    "found": "2026-11-23",
