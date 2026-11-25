@@ -1,6 +1,6 @@
 // Written by monitor/fetch.py. Do not edit by hand.
 window.DIGEST={
- "generated": "2026-11-24T17:50+00:00",
+ "generated": "2026-11-25T17:17+00:00",
  "firstRun": false,
  "sources": [
   {
@@ -10,7 +10,7 @@ window.DIGEST={
    "kind": "rss",
    "state": "ok",
    "fetched": 30,
-   "new": 0
+   "new": 1
   },
   {
    "id": "amla-consultations",
@@ -18,8 +18,8 @@ window.DIGEST={
    "url": "https://www.amla.europa.eu/node/8/rss_en",
    "kind": "rss",
    "state": "ok",
-   "fetched": 13,
-   "new": 0
+   "fetched": 14,
+   "new": 1
   },
   {
    "id": "amla-docs",
@@ -27,8 +27,8 @@ window.DIGEST={
    "url": "https://www.amla.europa.eu/node/105/rss_en",
    "kind": "rss",
    "state": "ok",
-   "fetched": 25,
-   "new": 0
+   "fetched": 24,
+   "new": 1
   },
   {
    "id": "amla-hearings",
@@ -36,8 +36,8 @@ window.DIGEST={
    "url": "https://www.amla.europa.eu/node/190/rss_en",
    "kind": "rss",
    "state": "ok",
-   "fetched": 13,
-   "new": 0
+   "fetched": 14,
+   "new": 1
   },
   {
    "id": "amla-events",
@@ -45,7 +45,7 @@ window.DIGEST={
    "url": "https://www.amla.europa.eu/node/4/rss_en",
    "kind": "rss",
    "state": "ok",
-   "fetched": 2,
+   "fetched": 3,
    "new": 0
   },
   {
@@ -72,8 +72,8 @@ window.DIGEST={
    "url": "https://publications.europa.eu/webapi/rdf/sparql",
    "kind": "sparql",
    "state": "ok",
-   "fetched": 9,
-   "new": 0
+   "fetched": 10,
+   "new": 1
   },
   {
    "id": "afm",
@@ -91,7 +91,7 @@ window.DIGEST={
    "kind": "tk",
    "state": "ok",
    "fetched": 8,
-   "new": 1
+   "new": 0
   },
   {
    "id": "ob",
@@ -118,6 +118,83 @@ window.DIGEST={
   }
  ],
  "items": [
+  {
+   "id": "fe556cfb289b",
+   "found": "2026-11-25",
+   "backfill": false,
+   "sources": [
+    "AMLA · news & press releases"
+   ],
+   "source": "amla-news",
+   "title": "Press Release: AMLA consults on methodology for setting AML/CFT fines",
+   "link": "https://www.amla.europa.eu/press-release-amla-consults-methodology-setting-amlcft-fines_en",
+   "date": "2026-11-25",
+   "summary": "AMLA has launched a public consultation on draft Guidelines proposing a common methodology for supervisors in the EU to determine the base amount of a fine.",
+   "matches": []
+  },
+  {
+   "id": "7dd3056e4933",
+   "found": "2026-11-25",
+   "backfill": false,
+   "sources": [
+    "AMLA · public consultations"
+   ],
+   "source": "amla-consultations",
+   "title": "Consultation on the draft Guidelines on determining the base amount for imposing pecuniary sanctions",
+   "link": "https://www.amla.europa.eu/policy/public-consultations/consultation-draft-guidelines-determining-base-amount-imposing-pecuniary-sanctions_en",
+   "date": "2026-11-25",
+   "summary": "AMLA welcomes contributions on the draft Guidelines on determining the base amount for imposing pecuniary sanctions.",
+   "matches": []
+  },
+  {
+   "id": "98ce7de14db4",
+   "found": "2026-11-25",
+   "backfill": false,
+   "sources": [
+    "AMLA · document library"
+   ],
+   "source": "amla-docs",
+   "title": "Press Release - AMLA consults on methodology for setting AML/CFT fines",
+   "link": "https://www.amla.europa.eu/document/download/364750bd-1030-4561-866a-96d76164deae_en?filename=Press%20Release%20-%20AMLA%20consults%20on%20methodology%20for%20setting%20AML_CFT%20fines.pdf",
+   "date": "2026-11-25",
+   "summary": "",
+   "matches": []
+  },
+  {
+   "id": "e40932ba825e",
+   "found": "2026-11-25",
+   "backfill": false,
+   "sources": [
+    "AMLA · public hearings",
+    "AMLA · events"
+   ],
+   "source": "amla-hearings",
+   "title": "Public Hearing on the draft Guidelines on determining the base amount for imposing pecuniary sanctions",
+   "link": "https://www.amla.europa.eu/events/public-hearing-draft-guidelines-determining-base-amount-imposing-pecuniary-sanctions-2027-01-12_en",
+   "date": "2026-11-25",
+   "summary": "Public Hearing on draft Guidelines under Article 53(11) of Directive (EU) 2024/1640.",
+   "matches": [
+    {
+     "id": "gl-sanction-amounts",
+     "how": "Art. 53(11) AMLD6",
+     "suggest": "Public hearing: add it as a step in the version history."
+    }
+   ]
+  },
+  {
+   "id": "5573fe24f212",
+   "found": "2026-11-25",
+   "backfill": false,
+   "sources": [
+    "EUR-Lex · acts based on AMLR, AMLD6, AMLAR"
+   ],
+   "source": "eurlex",
+   "title": "P10_TA(2026)0159 – Banking Union – annual report 2025 – European Parliament resolution of 30 April 2026 on Banking Union – annual report 2025 (2025/2136(INI))",
+   "link": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:52026IP0159",
+   "date": "2026-04-30",
+   "summary": "CELEX 52026IP0159 · legal basis: AMLAR, AMLD6, AMLR",
+   "matches": []
+  },
   {
    "id": "50dd06418d61",
    "found": "2026-11-24",
