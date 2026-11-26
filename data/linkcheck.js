@@ -1,30 +1,11 @@
 // Written by monitor/linkcheck.py. Do not edit by hand.
 window.LINKCHECK={
- "checked": "2026-10-29T09:24+00:00",
+ "checked": "2026-11-26T16:57+00:00",
  "counts": {
-  "ok": 73,
-  "unchecked": 8,
+  "ok": 26,
+  "unchecked": 60,
   "broken": 0,
-  "error": 2
+  "error": 0
  },
- "problems": [
-  {
-   "url": "https://www.fiu-nederland.nl/",
-   "title": "FIU-Nederland",
-   "instruments": [
-    "nl-fiu-goaml"
-   ],
-   "state": "error",
-   "code": "URLError"
-  },
-  {
-   "url": "https://www.fiu-nederland.nl/melden/goaml",
-   "title": "FIU-Nederland - goAML",
-   "instruments": [
-    "nl-fiu-goaml"
-   ],
-   "state": "error",
-   "code": "URLError"
-  }
- ]
+ "problems": []
 };

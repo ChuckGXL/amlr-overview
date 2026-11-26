@@ -1,6 +1,33 @@
 // Written by monitor/changes.py. Do not edit by hand. Newest first.
 window.CHANGES=[
  {
+  "id": "0133b3db9241",
+  "at": "2026-11-26T16:57+00:00",
+  "date": "2026-11-26",
+  "inst": "gl-outsourcing",
+  "short": "GL Outsourcing",
+  "how": "auto",
+  "why": "AMLA opened a public consultation.",
+  "link": "https://www.amla.europa.eu/policy/public-consultations/consultation-draft-guidelines-reliance-outsourcing-and-third-party-arrangements_en",
+  "changes": [
+   {
+    "field": "status",
+    "old": "ann",
+    "new": "consult"
+   },
+   {
+    "field": "Step",
+    "old": "",
+    "new": "Consultation paper, November 26, 2026"
+   },
+   {
+    "field": "Source",
+    "old": "",
+    "new": "Consultation on the draft Guidelines for reliance, outsourcing, and third-party arrangements"
+   }
+  ]
+ },
+ {
   "id": "c43393a027d9",
   "at": "2026-11-23T18:15+00:00",
   "date": "2026-11-23",

@@ -1,6 +1,6 @@
 // Written by monitor/fetch.py. Do not edit by hand.
 window.DIGEST={
- "generated": "2026-11-25T17:17+00:00",
+ "generated": "2026-11-26T16:57+00:00",
  "firstRun": false,
  "sources": [
   {
@@ -10,7 +10,7 @@ window.DIGEST={
    "kind": "rss",
    "state": "ok",
    "fetched": 30,
-   "new": 1
+   "new": 2
   },
   {
    "id": "amla-consultations",
@@ -18,8 +18,8 @@ window.DIGEST={
    "url": "https://www.amla.europa.eu/node/8/rss_en",
    "kind": "rss",
    "state": "ok",
-   "fetched": 14,
-   "new": 1
+   "fetched": 18,
+   "new": 4
   },
   {
    "id": "amla-docs",
@@ -27,7 +27,7 @@ window.DIGEST={
    "url": "https://www.amla.europa.eu/node/105/rss_en",
    "kind": "rss",
    "state": "ok",
-   "fetched": 24,
+   "fetched": 23,
    "new": 1
   },
   {
@@ -36,7 +36,7 @@ window.DIGEST={
    "url": "https://www.amla.europa.eu/node/190/rss_en",
    "kind": "rss",
    "state": "ok",
-   "fetched": 14,
+   "fetched": 15,
    "new": 1
   },
   {
@@ -45,7 +45,7 @@ window.DIGEST={
    "url": "https://www.amla.europa.eu/node/4/rss_en",
    "kind": "rss",
    "state": "ok",
-   "fetched": 3,
+   "fetched": 4,
    "new": 0
   },
   {
@@ -73,7 +73,7 @@ window.DIGEST={
    "kind": "sparql",
    "state": "ok",
    "fetched": 10,
-   "new": 1
+   "new": 0
   },
   {
    "id": "afm",
@@ -118,6 +118,176 @@ window.DIGEST={
   }
  ],
  "items": [
+  {
+   "id": "b34d3c9eaf50",
+   "found": "2026-11-26",
+   "backfill": false,
+   "sources": [
+    "AMLA · news & press releases"
+   ],
+   "source": "amla-news",
+   "title": "Getting ready for AI: Executive Director Nicolas Vasse at ESMA Data Day 2026",
+   "link": "https://www.amla.europa.eu/news-media/news-articles/getting-ready-ai-executive-director-nicolas-vasse-esma-data-day-2026_en",
+   "date": "2026-11-26",
+   "summary": "Speaking alongside ESMA Executive Director Natasha Cazenave at ESMA Data Day 2026, Vasse addressed how the work of EU supervisors can benefit from new technologies.",
+   "matches": []
+  },
+  {
+   "id": "546a0561409d",
+   "found": "2026-11-26",
+   "backfill": false,
+   "sources": [
+    "AMLA · news & press releases"
+   ],
+   "source": "amla-news",
+   "title": "Press Release: AMLA consults on draft Guidelines for reliance, outsourcing, and third-party arrangements",
+   "link": "https://www.amla.europa.eu/press-release-amla-consults-draft-guidelines-reliance-outsourcing-and-third-party-arrangements_en",
+   "date": "2026-11-26",
+   "summary": "AMLA has launched a public consultation on draft Guidelines for businesses and professionals covered by anti-money laundering rules that use third parties to support their compliance obligations.",
+   "matches": [
+    {
+     "id": "gl-outsourcing",
+     "how": "keyword “outsourcing”",
+     "suggest": "Add as a source if relevant."
+    }
+   ]
+  },
+  {
+   "id": "f6c904f8d97e",
+   "found": "2026-11-26",
+   "backfill": false,
+   "sources": [
+    "AMLA · public consultations"
+   ],
+   "source": "amla-consultations",
+   "title": "Consultation on the draft Guidelines for reliance, outsourcing, and third-party arrangements",
+   "link": "https://www.amla.europa.eu/policy/public-consultations/consultation-draft-guidelines-reliance-outsourcing-and-third-party-arrangements_en",
+   "date": "2026-11-26",
+   "summary": "AMLA welcomes contributions on the Draft Guidelines on outsourcing, reliance on customer due diligence performed by another obliged entity and other third-party arrangements.",
+   "matches": [
+    {
+     "id": "gl-outsourcing",
+     "how": "keyword “outsourcing”",
+     "suggest": "New consultation: status may move to In consultation. Add as a source."
+    }
+   ]
+  },
+  {
+   "id": "3781dc69cda9",
+   "found": "2026-11-26",
+   "backfill": false,
+   "sources": [
+    "AMLA · public consultations"
+   ],
+   "source": "amla-consultations",
+   "title": "Consultation on the draft RTS on Home-Host Supervisory Cooperation",
+   "link": "https://www.amla.europa.eu/policy/public-consultations/consultation-draft-rts-home-host-supervisory-cooperation_en",
+   "date": "2026-11-26",
+   "summary": "Public hearing on draft Implementing Technical Standards under Article 81(1) of Regulation (EU) 2024/1624 and Article 41(2) of Regulation (EU) 2024/1620.",
+   "matches": [
+    {
+     "id": "its-fiu-eppo",
+     "how": "Art. 81(1) AMLR",
+     "suggest": "Add as a source if relevant."
+    },
+    {
+     "id": "its-amla-eppo",
+     "how": "Art. 41(2) AMLAR",
+     "suggest": "Add as a source if relevant."
+    },
+    {
+     "id": "rts-home-host",
+     "how": "keyword “home-host”",
+     "suggest": "Add as a source if relevant."
+    }
+   ]
+  },
+  {
+   "id": "82b432356e14",
+   "found": "2026-11-26",
+   "backfill": false,
+   "sources": [
+    "AMLA · public consultations"
+   ],
+   "source": "amla-consultations",
+   "title": "Consultation on draft ITS on FIU and AMLA reporting to the EPPO",
+   "link": "https://www.amla.europa.eu/policy/public-consultations/consultation-draft-its-fiu-and-amla-reporting-eppo_en",
+   "date": "2026-11-26",
+   "summary": "Public hearing on draft Implementing Technical Standards under Article 81(1) of Regulation (EU) 2024/1624 and Article 41(2) of Regulation (EU) 2024/1620.",
+   "matches": [
+    {
+     "id": "its-fiu-eppo",
+     "how": "Art. 81(1) AMLR",
+     "suggest": "Add as a source if relevant."
+    },
+    {
+     "id": "its-amla-eppo",
+     "how": "Art. 41(2) AMLAR",
+     "suggest": "Add as a source if relevant."
+    }
+   ]
+  },
+  {
+   "id": "62ceaa7fc8cd",
+   "found": "2026-11-26",
+   "backfill": false,
+   "sources": [
+    "AMLA · public consultations"
+   ],
+   "source": "amla-consultations",
+   "title": "Consultation on draft ITS on FIU-to-FIU exchanges",
+   "link": "https://www.amla.europa.eu/policy/public-consultations/consultation-draft-its-fiu-fiu-exchanges_en",
+   "date": "2026-11-26",
+   "summary": "Public hearing on draft Implementing Technical Standards under Article 31(2) of Directive (EU) 2024/1640",
+   "matches": [
+    {
+     "id": "its-fiu-exchange",
+     "how": "Art. 31(2) AMLD6",
+     "suggest": "Add as a source if relevant."
+    }
+   ]
+  },
+  {
+   "id": "f248eca2c392",
+   "found": "2026-11-26",
+   "backfill": false,
+   "sources": [
+    "AMLA · document library"
+   ],
+   "source": "amla-docs",
+   "title": "Press Release - AMLA consults on draft Guidelines for reliance, outsourcing, and third-party arrangements",
+   "link": "https://www.amla.europa.eu/document/download/45aa96f3-5630-4773-a8ea-fd7fe74138cc_en?filename=Press%20Release%20-%20GL%20on%20Outsourcing%20and%20Reliance.pdf",
+   "date": "2026-11-26",
+   "summary": "",
+   "matches": [
+    {
+     "id": "gl-outsourcing",
+     "how": "keyword “outsourcing”",
+     "suggest": "Add as a source if relevant."
+    }
+   ]
+  },
+  {
+   "id": "19a027071b55",
+   "found": "2026-11-26",
+   "backfill": false,
+   "sources": [
+    "AMLA · public hearings",
+    "AMLA · events"
+   ],
+   "source": "amla-hearings",
+   "title": "Public Hearing on the draft Guidelines on outsourcing, reliance on customer due diligence performed by another obliged entity and other third-party arrangements",
+   "link": "https://www.amla.europa.eu/events/public-hearing-draft-guidelines-outsourcing-reliance-customer-due-diligence-performed-another-2027-02-10_en",
+   "date": "2026-11-26",
+   "summary": "Public Hearing on draft Regulatory Technical Standards under Article 11(6) of Regulation (EU) 2024/1624.",
+   "matches": [
+    {
+     "id": "gl-outsourcing",
+     "how": "keyword “outsourcing”",
+     "suggest": "Public hearing: add it as a step in the version history."
+    }
+   ]
+  },
   {
    "id": "fe556cfb289b",
    "found": "2026-11-25",
