@@ -1,6 +1,6 @@
 // Written by monitor/fetch.py. Do not edit by hand.
 window.DIGEST={
- "generated": "2026-11-26T16:57+00:00",
+ "generated": "2026-11-27T09:50+00:00",
  "firstRun": false,
  "sources": [
   {
@@ -10,7 +10,7 @@ window.DIGEST={
    "kind": "rss",
    "state": "ok",
    "fetched": 30,
-   "new": 2
+   "new": 1
   },
   {
    "id": "amla-consultations",
@@ -19,7 +19,7 @@ window.DIGEST={
    "kind": "rss",
    "state": "ok",
    "fetched": 18,
-   "new": 4
+   "new": 0
   },
   {
    "id": "amla-docs",
@@ -28,7 +28,7 @@ window.DIGEST={
    "kind": "rss",
    "state": "ok",
    "fetched": 23,
-   "new": 1
+   "new": 0
   },
   {
    "id": "amla-hearings",
@@ -37,7 +37,7 @@ window.DIGEST={
    "kind": "rss",
    "state": "ok",
    "fetched": 15,
-   "new": 1
+   "new": 0
   },
   {
    "id": "amla-events",
@@ -91,7 +91,7 @@ window.DIGEST={
    "kind": "tk",
    "state": "ok",
    "fetched": 8,
-   "new": 0
+   "new": 1
   },
   {
    "id": "ob",
@@ -118,6 +118,40 @@ window.DIGEST={
   }
  ],
  "items": [
+  {
+   "id": "5dba876d6725",
+   "found": "2026-11-27",
+   "backfill": false,
+   "sources": [
+    "Tweede Kamer · parliamentary documents"
+   ],
+   "source": "tk",
+   "title": "Convocatie commissieactiviteit: Convocatie inbreng verslag (wetsvoorstel) Implementatiewet ter voorkoming van witwassen en terrorismefinanciering",
+   "link": "https://gegevensmagazijn.tweedekamer.nl/OData/v4/2.0/Document(8103ae09-5235-4359-ba55-1cd68d4d75dc)/resource",
+   "date": "2026-11-27",
+   "summary": "",
+   "matches": [
+    {
+     "id": "nl-implementatiewet",
+     "how": "keyword “implementatiewet ter voorkoming van witwassen”",
+     "suggest": "Add as a source if relevant."
+    }
+   ]
+  },
+  {
+   "id": "8d876f13cd27",
+   "found": "2026-11-27",
+   "backfill": false,
+   "sources": [
+    "AMLA · news & press releases"
+   ],
+   "source": "amla-news",
+   "title": "Strengthening FIU cooperation: AMLA hosts Interoperability Working Group for EU FIUs",
+   "link": "https://www.amla.europa.eu/strengthening-fiu-cooperation-amla-hosts-interoperability-working-group-eu-fius_en",
+   "date": "2026-11-26",
+   "summary": "From 23 to 25 November 2026, AMLA welcomed the Interoperability Working Group to its premises in Frankfurt am Main. The meeting brought together Financial Intelligence Units (FIUs) from 12 Member States, the European Commission and the United Nations.",
+   "matches": []
+  },
   {
    "id": "b34d3c9eaf50",
    "found": "2026-11-26",
