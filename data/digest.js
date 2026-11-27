@@ -1,6 +1,6 @@
 // Written by monitor/fetch.py. Do not edit by hand.
 window.DIGEST={
- "generated": "2026-11-27T09:50+00:00",
+ "generated": "2026-11-27T16:43+00:00",
  "firstRun": false,
  "sources": [
   {
@@ -91,7 +91,7 @@ window.DIGEST={
    "kind": "tk",
    "state": "ok",
    "fetched": 8,
-   "new": 1
+   "new": 0
   },
   {
    "id": "ob",
@@ -137,6 +137,20 @@ window.DIGEST={
      "suggest": "Add as a source if relevant."
     }
    ]
+  },
+  {
+   "id": "fcdfbc639eda",
+   "found": "2026-11-27",
+   "backfill": false,
+   "sources": [
+    "AMLA · news & press releases"
+   ],
+   "source": "amla-news",
+   "title": "Euro Finance Week: AMLA Executive Board Member Derville Rowland holds roundtable with financial sector leaders",
+   "link": "https://www.amla.europa.eu/news-media/news-articles/euro-finance-week-amla-executive-board-member-derville-rowland-holds-roundtable-financial-sector-0_en",
+   "date": "2026-11-27",
+   "summary": "AMLA Executive Board Member Derville Rowland held a roundtable with around 15 senior representatives of banks and financial institutions at Euro Finance Week in Frankfurt on 16 November 2026.",
+   "matches": []
   },
   {
    "id": "8d876f13cd27",
