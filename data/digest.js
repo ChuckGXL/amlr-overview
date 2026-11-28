@@ -1,6 +1,6 @@
 // Written by monitor/fetch.py. Do not edit by hand.
 window.DIGEST={
- "generated": "2026-11-27T16:43+00:00",
+ "generated": "2026-11-28T15:35+00:00",
  "firstRun": false,
  "sources": [
   {
@@ -10,7 +10,7 @@ window.DIGEST={
    "kind": "rss",
    "state": "ok",
    "fetched": 30,
-   "new": 1
+   "new": 0
   },
   {
    "id": "amla-consultations",
